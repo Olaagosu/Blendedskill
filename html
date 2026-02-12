@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlendedSkill - Learn by Building</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #1E293B;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --brand-primary: #2563EB;
+            --brand-hover: #1D4ED8;
+            --brand-light: #DBEAFE;
+            --border-light: #E2E8F0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-primary);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--bg-primary);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* How it Works Section */
+        .how-it-works {
+            background-color: var(--bg-secondary);
+            padding: 6rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            background: var(--bg-primary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: var(--brand-light);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-light);
+            line-height: 1;
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--brand-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--brand-primary);
+            font-size: 1.5rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Study Together Section */
+        .study-together {
+            background-color: var(--bg-primary);
+            padding: 6rem 2rem;
+        }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .study-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .study-content p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .feature-list {
+            list-style: none;
+            space-y: 1rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--brand-primary);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .study-visual {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .community-illustration {
+            text-align: center;
+        }
+
+        .people-icons {
+            display: flex;
+            justify-content: center;
+            gap: -0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.5rem;
+            border: 4px solid var(--bg-secondary);
+            margin-left: -0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .avatar:nth-child(2) {
+            background: linear-gradient(135deg, #0D9488, #14B8A6);
+            z-index: 2;
+        }
+
+        .avatar:nth-child(3) {
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--bg-secondary);
+            padding: 6rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            padding: 4rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-box h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .split-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2,
+            .study-content h2 {
+                font-size: 2rem;
+            }
+
+            .cta-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">B</div>
+                <span>BlendedSkill</span>
+            </a>
+            <div class="nav-links">
+                <a href="#how-it-works">How it Works</a>
+                <a href="#community">Community</a>
+                <a href="#courses" class="btn btn-primary">Explore Courses</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Learn by Building.<br>Not by Watching.</h1>
+            <p>Master in-demand skills through hands-on projects and expert feedback. Join professionals who prove their expertise with real-world portfolios, not just certificates.</p>
+            <div class="hero-cta">
+                <a href="#" class="btn btn-primary">Explore Courses</a>
+                <a href="#" class="btn btn-secondary">View Success Stories</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How BlendedSkill Works</h2>
+                <p>Our proven four-step methodology transforms knowledge into demonstrable skills that employers value. No passive learning—only real outcomes.</p>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">▶</div>
+                    <h3>Learn</h3>
+                    <p>Engage with expertly crafted video lessons designed by industry professionals. Each module builds on the last, ensuring comprehensive understanding.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">✎</div>
+                    <h3>Practice</h3>
+                    <p>Apply what you've learned through hands-on exercises and module quizzes. Test your knowledge and reinforce key concepts.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">⚒</div>
+                    <h3>Build</h3>
+                    <p>Complete a real-world capstone project that demonstrates your mastery. Create actual deliverables you can showcase to employers.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">✓</div>
+                    <h3>Prove</h3>
+                    <p>Submit your project for expert review. Receive a verified certificate that includes your project title—a credential employers can trust.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Together Section -->
+    <section id="community" class="study-together">
+        <div class="split-layout">
+            <div class="study-content">
+                <h2>Study with others.<br>Grow together.</h2>
+                <p>Learning alone is hard. Join a community of professionals committed to practical skill-building. Exchange feedback, share resources, and stay accountable.</p>
+                <ul class="feature-list">
+                    <li>Peer review circles for project feedback</li>
+                    <li>Live cohort-based learning groups</li>
+                    <li>Direct access to industry mentors</li>
+                    <li>Alumni network of hiring managers</li>
+                </ul>
+                <a href="#" class="btn btn-primary" style="margin-top: 1rem;">Join the Community</a>
+            </div>
+            <div class="study-visual">
+                <div class="community-illustration">
+                    <div class="people-icons">
+                        <div class="avatar">JD</div>
+                        <div class="avatar">SK</div>
+                        <div class="avatar">AM</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-weight: 500;">2,400+ professionals learning together</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Ready to prove your skills?</h2>
+            <p>Stop watching tutorials. Start building your portfolio today with courses designed for real-world application.</p>
+            <a href="#" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 BlendedSkill. All rights reserved. Built for serious learners.</p>
+    </footer>
+
+</body>
+</html>
