@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlendedSkill - Build Job-Ready Skills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1E293B;
+            background-color: #FFFFFF;
+        }
+
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .logo-icon::after {
+            content: 'B';
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            z-index: 1;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1E293B;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.65rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.15rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: #4B5563;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #2563EB;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: #2563EB;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            padding: 8rem 0 6rem;
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1.25rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            max-width: 700px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .arrow {
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #F8FAFC;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0A0A0A;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: #6B7280;
+            font-size: 1.125rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #EFF6FF;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0A0A0A;
+        }
+
+        .feature-card p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .course-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #2563EB;
+            transform: translateY(-4px);
+        }
+
+        .course-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .course-level {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #2563EB;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .course-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0A0A0A;
+            line-height: 1.3;
+        }
+
+        .course-description {
+            color: #4B5563;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .course-outcome {
+            background: #F0FDF4;
+            border-left: 3px solid #22C55E;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .outcome-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #166534;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .outcome-text {
+            color: #166534;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .view-course {
+            display: inline-flex;
+            align-items: center;
+            color: #2563EB;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: auto;
+        }
+
+        .view-course span {
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .course-card:hover .view-course span {
+            transform: translateX(4px);
+        }
+
+        /* How it Works */
+        .process-section {
+            padding: 5rem 0;
+            background: #F8FAFC;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            color: #2563EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0A0A0A;
+        }
+
+        .process-step p {
+            color: #6B7280;
+            font-size: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #0A0A0A;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: #9CA3AF;
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #F8FAFC;
+            padding: 3rem 0;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.875rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .btn-outline {
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <span class="logo-brand">BLENDEDSKILL</span>
+                    <span class="logo-tagline">"UNLOCK YOUR POTENTIAL"</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="#courses" class="nav-link">Tracks</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#courses" class="btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                Professional certificates • Career-focused learning
+            </div>
+            <h1>Build job-ready skills with proof employers respect.</h1>
+            <p class="hero-subtitle">
+                BlendedSkill delivers structured learning tracks, applied projects, and certificates designed to help you stand out in hiring conversations and advance your career.
+            </p>
+            <div class="hero-cta">
+                <a href="#courses" class="btn-primary btn-large">
+                    Explore Learning Tracks <span class="arrow">→</span>
+                </a>
+                <a href="#" class="btn-outline">Join Early Access</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <h2>Why BlendedSkill?</h2>
+            <p>Everything you need to advance your career with confidence</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Outcome Driven</h3>
+                <p>Finish with real deliverables you can showcase to employers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Practice First</h3>
+                <p>Apply skills through guided tasks and real-world scenarios.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛤️</div>
+                <h3>Structured Paths</h3>
+                <p>Know exactly what comes next at every step of your journey.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💼</div>
+                <h3>Career Aligned</h3>
+                <p>Built specifically for interviews and career advancement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses-section">
+        <div class="section-header">
+            <h2>Featured Learning Tracks</h2>
+            <p>Each track is designed around real workplace scenarios and produces portfolio-ready outputs.</p>
+        </div>
+        
+        <div class="courses-grid">
+            <a href="course.html" class="course-card">
+                <div class="course-icon">📊</div>
+                <div class="course-meta">
+                    <span class="course-level">Beginner → Intermediate</span>
+                </div>
+                <h3>Process Improvement Essentials</h3>
+                <p class="course-description">Master the fundamentals of process mapping and optimization. Learn to identify bottlenecks, eliminate waste, and deliver measurable ROI.</p>
+                <div class="course-outcome">
+                    <div class="outcome-label">Portfolio Outcome</div>
+                    <div class="outcome-text">Process map & improvement proposal with $100K+ savings potential</div>
+                </div>
+                <div class="view-course">
+                    View Course Details <span>→</span>
+                </div>
+            </a>
+
+            <a href="course-automation.html" class="course-card">
+                <div class="course-icon" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7);">⚙️</div>
+                <div class="course-meta">
+                    <span class="course-level" style="color: #059669;">Intermediate</span>
+                </div>
+                <h3>Operations Automation Fundamentals</h3>
+                <p class="course-description">Learn to identify and implement automation opportunities using modern no-code tools and workflow optimization techniques.</p>
+                <div class="course-outcome" style="background: #F0FDF4; border-color: #86EFAC;">
+                    <div class="outcome-label" style="color: #166534;">Portfolio Outcome</div>
+                    <div class="outcome-text" style="color: #166534;">Automation backlog & ROI prioritization model</div>
+                </div>
+                <div class="view-course">
+                    View Course Details <span>→</span>
+                </div>
+            </a>
+
+            <a href="course-payments.html" class="course-card">
+                <div class="course-icon" style="background: linear-gradient(135deg, #FEF3C7, #FDE68A);">💳</div>
+                <div class="course-meta">
+                    <span class="course-level" style="color: #D97706;">Intermediate</span>
+                </div>
+                <h3>Payments & Financial Operations</h3>
+                <p class="course-description">Understand complex financial workflows, settlement models, and payment processing systems used by modern fintech companies.</p>
+                <div class="course-outcome" style="background: #FFFBEB; border-color: #FCD34D;">
+                    <div class="outcome-label" style="color: #92400E;">Portfolio Outcome</div>
+                    <div class="outcome-text" style="color: #92400E;">Payment flow analysis & risk assessment framework</div>
+                </div>
+                <div class="view-course">
+                    View Course Details <span>→</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="process-section">
+        <div class="section-header">
+            <h2>How BlendedSkill Works</h2>
+            <p>A simple, career-aligned loop designed to move learners from curiosity to proof.</p>
+        </div>
+        
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Choose a Track</h3>
+                <p>Select the skill aligned to your career goal and learning pace.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Learn + Apply</h3>
+                <p>Complete structured lessons paired with hands-on projects.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Deliver + Prove</h3>
+                <p>Submit your capstone for review and earn a verified certificate.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 2rem;">
+            <h2>Ready to Build Your Skills?</h2>
+            <p>Join our early access program and be among the first to experience structured, career-focused learning that delivers proof, not just promises.</p>
+            <a href="#courses" class="btn-primary btn-large">Explore All Tracks →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+            <p style="font-weight: 600; color: #374151; margin-bottom: 0.5rem;">BlendedSkill</p>
+            <p>Career-focused learning tracks with practical projects and certificates you can use in interviews.</p>
+            <p style="margin-top: 1.5rem; color: #9CA3AF;">© 2026 BlendedSkill. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
