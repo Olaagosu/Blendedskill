@@ -3,1105 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlendedSkill - Your Project Is Your Resume</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <title>BlendedSkill - Professional Learning Platform</title>
     <style>
-        :root {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #FAFAFA;
-            --brand-indigo: #4F46E5;
-            --brand-indigo-hover: #4338CA;
-            --brand-amber: #F59E0B;
-            --text-primary: #0A0A0A;
-            --text-secondary: #4B5563;
-            --text-muted: #9CA3AF;
-            --border-light: #E5E7EB;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        
         body {
-            font-family: var(--font-display);
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            color: #1E293B;
+            background-color: #FFFFFF;
         }
-
-        /* Navigation */
-        nav {
+        
+        /* Header */
+        header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 1.5rem 0;
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-light);
-            z-index: 1000;
-            height: 72px;
+            z-index: 100;
         }
-
-        .nav-container {
-            max-width: 1280px;
+        
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
-            height: 100%;
+        }
+        
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            font-weight: 800;
             font-size: 1.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--brand-indigo);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
             font-weight: 700;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
+            color: #1E293B;
             text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            box-shadow: var(--shadow-lg);
-            padding: 0.5rem 0;
-            min-width: 200px;
-            margin-top: 0.5rem;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 0.75rem 1rem;
-            display: block;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-item:hover {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .proof-badge {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
-            border: 1px solid #F59E0B;
-            border-radius: 20px;
-            font-size: 0.85rem;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563EB;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-left: 1rem;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: linear-gradient(to bottom, #F8FAFC, #FFFFFF);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0A0A0A;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #4B5563;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature {
+            padding: 1.5rem;
+        }
+        
+        .feature h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0A0A0A;
+        }
+        
+        .feature p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        /* Course Cards */
+        .courses-section {
+            padding: 4rem 0;
+            background: #F8FAFC;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-header p {
+            color: #6B7280;
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .course-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .course-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #2563EB;
+            transform: translateY(-2px);
+        }
+        
+        .course-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .course-level {
+            font-size: 0.875rem;
+            color: #2563EB;
             font-weight: 600;
-            color: #92400E;
-            cursor: pointer;
-            transition: transform 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
         }
-
-        .proof-badge:hover {
-            transform: translateY(-1px);
+        
+        .course-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0A0A0A;
         }
-
-        .proof-icon {
-            font-size: 1rem;
+        
+        .course-description {
+            color: #4B5563;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
         }
-
+        
+        .course-outcome {
+            background: #F0FDF4;
+            border-left: 3px solid #22C55E;
+            padding: 0.75rem 1rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.875rem;
+            color: #166534;
+            font-weight: 500;
+        }
+        
+        .view-course {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            color: #2563EB;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        /* How it Works */
+        .process-section {
+            padding: 4rem 0;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: #EFF6FF;
+            color: #2563EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+        
+        .process-step h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .process-step p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: #0A0A0A;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            color: #9CA3AF;
+            margin-bottom: 2rem;
+        }
+        
         .btn {
             display: inline-flex;
             align-items: center;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 2rem;
+            background: #2563EB;
+            color: white;
+            text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
             transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
         }
-
-        .btn-primary {
-            background-color: var(--brand-indigo);
-            color: white;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--brand-indigo-hover);
+        
+        .btn:hover {
+            background: #1D4ED8;
             transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
         }
-
-        .btn-text {
-            color: var(--text-secondary);
-            background: none;
-            padding: 0.5rem;
-        }
-
-        .btn-text:hover {
-            color: var(--text-primary);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 6rem 2rem 8rem;
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: center;
-            min-height: calc(100vh - 72px);
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: #EEF2FF;
-            color: var(--brand-indigo);
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid #C7D2FE;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            line-height: 1.1;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-            max-width: 540px;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .hero-cta .btn-primary {
-            padding: 1rem 2rem;
-            font-size: 1.05rem;
-        }
-
-        .hero-secondary {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .hero-secondary:hover {
-            color: var(--brand-indigo);
-        }
-
-        .hero-visual {
-            position: relative;
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .portfolio-mock {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .portfolio-header {
-            background: #F3F4F6;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .portfolio-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #D1D5DB;
-        }
-
-        .portfolio-content {
-            padding: 2rem;
-            position: relative;
-        }
-
-        .process-map {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .process-step {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: #F9FAFB;
-            border-radius: 8px;
-            border-left: 4px solid var(--brand-indigo);
-        }
-
-        .process-icon {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-light);
-            font-size: 1.25rem;
-        }
-
-        .graduate-badge {
-            position: absolute;
-            bottom: -1rem;
-            right: -1rem;
-            background: white;
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-light);
-            max-width: 280px;
-        }
-
-        .badge-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--brand-amber);
-            font-weight: 700;
-            font-size: 0.875rem;
-        }
-
-        .badge-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .badge-name {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        /* Social Proof Section */
-        .social-proof {
-            background: var(--bg-secondary);
-            padding: 6rem 2rem;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .social-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .social-stat h2 {
-            font-size: 40px;
-            font-weight: 800;
-            letter-spacing: -0.01em;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .stat-big {
-            font-family: var(--font-mono);
-            font-size: 4rem;
-            color: var(--brand-indigo);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-            max-width: 400px;
-        }
-
-        .case-studies {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .case-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s;
-        }
-
-        .case-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateX(4px);
-            border-left: 4px solid var(--brand-indigo);
-        }
-
-        .case-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .case-avatar {
-            width: 48px;
-            height: 48px;
-            background: var(--brand-indigo);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-
-        .case-meta {
-            text-align: right;
-        }
-
-        .case-name {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .case-transition {
-            font-size: 0.875rem;
-            color: var(--brand-indigo);
-            font-weight: 600;
-        }
-
-        .case-quote {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .case-course {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* How It Works - Timeline */
-        .how-it-works {
-            padding: 6rem 2rem;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 40px;
-            font-weight: 800;
-            letter-spacing: -0.01em;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(even) {
-            direction: rtl;
-        }
-
-        .timeline-item:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .timeline-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .step-number {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--brand-indigo);
-            background: #EEF2FF;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            border: 1px solid #C7D2FE;
-        }
-
-        .timeline-content p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .timeline-visual {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid var(--border-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-        }
-
-        .verification-highlight {
-            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
-            border: 2px solid var(--brand-amber);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .verification-highlight span {
-            font-weight: 700;
-            color: #92400E;
-        }
-
-        .cert-mock {
-            width: 100%;
-            background: white;
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .cert-seal {
-            width: 60px;
-            height: 60px;
-            background: var(--brand-indigo);
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
-        }
-
-        .cert-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .cert-project {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--brand-indigo);
-            background: #EEF2FF;
-            padding: 0.5rem;
-            border-radius: 4px;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
-        /* Course Catalog */
-        .courses {
-            background: var(--bg-secondary);
-            padding: 6rem 2rem;
-        }
-
-        .courses-container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-input {
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border-light);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            min-width: 300px;
-        }
-
-        .filter-btn {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid var(--border-light);
-            background: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: all 0.2s;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--brand-indigo);
-            color: white;
-            border-color: var(--brand-indigo);
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .course-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            padding: 2rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .course-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-2px);
-            border-color: #C7D2FE;
-        }
-
-        .course-icon {
-            width: 56px;
-            height: 56px;
-            background: #EEF2FF;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--brand-indigo);
-        }
-
-        .course-role {
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--brand-indigo);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .course-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .course-outcome {
-            background: #F9FAFB;
-            border-left: 3px solid var(--brand-amber);
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0 6px 6px 0;
-        }
-
-        .course-outcome-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
-
-        .course-outcome-text {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        .course-link {
-            color: var(--brand-indigo);
-            text-decoration: none;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .course-link:hover {
-            gap: 0.75rem;
-        }
-
-        /* Tool Certification Section */
-        .tools {
-            padding: 6rem 2rem;
-            max-width: 1280px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .tools h2 {
-            font-size: 40px;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .tools-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.25rem;
-            margin-bottom: 4rem;
-        }
-
-        .tools-grid {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-
-        .tool-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .tool-item:hover {
-            opacity: 1;
-        }
-
-        .tool-logo {
-            width: 80px;
-            height: 80px;
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--text-primary);
-            border: 1px solid var(--border-light);
-            font-size: 1.25rem;
-        }
-
-        .tool-name {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .tool-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #EEF2FF;
-            color: var(--brand-indigo);
-            padding: 0.75rem 1.5rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: 1px solid #C7D2FE;
-        }
-
-        /* Pricing Teaser */
-        .pricing {
-            background: var(--bg-secondary);
-            padding: 6rem 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .pricing-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .pricing h2 {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-tag {
-            display: inline-block;
-            background: white;
-            border: 1px solid var(--border-light);
-            padding: 1.5rem 3rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            box-shadow: var(--shadow-md);
-        }
-
-        .price-range {
-            font-family: var(--font-mono);
-            font-size: 2rem;
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .price-note {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        .pricing-features {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .pricing-features span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Footer */
+        
         footer {
-            background: var(--bg-primary);
-            border-top: 1px solid var(--border-light);
-            padding: 4rem 2rem 2rem;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand p {
-            color: var(--text-secondary);
-            margin-top: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .footer-column h4 {
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-column a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-column a:hover {
-            color: var(--brand-indigo);
-        }
-
-        .verification-tool {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #EEF2FF;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            background: #F8FAFC;
+            padding: 2rem 0;
+            text-align: center;
+            color: #6B7280;
             font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--brand-indigo);
-            margin-top: 1rem;
-            border: 1px solid #C7D2FE;
-            cursor: pointer;
+            border-top: 1px solid #E5E7EB;
         }
-
-        .footer-bottom {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        /* Certificate Verification Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 16px;
-            padding: 3rem;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .verify-form {
-            margin-top: 2rem;
-        }
-
-        .verify-input {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .verify-result {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: #F0FDF4;
-            border: 1px solid #86EFAC;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .verify-result.valid {
-            display: block;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .social-container {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline-item {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .timeline-item:nth-child(even) {
-                direction: ltr;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .nav-links, .proof-badge {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-        }
-
-        @media (max-width: 640px) {
+        
+        @media (max-width: 768px) {
             .hero h1 {
-                font-size: 40px;
+                font-size: 2rem;
             }
-
-            .section-header h2, .social-stat h2, .tools h2 {
-                font-size: 32px;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
             .course-grid {
                 grid-template-columns: 1fr;
             }
@@ -1109,485 +301,122 @@
     </style>
 </head>
 <body>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="nav-left">
-                <a href="#" class="logo">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
                     <div class="logo-icon">B</div>
                     <span>BlendedSkill</span>
                 </a>
-                <ul class="nav-links">
-                    <li class="dropdown">
-                        <a href="#">Courses ▾</a>
-                        <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">By Skill</a>
-                            <a href="#" class="dropdown-item">By Role</a>
-                            <a href="#" class="dropdown-item">All Tracks</a>
-                        </div>
-                    </li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#">Enterprise</a></li>
-                </ul>
-            </div>
-            <div class="nav-right">
-                <div class="proof-badge" onclick="openVerifyModal()">
-                    <span class="proof-icon">🏆</span>
-                    <span>Your Proof: 0</span>
-                </div>
-                <a href="#" class="btn btn-text">Sign In</a>
-                <a href="#" class="btn btn-primary">Get Started</a>
-                <button class="mobile-menu-btn">☰</button>
+                <span class="tagline">Professional certificates • Career-focused learning</span>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>Professional Certificates</span>
-            </div>
-            <h1>Your project is your resume.</h1>
-            <p class="hero-subtitle">Employers don't ask for certificates. They ask, "What have you built?" BlendedSkill is the only platform that certifies you based on a real, reviewed portfolio project—not multiple choice.</p>
-            <div class="hero-cta">
-                <a href="#" class="btn btn-primary">Browse courses →</a>
-                <a href="#" class="hero-secondary">See graduate work</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="portfolio-mock">
-                <div class="portfolio-header">
-                    <div class="portfolio-dot" style="background: #EF4444;"></div>
-                    <div class="portfolio-dot" style="background: #F59E0B;"></div>
-                    <div class="portfolio-dot" style="background: #10B981;"></div>
-                    <span style="margin-left: 1rem; color: var(--text-muted); font-size: 0.875rem;">Process Improvement Proposal</span>
+        <div class="container">
+            <h1>Build job-ready skills with proof employers respect.</h1>
+            <p class="hero-subtitle">BlendedSkill delivers structured learning tracks, applied projects, and certificates designed to help you stand out in hiring conversations and advance your career.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <h3>Outcome Driven</h3>
+                    <p>Finish with real deliverables you can showcase to employers.</p>
                 </div>
-                <div class="portfolio-content">
-                    <div class="process-map">
-                        <div class="process-step">
-                            <div class="process-icon">📊</div>
-                            <div>
-                                <div style="font-weight: 600;">Current State Analysis</div>
-                                <div style="font-size: 0.875rem; color: var(--text-muted);">Cycle time: 14 days → 6 days</div>
-                            </div>
-                        </div>
-                        <div class="process-step">
-                            <div class="process-icon">🔧</div>
-                            <div>
-                                <div style="font-weight: 600;">Bottleneck Identification</div>
-                                <div style="font-size: 0.875rem; color: var(--text-muted);">Approval workflow optimized</div>
-                            </div>
-                        </div>
-                        <div class="process-step">
-                            <div class="process-icon">🚀</div>
-                            <div>
-                                <div style="font-weight: 600;">Future State Implementation</div>
-                                <div style="font-size: 0.875rem; color: var(--text-muted);">$240K annual savings projected</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="feature">
+                    <h3>Practice First</h3>
+                    <p>Apply skills through guided tasks and real-world scenarios.</p>
                 </div>
-            </div>
-            <div class="graduate-badge">
-                <div class="badge-header">
-                    <span>✓</span>
-                    <span>VERIFIED GRADUATE</span>
+                <div class="feature">
+                    <h3>Structured Paths</h3>
+                    <p>Know exactly what comes next at every step of your journey.</p>
                 </div>
-                <div class="badge-text">
-                    <span class="badge-name">Sarah Chen</span> submitted this process map as her capstone. She was hired at <span class="badge-name">Deloitte</span> 3 weeks later.
+                <div class="feature">
+                    <h3>Career Aligned</h3>
+                    <p>Built specifically for interviews and career advancement.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Proof -->
-    <section class="social-proof">
-        <div class="social-container">
-            <div class="social-stat">
-                <h2>Hired with BlendedSkill</h2>
-                <span class="stat-big">87%</span>
-                <p class="stat-label">of graduates who completed a capstone received a promotion or job offer within 6 months.</p>
-            </div>
-            <div class="case-studies">
-                <div class="case-card">
-                    <div class="case-header">
-                        <div class="case-avatar">JD</div>
-                        <div class="case-meta">
-                            <div class="case-name">James Davidson</div>
-                            <div class="case-transition">Operations Associate → Senior Analyst</div>
-                        </div>
-                    </div>
-                    <p class="case-quote">"I showed my process map in the interview. They stopped asking about my resume and started asking about my methodology."</p>
-                    <div class="case-course">Process Improvement Essentials</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-header">
-                        <div class="case-avatar" style="background: var(--brand-amber);">MK</div>
-                        <div class="case-meta">
-                            <div class="case-name">Maria Kim</div>
-                            <div class="case-transition">Marketing Coordinator → Automation Lead</div>
-                        </div>
-                    </div>
-                    <p class="case-quote">"The certification verification page sealed the deal. My manager said he'd never seen proof of work like it."</p>
-                    <div class="case-course">Workflow Automation Mastery</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="section-header">
-            <h2>How BlendedSkill Works</h2>
-            <p>Our methodology bridges the gap between theory and employment. No passive consumption—only demonstrable output.</p>
-        </div>
-        
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3><span class="step-number">Step 01</span> Learn</h3>
-                    <p>Engage with expert-crafted video lessons and interactive modules. Every concept connects to a practical application you'll need for your capstone.</p>
-                </div>
-                <div class="timeline-visual">
-                    <div style="font-size: 4rem;">▶</div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3><span class="step-number">Step 02</span> Practice</h3>
-                    <p>Hands-on exercises in real tools. Build components of your final project with guided tutorials before flying solo.</p>
-                </div>
-                <div class="timeline-visual">
-                    <div style="font-family: var(--font-mono); background: white; padding: 1rem; border-radius: 6px; border: 1px solid var(--border-light);">
-                        <div style="color: var(--text-muted); margin-bottom: 0.5rem;">// Building workflow</div>
-                        <div style="color: var(--brand-indigo);">if (approved) {</div>
-                        <div style="padding-left: 1rem;">trigger_next();</div>
-                        <div style="color: var(--brand-indigo);">}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3><span class="step-number">Step 03</span> Build</h3>
-                    <p>Deliver your capstone: a complete, real-world project reviewed by industry experts. This is your portfolio piece—not a simulation.</p>
-                </div>
-                <div class="timeline-visual">
-                    <div style="width: 100%; background: white; padding: 1.5rem; border-radius: 8px; border: 2px solid var(--brand-indigo); box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1);">
-                        <div style="font-weight: 700; margin-bottom: 0.5rem;">Capstone Deliverable</div>
-                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Process Optimization Proposal & Implementation</div>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-light); font-size: 0.875rem; color: var(--brand-indigo); font-weight: 600;">
-                            Status: Under Review
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3><span class="step-number">Step 04</span> Prove</h3>
-                    <p>Receive your verified credential with embedded project details. Employers can verify your expertise instantly—no other platform offers this level of transparency.</p>
-                    <div class="verification-highlight">
-                        <span>✓</span>
-                        <span>Employers verify credentials at blendedskill.com/verify</span>
-                    </div>
-                </div>
-                <div class="timeline-visual">
-                    <div class="cert-mock">
-                        <div class="cert-seal">✓</div>
-                        <div class="cert-title">Verified Project Credential</div>
-                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Process Improvement Analyst</div>
-                        <div class="cert-project">Project: "Logistics Workflow Optimization"</div>
-                        <div style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">
-                            ID: BS-2024-8839-XP
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Course Catalog -->
-    <section class="courses">
-        <div class="courses-container">
+    <section class="courses-section">
+        <div class="container">
             <div class="section-header">
-                <h2>Choose Your Outcome</h2>
-                <p>Select a track based on the job you want, not just skills you collect.</p>
+                <h2>Featured Learning Tracks</h2>
+                <p>Each track is designed around real workplace scenarios and produces portfolio-ready outputs.</p>
             </div>
-
-            <div class="filter-bar">
-                <input type="text" class="filter-input" placeholder="Search tracks...">
-                <button class="filter-btn active">All Roles</button>
-                <button class="filter-btn">Analyst</button>
-                <button class="filter-btn">Manager</button>
-                <button class="filter-btn">Specialist</button>
-            </div>
-
+            
             <div class="course-grid">
-                <div class="course-card">
-                    <div class="course-icon">📈</div>
-                    <div class="course-role">Process Improvement Analyst</div>
-                    <h3 class="course-title">Operations Excellence Track</h3>
-                    <div class="course-outcome">
-                        <div class="course-outcome-label">Portfolio Outcome</div>
-                        <div class="course-outcome-text">End-to-end process map with $100K+ savings proposal</div>
-                    </div>
-                    <div class="course-meta">
-                        <span>⏱ 40 hours</span>
-                        <span>📅 8 weeks</span>
-                    </div>
-                    <a href="#" class="course-link">View track →</a>
-                </div>
+                <a href="course.html" class="course-card">
+                    <div class="course-icon">📊</div>
+                    <div class="course-level">Beginner → Intermediate</div>
+                    <h3>Process Improvement Essentials</h3>
+                    <p class="course-description">Master the fundamentals of process mapping and optimization.</p>
+                    <div class="course-outcome">Outcome: Produce a process map and improvement proposal suitable for interviews.</div>
+                    <span class="view-course">View Course Details →</span>
+                </a>
 
-                <div class="course-card">
-                    <div class="course-icon" style="background: #F0FDF4; color: #059669;">⚡</div>
-                    <div class="course-role" style="color: #059669;">Automation Specialist</div>
-                    <h3 class="course-title">Workflow Automation Mastery</h3>
-                    <div class="course-outcome">
-                        <div class="course-outcome-label">Portfolio Outcome</div>
-                        <div class="course-outcome-text">5 automated workflows with ROI documentation</div>
-                    </div>
-                    <div class="course-meta">
-                        <span>⏱ 35 hours</span>
-                        <span>📅 6 weeks</span>
-                    </div>
-                    <a href="#" class="course-link">View track →</a>
-                </div>
+                <a href="course-automation.html" class="course-card">
+                    <div class="course-icon">⚙️</div>
+                    <div class="course-level">Intermediate</div>
+                    <h3>Operations Automation Fundamentals</h3>
+                    <p class="course-description">Learn to identify and implement automation opportunities.</p>
+                    <div class="course-outcome">Outcome: Create an automation backlog and ROI prioritization model.</div>
+                    <span class="view-course">View Course Details →</span>
+                </a>
 
-                <div class="course-card">
-                    <div class="course-icon" style="background: #FEF3C7; color: #D97706;">📊</div>
-                    <div class="course-role" style="color: #D97706;">Data Analyst</div>
-                    <h3 class="course-title">Business Intelligence Fundamentals</h3>
-                    <div class="course-outcome">
-                        <div class="course-outcome-label">Portfolio Outcome</div>
-                        <div class="course-outcome-text">Interactive dashboard with executive summary</div>
-                    </div>
-                    <div class="course-meta">
-                        <span>⏱ 50 hours</span>
-                        <span>📅 10 weeks</span>
-                    </div>
-                    <a href="#" class="course-link">View track →</a>
-                </div>
+                <a href="course-payments.html" class="course-card">
+                    <div class="course-icon">💳</div>
+                    <div class="course-level">Intermediate</div>
+                    <h3>Payments & Financial Operations</h3>
+                    <p class="course-description">Understand complex financial workflows and settlement models.</p>
+                    <div class="course-outcome">Outcome: Explain money movement flows, settlement models, and control points.</div>
+                    <span class="view-course">View Course Details →</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Tool Certifications -->
-    <section class="tools">
-        <h2>Certify in the tools employers actually use.</h2>
-        <p class="tools-subtitle">Generic AI courses won't get you hired. Proficiency in specific platforms will.</p>
-        
-        <div class="tools-grid">
-            <div class="tool-item">
-                <div class="tool-logo" style="color: #7C3AED;">Make</div>
-                <div class="tool-name">Make (Integromat)</div>
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How BlendedSkill Works</h2>
+                <p>A simple, career-aligned loop designed to move learners from curiosity to proof.</p>
             </div>
-            <div class="tool-item">
-                <div class="tool-logo" style="color: #EA580C;">n8n</div>
-                <div class="tool-name">n8n Automation</div>
-            </div>
-            <div class="tool-item">
-                <div class="tool-logo" style="color: #F59E0B;">Lucid</div>
-                <div class="tool-name">Lucidchart</div>
-            </div>
-            <div class="tool-item">
-                <div class="tool-logo" style="color: #F97316;">Power</div>
-                <div class="tool-name">Power BI</div>
-            </div>
-            <div class="tool-item">
-                <div class="tool-logo" style="color: #10B981;">OpenAI</div>
-                <div class="tool-name">OpenAI API</div>
-            </div>
-            <div class="tool-item">
-                <div class="tool-logo" style="color: #3B82F6;">Celonis</div>
-                <div class="tool-name">Celonis EMS</div>
-            </div>
-        </div>
-
-        <div class="tool-badge">
-            <span>★</span>
-            <span>BlendedSkill Certified Partner</span>
-        </div>
-    </section>
-
-    <!-- Pricing Teaser -->
-    <section class="pricing">
-        <div class="pricing-content">
-            <h2>One-time investment.<br>Lifetime proof.</h2>
-            <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 2rem;">
-                No subscriptions. No hidden fees. Pay once, build your proof, advance your career.
-            </p>
             
-            <div class="pricing-tag">
-                <div class="price-range">$500 – $2,000 USD</div>
-                <div class="price-note">per track • charged in USD • local estimate shown at checkout</div>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Choose a Track</h3>
+                    <p>Select the skill aligned to your career goal and learning pace.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Learn + Apply</h3>
+                    <p>Complete structured lessons paired with hands-on projects.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Earn Proof</h3>
+                    <p>Graduate with certificates and portfolio-ready deliverables.</p>
+                </div>
             </div>
-
-            <div class="pricing-features">
-                <span>✓ All course content</span>
-                <span>✓ Expert project grading</span>
-                <span>✓ Verified digital credential</span>
-                <span>✓ Lifetime portfolio hosting</span>
-            </div>
-
-            <a href="#" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">View all course prices</a>
-            
-            <p style="margin-top: 2rem; font-size: 0.875rem; color: var(--text-muted);">
-                Example: $500 USD ≈ CA$685 / €465 / £395 (estimated)
-            </p>
         </div>
     </section>
 
-    <!-- Footer -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build Your Skills?</h2>
+            <p>Join our early access program and be among the first to experience structured, career-focused learning.</p>
+            <a href="#" class="btn">View All Courses</a>
+        </div>
+    </section>
+
     <footer>
-        <div class="footer-container">
-            <div class="footer-brand">
-                <div class="logo">
-                    <div class="logo-icon">B</div>
-                    <span>BlendedSkill</span>
-                </div>
-                <p>Job-ready skills with proof employers respect. Not certificates—portfolios.</p>
-                <div class="verification-tool" onclick="openVerifyModal()">
-                    <span>🔍</span>
-                    <span>Verify a certificate</span>
-                </div>
-            </div>
-            
-            <div class="footer-column">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Enterprise</a></li>
-                    <li><a href="#">For Teams</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Office Hours</a></li>
-                    <li><a href="#">Grading Status</a></li>
-                    <li><a href="#">Help Center</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                    <li><a href="#">Certificate Policy</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div>&copy; 2024 BlendedSkill. All rights reserved.</div>
-            <div>Built for serious professionals.</div>
+        <div class="container">
+            <p>Career-focused learning tracks with practical projects and certificates you can use in interviews.</p>
+            <p style="margin-top: 0.5rem;">© 2026 BlendedSkill. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Certificate Verification Modal -->
-    <div id="verifyModal" class="modal" onclick="closeVerifyModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeVerifyModal()">&times;</button>
-            <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Verify a Credential</h2>
-            <p style="color: var(--text-secondary);">Enter the certificate ID to verify authenticity and view the graduate's project.</p>
-            
-            <div class="verify-form">
-                <input type="text" class="verify-input" placeholder="BS-XXXX-XXXX-XX" id="certId" value="BS-2024-8839-XP">
-                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="verifyCert()">Verify Credential</button>
-            </div>
-
-            <div id="verifyResult" class="verify-result">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                    <div style="width: 48px; height: 48px; background: #22C55E; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">✓</div>
-                    <div>
-                        <div style="font-weight: 700; color: #166534;">Valid Credential</div>
-                        <div style="font-size: 0.875rem; color: #15803D;">Issued by BlendedSkill</div>
-                    </div>
-                </div>
-                <div style="background: white; padding: 1rem; border-radius: 6px; border: 1px solid #BBF7D0; font-family: var(--font-mono); font-size: 0.9rem;">
-                    <div><strong>Graduate:</strong> Sarah Chen</div>
-                    <div><strong>Course:</strong> Process Improvement Essentials</div>
-                    <div><strong>Project:</strong> "Logistics Workflow Optimization"</div>
-                    <div><strong>Issued:</strong> Jan 15, 2024</div>
-                    <div><strong>Status:</strong> Active</div>
-                </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: #16A34A;">View Project Portfolio</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Certificate Verification Logic
-        function openVerifyModal() {
-            document.getElementById('verifyModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeVerifyModal(e) {
-            if (!e || e.target === document.getElementById('verifyModal') || e.target.classList.contains('modal-close')) {
-                document.getElementById('verifyModal').classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-
-        function verifyCert() {
-            const id = document.getElementById('certId').value;
-            if (id.toUpperCase() === 'BS-2024-8839-XP') {
-                document.getElementById('verifyResult').classList.add('valid');
-            } else {
-                alert('Demo mode: Try "BS-2024-8839-XP" to see a verified result');
-            }
-        }
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Filter buttons interaction
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Navbar scroll effect
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                nav.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Enter key for verification
-        document.getElementById('certId')?.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                verifyCert();
-            }
-        });
-    </script>
 </body>
 </html>
