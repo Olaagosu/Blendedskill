@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlendedSkill - Professional Learning Platform</title>
+    <title>Process Improvement Essentials - BlendedSkill</title>
     <style>
         * {
             margin: 0;
@@ -62,240 +62,458 @@
             font-weight: 700;
         }
         
-        .tagline {
-            font-size: 0.875rem;
-            color: #6B7280;
-            margin-left: 1rem;
+        .back-link {
+            color: #2563EB;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        /* Hero */
-        .hero {
+        /* Course Hero */
+        .course-hero {
+            background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+            color: white;
             padding: 4rem 0;
-            text-align: center;
-            background: linear-gradient(to bottom, #F8FAFC, #FFFFFF);
         }
         
-        .hero h1 {
+        .course-header {
+            max-width: 800px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .course-title {
             font-size: 3rem;
             font-weight: 800;
-            color: #0A0A0A;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             letter-spacing: -0.02em;
         }
         
-        .hero-subtitle {
+        .course-subtitle {
             font-size: 1.25rem;
-            color: #4B5563;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        /* Features Grid */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .feature {
-            padding: 1.5rem;
-        }
-        
-        .feature h3 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #0A0A0A;
-        }
-        
-        .feature p {
-            color: #6B7280;
-            font-size: 0.95rem;
-        }
-        
-        /* Course Cards */
-        .courses-section {
-            padding: 4rem 0;
-            background: #F8FAFC;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .section-header p {
-            color: #6B7280;
-        }
-        
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .course-card {
-            background: #FFFFFF;
-            border: 1px solid #E5E7EB;
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.2s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .course-card:hover {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border-color: #2563EB;
-            transform: translateY(-2px);
-        }
-        
-        .course-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .course-level {
-            font-size: 0.875rem;
-            color: #2563EB;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-        
-        .course-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: #0A0A0A;
-        }
-        
-        .course-description {
-            color: #4B5563;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-        
-        .course-outcome {
-            background: #F0FDF4;
-            border-left: 3px solid #22C55E;
-            padding: 0.75rem 1rem;
-            border-radius: 0 6px 6px 0;
-            font-size: 0.875rem;
-            color: #166534;
-            font-weight: 500;
-        }
-        
-        .view-course {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            color: #2563EB;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        
-        /* How it Works */
-        .process-section {
-            padding: 4rem 0;
-        }
-        
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .process-step {
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .step-number {
-            width: 48px;
-            height: 48px;
-            background: #EFF6FF;
-            color: #2563EB;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin: 0 auto 1rem;
-        }
-        
-        .process-step h3 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .process-step p {
-            color: #6B7280;
-            font-size: 0.95rem;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            background: #0A0A0A;
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-        
-        .cta-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .cta-section p {
-            color: #9CA3AF;
+            opacity: 0.9;
             margin-bottom: 2rem;
         }
         
-        .btn {
+        .course-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .meta-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        /* Navigation Tabs */
+        .course-nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E7EB;
+            position: sticky;
+            top: 73px;
+            z-index: 99;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-tab {
+            padding: 1.25rem 0;
+            color: #6B7280;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .nav-tab:hover, .nav-tab.active {
+            color: #2563EB;
+            border-bottom-color: #2563EB;
+        }
+        
+        .nav-cta {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn-primary {
             display: inline-flex;
             align-items: center;
-            padding: 0.875rem 2rem;
+            padding: 0.75rem 1.5rem;
             background: #2563EB;
             color: white;
             text-decoration: none;
             border-radius: 6px;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
             transition: all 0.2s;
         }
         
-        .btn:hover {
+        .btn-primary:hover {
             background: #1D4ED8;
-            transform: translateY(-1px);
         }
         
+        /* Main Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 4rem;
+            padding: 4rem 0;
+        }
+        
+        .content-section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 140px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0A0A0A;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E5E7EB;
+        }
+        
+        .section-text {
+            font-size: 1.125rem;
+            color: #4B5563;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Objectives List */
+        .objectives-list {
+            list-style: none;
+            space-y: 1rem;
+        }
+        
+        .objectives-list li {
+            padding: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 1.05rem;
+            color: #374151;
+        }
+        
+        .objectives-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22C55E;
+            font-weight: 700;
+        }
+        
+        /* Topics Tags */
+        .topics-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .topic-tag {
+            padding: 0.5rem 1rem;
+            background: #EFF6FF;
+            color: #2563EB;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid #BFDBFE;
+        }
+        
+        /* Course Outline */
+        .outline-note {
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+            color: #92400E;
+            font-size: 0.95rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E5E7EB;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: #2563EB;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #2563EB;
+        }
+        
+        .timeline-item.break:before {
+            background: #F59E0B;
+            box-shadow: 0 0 0 2px #F59E0B;
+        }
+        
+        .timeline-item.project:before {
+            background: #22C55E;
+            box-shadow: 0 0 0 2px #22C55E;
+            width: 16px;
+            height: 16px;
+            left: -2.1rem;
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0A0A0A;
+        }
+        
+        .timeline-duration {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #2563EB;
+            background: #EFF6FF;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .timeline-content ul {
+            list-style: none;
+            color: #4B5563;
+        }
+        
+        .timeline-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .timeline-content li:before {
+            content: "–";
+            position: absolute;
+            left: 0;
+            color: #9CA3AF;
+        }
+        
+        .break .timeline-title {
+            color: #92400E;
+        }
+        
+        .project .timeline-title {
+            color: #166534;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 160px;
+            height: fit-content;
+        }
+        
+        .info-card {
+            background: #F8FAFC;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #0A0A0A;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 0.95rem;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #6B7280;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #0A0A0A;
+            font-weight: 600;
+        }
+        
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0A0A0A;
+            margin: 1rem 0;
+        }
+        
+        .enroll-btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Stay Informed */
+        .stay-informed {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        
+        .stay-informed h3 {
+            color: #166534;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stay-informed p {
+            color: #15803D;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #86EFAC;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: #22C55E;
+        }
+        
+        /* Contact Section */
+        .contact-box {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .contact-box h3 {
+            color: #1E40AF;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-box p {
+            color: #3B82F6;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-link {
+            color: #2563EB;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        /* Footer */
         footer {
             background: #F8FAFC;
-            padding: 2rem 0;
+            padding: 3rem 0;
             text-align: center;
             color: #6B7280;
             font-size: 0.875rem;
             border-top: 1px solid #E5E7EB;
         }
         
-        @media (max-width: 768px) {
-            .hero h1 {
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: relative;
+                top: 0;
+                order: -1;
+            }
+            .course-title {
                 font-size: 2rem;
             }
-            .course-grid {
-                grid-template-columns: 1fr;
+            .nav-tabs {
+                gap: 1.5rem;
             }
         }
     </style>
@@ -308,109 +526,347 @@
                     <div class="logo-icon">B</div>
                     <span>BlendedSkill</span>
                 </a>
-                <span class="tagline">Professional certificates • Career-focused learning</span>
+                <a href="index.html" class="back-link">← Back to all courses</a>
             </div>
         </div>
     </header>
 
-    <section class="hero">
+    <section class="course-hero">
         <div class="container">
-            <h1>Build job-ready skills with proof employers respect.</h1>
-            <p class="hero-subtitle">BlendedSkill delivers structured learning tracks, applied projects, and certificates designed to help you stand out in hiring conversations and advance your career.</p>
-            
-            <div class="features">
-                <div class="feature">
-                    <h3>Outcome Driven</h3>
-                    <p>Finish with real deliverables you can showcase to employers.</p>
-                </div>
-                <div class="feature">
-                    <h3>Practice First</h3>
-                    <p>Apply skills through guided tasks and real-world scenarios.</p>
-                </div>
-                <div class="feature">
-                    <h3>Structured Paths</h3>
-                    <p>Know exactly what comes next at every step of your journey.</p>
-                </div>
-                <div class="feature">
-                    <h3>Career Aligned</h3>
-                    <p>Built specifically for interviews and career advancement.</p>
+            <div class="course-header">
+                <div class="badge">Professional Certificate • Instructor Led Workshop</div>
+                <h1 class="course-title">Process Improvement Essentials</h1>
+                <p class="course-subtitle">Master the methodology to analyze, optimize, and automate business processes</p>
+                
+                <div class="course-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">40 Hours</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Level</span>
+                        <span class="meta-value">Beginner → Intermediate</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Format</span>
+                        <span class="meta-value">Cohort-Based</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="courses-section">
+    <nav class="course-nav">
         <div class="container">
-            <div class="section-header">
-                <h2>Featured Learning Tracks</h2>
-                <p>Each track is designed around real workplace scenarios and produces portfolio-ready outputs.</p>
-            </div>
-            
-            <div class="course-grid">
-                <a href="course.html" class="course-card">
-                    <div class="course-icon">📊</div>
-                    <div class="course-level">Beginner → Intermediate</div>
-                    <h3>Process Improvement Essentials</h3>
-                    <p class="course-description">Master the fundamentals of process mapping and optimization.</p>
-                    <div class="course-outcome">Outcome: Produce a process map and improvement proposal suitable for interviews.</div>
-                    <span class="view-course">View Course Details →</span>
-                </a>
-
-                <a href="course-automation.html" class="course-card">
-                    <div class="course-icon">⚙️</div>
-                    <div class="course-level">Intermediate</div>
-                    <h3>Operations Automation Fundamentals</h3>
-                    <p class="course-description">Learn to identify and implement automation opportunities.</p>
-                    <div class="course-outcome">Outcome: Create an automation backlog and ROI prioritization model.</div>
-                    <span class="view-course">View Course Details →</span>
-                </a>
-
-                <a href="course-payments.html" class="course-card">
-                    <div class="course-icon">💳</div>
-                    <div class="course-level">Intermediate</div>
-                    <h3>Payments & Financial Operations</h3>
-                    <p class="course-description">Understand complex financial workflows and settlement models.</p>
-                    <div class="course-outcome">Outcome: Explain money movement flows, settlement models, and control points.</div>
-                    <span class="view-course">View Course Details →</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="process-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>How BlendedSkill Works</h2>
-                <p>A simple, career-aligned loop designed to move learners from curiosity to proof.</p>
-            </div>
-            
-            <div class="process-grid">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <h3>Choose a Track</h3>
-                    <p>Select the skill aligned to your career goal and learning pace.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h3>Learn + Apply</h3>
-                    <p>Complete structured lessons paired with hands-on projects.</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <h3>Earn Proof</h3>
-                    <p>Graduate with certificates and portfolio-ready deliverables.</p>
+            <div class="nav-tabs">
+                <a href="#about" class="nav-tab active">About Course</a>
+                <a href="#objectives" class="nav-tab">Objectives</a>
+                <a href="#topics" class="nav-tab">Topics Covered</a>
+                <a href="#outline" class="nav-tab">Course Outline</a>
+                <a href="#stay-informed" class="nav-tab">Stay Informed</a>
+                <a href="#contact" class="nav-tab">Contact Us</a>
+                <div class="nav-cta">
+                    <a href="#enroll" class="btn-primary">Enroll Now</a>
                 </div>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Build Your Skills?</h2>
-            <p>Join our early access program and be among the first to experience structured, career-focused learning.</p>
-            <a href="#" class="btn">View All Courses</a>
+    <div class="container">
+        <div class="main-content">
+            <div class="main-column">
+                
+                <!-- About Course -->
+                <section id="about" class="content-section">
+                    <h2 class="section-title">About this Course</h2>
+                    <p class="section-text">
+                        Organizations worldwide are using process optimization to reduce waste, increase efficiency, and deliver better customer experiences. Healthcare administrators use process mapping to shorten patient wait times. Logistics companies use it to optimize delivery routes. Financial institutions use it to streamline compliance workflows.
+                    </p>
+                    <p class="section-text">
+                        Process improvement is a powerful methodology that uses data-driven techniques to analyze and enhance business processes. Using tools like process mapping and Lean principles, professionals can identify bottlenecks, eliminate redundancies, and create measurable business impact.
+                    </p>
+                    <p class="section-text">
+                        <strong>This isn't theoretical.</strong> You will analyze a real company's process (anonymized data from actual BlendedSkill partners), identify $100,000+ in savings, and present a professional improvement proposal. Your capstone is a portfolio piece that proves you can deliver ROI on day one—not a simulation.
+                    </p>
+                </section>
+
+                <!-- Learning Objectives -->
+                <section id="objectives" class="content-section">
+                    <h2 class="section-title">Learning Objectives</h2>
+                    <ul class="objectives-list">
+                        <li>Learn the fundamental techniques and tools required to analyze and improve a business process</li>
+                        <li>Gain experience with common process mapping methodologies and notation standards</li>
+                        <li>Enhance processes through data analysis to identify improvement opportunities</li>
+                        <li>Leverage Lean and Six Sigma concepts to achieve efficient results</li>
+                        <li>Build confidence to lead your own process improvement project</li>
+                        <li>Develop skills to calculate ROI and present business cases to stakeholders</li>
+                    </ul>
+                </section>
+
+                <!-- Topics Covered -->
+                <section id="topics" class="content-section">
+                    <h2 class="section-title">Topics Covered</h2>
+                    <div class="topics-list">
+                        <span class="topic-tag">Process Mapping</span>
+                        <span class="topic-tag">Lucidchart</span>
+                        <span class="topic-tag">Lean Methodology</span>
+                        <span class="topic-tag">Six Sigma Fundamentals</span>
+                        <span class="topic-tag">Root Cause Analysis</span>
+                        <span class="topic-tag">Improvement Proposal Writing</span>
+                        <span class="topic-tag">ROI Calculation</span>
+                        <span class="topic-tag">Change Management</span>
+                        <span class="topic-tag">BPMN 2.0 Notation</span>
+                        <span class="topic-tag">Value Stream Mapping</span>
+                    </div>
+                </section>
+
+                <!-- Course Outline -->
+                <section id="outline" class="content-section">
+                    <h2 class="section-title">Course Outline</h2>
+                    
+                    <div class="outline-note">
+                        <strong>Note:</strong> The below is a suggested timeline for the course. Please work with the instructor to find the best timeline for your session.
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Introduction to Process Improvement</h3>
+                                <span class="timeline-duration">2 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Meet the instructor and course overview</li>
+                                    <li>Understand the core principles of process optimization and Lean thinking</li>
+                                    <li>Review real-world case studies of successful process improvement</li>
+                                    <li>Introduction to the capstone project requirements</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Process Mapping Fundamentals</h3>
+                                <span class="timeline-duration">4 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Learn industry-standard notation for process mapping</li>
+                                    <li>Practice creating simple process maps for common workflows</li>
+                                    <li>Identify the difference between current-state and future-state maps</li>
+                                    <li>Hands-on exercise: Map your first process</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item break">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Break</h3>
+                                <span class="timeline-duration">30 mins</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Advanced Process Mapping</h3>
+                                <span class="timeline-duration">4 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Create complex cross-functional swimlane diagrams</li>
+                                    <li>Map information flows alongside process flows</li>
+                                    <li>Review sample maps and receive peer feedback</li>
+                                    <li>Introduction to BPMN 2.0 standards</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Analyzing for Waste</h3>
+                                <span class="timeline-duration">4 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Identify the 7 forms of waste in business processes (TIMWOODS)</li>
+                                    <li>Use data to quantify wait times, redundancies, and bottlenecks</li>
+                                    <li>Practice root cause analysis techniques including 5 Whys and fishbone diagrams</li>
+                                    <li>Calculate process cycle efficiency</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item break">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Break</h3>
+                                <span class="timeline-duration">30 mins</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Designing Future-State Processes</h3>
+                                <span class="timeline-duration">4 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Apply Lean principles to eliminate identified waste</li>
+                                    <li>Create optimized future-state process maps</li>
+                                    <li>Estimate potential time and cost savings from improvements</li>
+                                    <li>Validate solutions with stakeholders</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Building the Business Case</h3>
+                                <span class="timeline-duration">4 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Calculate ROI for process improvements</li>
+                                    <li>Structure an improvement proposal for stakeholder approval</li>
+                                    <li>Practice presenting recommendations to leadership</li>
+                                    <li>Develop implementation roadmaps</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item break">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Break</h3>
+                                <span class="timeline-duration">30 mins</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Tool Workshop: Lucidchart</h3>
+                                <span class="timeline-duration">3 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Hands-on practice with Lucidchart for professional process mapping</li>
+                                    <li>Create templates and standards for organizational use</li>
+                                    <li>Export and share maps with stakeholders</li>
+                                    <li>Collaboration features and version control</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item project">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Capstone Project: Process Improvement Proposal</h3>
+                                <span class="timeline-duration">8 hours</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Select a real or simulated process to analyze</li>
+                                    <li>Create current-state and future-state process maps</li>
+                                    <li>Document waste analysis and improvement recommendations</li>
+                                    <li>Calculate projected ROI and write an executive summary</li>
+                                    <li>Submit complete package for expert review</li>
+                                    <li>Receive detailed feedback and revision guidance</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item project">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Final Review</h3>
+                                <span class="timeline-duration">30 minutes</span>
+                            </div>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Review key learnings and answer questions</li>
+                                    <li>Complete the assessment and earn a verified certificate with your project title</li>
+                                    <li>Complete the course survey to help us improve</li>
+                                    <li>Learn how to set up your own process improvement toolkit for future projects</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stay Informed -->
+                <section id="stay-informed" class="content-section">
+                    <div class="stay-informed">
+                        <h3>Stay Informed</h3>
+                        <p>Sign up for updates on this course, including new cohort dates and curriculum improvements.</p>
+                        <form class="email-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                            <input type="email" class="email-input" placeholder="Enter your email" required>
+                            <button type="submit" class="btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Contact Us -->
+                <section id="contact" class="content-section">
+                    <div class="contact-box">
+                        <h3>Questions?</h3>
+                        <p>Need more information about this course or custom team training?</p>
+                        <a href="mailto:team@blendedskill.com" class="contact-link">Contact our team →</a>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="info-card" id="enroll">
+                    <h3>Course Details</h3>
+                    <div class="price-tag">$500 USD</div>
+                    <div class="info-row">
+                        <span class="info-label">Duration</span>
+                        <span class="info-value">40 hours</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Level</span>
+                        <span class="info-value">Beginner → Intermediate</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Subject</span>
+                        <span class="info-value">Operations</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Format</span>
+                        <span class="info-value">Live + Project</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Certificate</span>
+                        <span class="info-value" style="color: #2563EB;">Verified Project</span>
+                    </div>
+                    <button class="btn-primary enroll-btn" onclick="alert('Enrollment form would open here')">Enroll Now</button>
+                    <p style="font-size: 0.875rem; color: #6B7280; text-align: center; margin-top: 1rem;">
+                        Next cohort starts Feb 20, 2024
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>What You'll Earn</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">📊</span>
+                            <span style="font-size: 0.95rem;">Professional process maps</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">📄</span>
+                            <span style="font-size: 0.95rem;">Improvement proposal template</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">🏆</span>
+                            <span style="font-size: 0.95rem;">Verified certificate with project title</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 1.5rem;">💼</span>
+                            <span style="font-size: 0.95rem;">Portfolio piece for interviews</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
@@ -418,5 +874,44 @@
             <p style="margin-top: 0.5rem;">© 2026 BlendedSkill. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Smooth scroll for navigation tabs
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active tab
+                    document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active tab on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navTabs = document.querySelectorAll('.nav-tab');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('href') === '#' + current) {
+                    tab.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
