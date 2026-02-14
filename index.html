@@ -120,7 +120,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            /* Reduced opacity from 0.6/0.7 to 0.2/0.3 for brighter image */
+            /* Reduced opacity for brighter image */
             background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), 
                         url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
             color: white;
@@ -182,10 +182,141 @@
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.2s;
+            cursor: pointer;
         }
 
         .btn-outline:hover {
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6B7280;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #F3F4F6;
+            color: #1E293B;
+        }
+
+        .modal h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0A0A0A;
+        }
+
+        .modal p {
+            color: #6B7280;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .privacy-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9CA3AF;
+            margin-top: 1.5rem;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: #F0FDF4;
+            color: #22C55E;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
         }
 
         /* Sections */
@@ -417,14 +548,131 @@
             margin-bottom: 2rem;
         }
 
-        /* Footer */
+        /* Footer - Detailed 4-Column Layout */
         footer {
             background: #F8FAFC;
-            padding: 3rem 2rem;
-            text-align: center;
-            color: #6B7280;
-            font-size: 0.875rem;
+            padding: 0;
             border-top: 1px solid #E5E7EB;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .footer-logo-text {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0A0A0A;
+        }
+
+        .footer-description {
+            color: #6B7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-copyright {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0A0A0A;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #4B5563;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #2563EB;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #E5E7EB;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .verify-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: #2563EB;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .verify-badge:hover {
+            border-color: #2563EB;
+            background: #EFF6FF;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-brand {
+                max-width: 100%;
+                grid-column: 1 / -1;
+            }
         }
 
         @media (max-width: 768px) {
@@ -442,6 +690,15 @@
             
             .courses-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .modal-content {
+                padding: 2rem;
             }
         }
     </style>
@@ -473,10 +730,50 @@
             <p class="hero-subtitle">BlendedSkill delivers structured learning tracks, applied projects, and certificates designed to help you stand out in hiring conversations and advance your career.</p>
             <div class="hero-cta">
                 <a href="#courses" class="btn-primary btn-large">Explore Learning Tracks →</a>
-                <a href="#" class="btn-outline">Join Early Access</a>
+                <button class="btn-outline" onclick="openModal()">Join Early Access</button>
             </div>
         </div>
     </section>
+
+    <!-- Early Access Modal -->
+    <div id="earlyAccessModal" class="modal" onclick="closeModalOutside(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <div id="modalForm">
+                <h2>Join Early Access</h2>
+                <p>Be the first to know when new courses launch. Get exclusive previews and early-bird pricing.</p>
+                
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Interested In</label>
+                        <input type="text" id="interest" name="interest" placeholder="e.g., Process Improvement, Automation">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary submit-btn">Get Early Access</button>
+                </form>
+                
+                <p class="privacy-note">We respect your inbox. Unsubscribe anytime. <a href="mailto:blendedskill@gmail.com" style="color: #2563EB;">Questions? Email us</a>.</p>
+            </div>
+            
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✓</div>
+                <h2>You're on the list!</h2>
+                <p>Thanks for joining. We'll send updates to <span id="confirmedEmail"></span></p>
+                <button class="btn-primary submit-btn" onclick="closeModal()" style="margin-top: 1.5rem;">Got it!</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Features -->
     <section class="section features">
@@ -582,14 +879,124 @@
     <section class="cta">
         <h2>Ready to Build Your Skills?</h2>
         <p>Join our early access program and be among the first to experience structured, career-focused learning.</p>
-        <a href="#courses" class="btn-primary btn-large">Explore All Tracks →</a>
+        <button class="btn-primary btn-large" onclick="openModal()">Join Early Access</button>
     </section>
 
-    <!-- Footer -->
+    <!-- Detailed Footer -->
     <footer>
-        <p style="font-weight: 600; color: #374151; margin-bottom: 0.5rem;">BlendedSkill</p>
-        <p>Career-focused learning tracks with practical projects and certificates you can use in interviews.</p>
-        <p style="margin-top: 1.5rem;">© 2026 BlendedSkill. All rights reserved.</p>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <div class="footer-logo-icon">B</div>
+                        <span class="footer-logo-text">BlendedSkill</span>
+                    </a>
+                    <p class="footer-description">
+                        Career-focused learning tracks with practical projects and certificates you can use in interviews.
+                    </p>
+                    <p class="footer-copyright">© 2026 BlendedSkill. All rights reserved.</p>
+                </div>
+
+                <!-- About Column -->
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="mailto:blendedskill@gmail.com">Contact Us</a></li>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Why BlendedSkill</a></li>
+                    </ul>
+                </div>
+
+                <!-- Discover Column -->
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul class="footer-links">
+                        <li><a href="#courses">View Courses</a></li>
+                        <li><a href="#">Plans & Pricing</a></li>
+                        <li><a href="#">Help & Support</a></li>
+                        <li><a href="#">Learning Tracks</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal Column -->
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Sitemap</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="mailto:blendedskill@gmail.com">Email Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <a href="#" class="verify-badge">
+                    <span>🔍</span>
+                    <span>Verify a Certificate</span>
+                </a>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Modal Functions
+        function openModal() {
+            document.getElementById('earlyAccessModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('earlyAccessModal').classList.remove('active');
+            document.body.style.overflow = '';
+            // Reset form after a delay
+            setTimeout(() => {
+                document.getElementById('modalForm').style.display = 'block';
+                document.getElementById('successMessage').classList.remove('active');
+                document.querySelector('form').reset();
+            }, 300);
+        }
+
+        function closeModalOutside(event) {
+            if (event.target === document.getElementById('earlyAccessModal')) {
+                closeModal();
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            document.getElementById('confirmedEmail').textContent = email;
+            document.getElementById('modalForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('active');
+            
+            // Here you would typically send the data to your backend
+            console.log('Early access signup:', {
+                name: document.getElementById('name').value,
+                email: email,
+                interest: document.getElementById('interest').value
+            });
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
