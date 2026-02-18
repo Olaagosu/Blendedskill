@@ -1,1010 +1,1045 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlendedSkill — Project-Verified Professional Education</title>
-  <meta name="description" content="Career-focused online learning that gives you verified, project-based credentials employers actually trust. Compete in 2026 with AI, Operations, Finance, and Cloud skills." />
-  <meta name="keywords" content="online learning, project-based credentials, professional education, AI courses 2026, operations courses, LMS" />
-  <meta property="og:title" content="BlendedSkill — Project-Verified Professional Education" />
-  <meta property="og:description" content="Learn skills for 2026. Every course ends with a real project. Every certificate is employer-verified." />
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlendedSkill — Project-Verified Professional Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════
+   DESIGN SYSTEM — matches screenshots exactly
+   Dark navy bg · Teal accent · White serif headlines
+   ══════════════════════════════════════════ */
+:root {
+  --bg:        #0d1117;
+  --bg2:       #111820;
+  --card:      #161e2a;
+  --card2:     #1a2332;
+  --border:    #1e2d3d;
+  --border2:   #253447;
+  --teal:      #00c896;        /* primary accent — matches screenshot */
+  --teal-dim:  rgba(0,200,150,0.12);
+  --teal-glow: rgba(0,200,150,0.25);
+  --green-bar: #22c55e;
+  --amber:     #f59e0b;
+  --text:      #e2e8f0;
+  --muted:     #64748b;
+  --muted2:    #94a3b8;
+  --white:     #ffffff;
+  --serif:     'Playfair Display', Georgia, serif;
+  --sans:      'Inter', -apple-system, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.65; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%; height: 68px;
+  background: rgba(13,17,23,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--sans); font-size: 1.2rem; font-weight: 700;
+  color: var(--white); letter-spacing: -0.3px;
+}
+.nav-logo span { color: var(--teal); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  font-size: 0.88rem; font-weight: 500; color: var(--muted2);
+  transition: color 0.18s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-right { display: flex; gap: 12px; align-items: center; }
+.btn-signin {
+  padding: 9px 22px; background: transparent; border: 1px solid var(--border2);
+  border-radius: 8px; font-family: var(--sans); font-size: 0.875rem;
+  font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.18s;
+}
+.btn-signin:hover { border-color: var(--teal); color: var(--teal); }
+.btn-enrol {
+  padding: 9px 22px; background: var(--teal); border: none;
+  border-radius: 8px; font-family: var(--sans); font-size: 0.875rem;
+  font-weight: 600; color: var(--bg); cursor: pointer; transition: all 0.18s;
+  display: flex; align-items: center; gap: 6px;
+}
+.btn-enrol:hover { opacity: 0.9; transform: translateY(-1px); }
+
+
+/* ══════════════════════════════════════════
+   HERO — matches screenshot layout exactly
+   ══════════════════════════════════════════ */
+.hero {
+  padding: 100px 5% 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+  min-height: calc(100vh - 68px);
+  position: relative;
+  overflow: hidden;
+}
+/* subtle radial glow top-right */
+.hero::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,200,150,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* LEFT: headline */
+.hero-left { padding-top: 20px; }
+
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border2); border-radius: 999px;
+  padding: 6px 16px; margin-bottom: 36px;
+  font-size: 0.82rem; color: var(--muted2);
+}
+.hero-pill::before {
+  content: '';
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal); flex-shrink: 0;
+  animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.8rem, 7vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+.hero h1 .line-teal {
+  font-style: italic;
+  color: var(--teal);
+  display: block;
+}
+.hero h1 .line-normal { display: block; }
+
+.hero-sub {
+  font-size: 1rem; color: var(--muted2); line-height: 1.8;
+  max-width: 420px; margin-bottom: 44px;
+}
+
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+.btn-hero-primary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 15px 28px; background: var(--teal); border: none;
+  border-radius: 50px; font-family: var(--sans); font-size: 0.95rem;
+  font-weight: 600; color: var(--bg); cursor: pointer; transition: all 0.2s;
+}
+.btn-hero-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 12px 32px var(--teal-glow); }
+.btn-hero-ghost {
+  padding: 15px 28px; background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border2); border-radius: 50px;
+  font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+  color: var(--text); cursor: pointer; transition: all 0.2s;
+}
+.btn-hero-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+/* RIGHT: floating dashboard card */
+.hero-right {
+  padding-top: 32px;
+  position: relative;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.float-card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+  animation: floatUp 0.8s ease both;
+}
+@keyframes floatUp { from {opacity:0;transform:translateY(28px)} to {opacity:1;transform:translateY(0)} }
+
+.fc-header {
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+}
+.fc-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0,200,150,0.3), rgba(0,200,150,0.1));
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+}
+.fc-header h3 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+.fc-header p { font-size: 0.78rem; color: var(--muted); }
+.fc-body { padding: 18px 20px 20px; }
+.progress-row { margin-bottom: 14px; }
+.progress-row:last-child { margin-bottom: 0; }
+.pr-top { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.pr-name { font-size: 0.83rem; color: var(--text); font-weight: 500; }
+.pr-pct { font-size: 0.83rem; font-weight: 700; }
+.pr-pct.done { color: var(--teal); }
+.pr-pct.mid { color: var(--amber); }
+.pr-pct.low { color: var(--muted2); }
+.pr-bar { height: 6px; background: var(--border2); border-radius: 3px; overflow: hidden; }
+.pr-fill { height: 6px; border-radius: 3px; transition: width 1.2s ease; }
+.pr-fill.teal { background: linear-gradient(90deg, var(--teal), #00e5b0); }
+.pr-fill.amber { background: linear-gradient(90deg, var(--amber), #fbbf24); }
+.pr-fill.dim { background: var(--muted); }
+
+/* small badge card top right of dashboard */
+.float-badge {
+  position: absolute; top: 0; right: -20px;
+  background: var(--card2); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  animation: floatUp 0.8s 0.2s ease both;
+  z-index: 2;
+}
+.fb-icon { font-size: 1.4rem; }
+.fb-text h4 { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+.fb-text p { font-size: 0.72rem; color: var(--muted2); }
+
+/* verified badge below */
+.float-verified {
+  position: absolute; bottom: 80px; left: -28px;
+  background: var(--card2); border: 1px solid rgba(0,200,150,0.3);
+  border-radius: 12px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  animation: floatUp 0.8s 0.35s ease both;
+}
+.fv-icon { width: 36px; height: 36px; border-radius: 9px; background: rgba(0,200,150,0.15); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.fv-text h4 { font-size: 0.82rem; font-weight: 700; color: var(--teal); }
+.fv-text p { font-size: 0.72rem; color: var(--muted2); }
+
+
+/* ══════════════════════════════════════════
+   STATS BAR + LOGOS — matches screenshot
+   ══════════════════════════════════════════ */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 5%;
+  display: flex; align-items: center; gap: 0;
+}
+.stat-block {
+  flex: 1; border-right: 1px solid var(--border); padding: 0 40px;
+}
+.stat-block:first-child { padding-left: 0; }
+.stat-block:last-child { border-right: none; }
+.stat-num {
+  font-size: 2.2rem; font-weight: 700; color: var(--white);
+  line-height: 1; margin-bottom: 5px;
+}
+.stat-lbl { font-size: 0.82rem; color: var(--muted); }
+
+.logos-strip {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 5%;
+  display: flex; align-items: center; gap: 0;
+}
+.logos-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  white-space: nowrap; padding-right: 36px;
+  border-right: 1px solid var(--border); margin-right: 36px;
+}
+.logos-row {
+  display: flex; align-items: center; gap: 48px; flex-wrap: wrap;
+}
+.logo-name {
+  font-size: 1rem; font-weight: 600; color: rgba(148,163,184,0.55);
+  letter-spacing: -0.3px; transition: color 0.2s; cursor: default;
+}
+.logo-name:hover { color: var(--muted2); }
+
+
+/* ══════════════════════════════════════════
+   WHY SECTION — matches screenshot style
+   ══════════════════════════════════════════ */
+.why-section {
+  padding: 100px 5%;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.why-left {}
+.why-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 28px;
+}
+.why-eyebrow::before {
+  content: ''; width: 28px; height: 2px; background: var(--teal); flex-shrink: 0;
+}
+.why-left h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -1.5px; color: var(--white);
+  margin-bottom: 24px;
+}
+.why-left h2 em { font-style: italic; color: var(--teal); }
+.why-left p { font-size: 1rem; color: var(--muted2); line-height: 1.8; max-width: 420px; }
+
+.why-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+}
+.why-card { background: var(--card); padding: 28px; transition: background 0.2s; }
+.why-card:hover { background: var(--card2); }
+.wc-num { font-size: 0.7rem; font-weight: 700; color: var(--teal); margin-bottom: 12px; opacity: 0.7; }
+.why-card h3 { font-size: 0.93rem; font-weight: 600; color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+.why-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+
+/* ══════════════════════════════════════════
+   COURSES SECTION
+   ══════════════════════════════════════════ */
+.courses-section { padding: 100px 5%; background: var(--bg2); }
+
+.section-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 20px;
+}
+.section-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--teal); flex-shrink: 0; }
+.section-h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 900; letter-spacing: -1px; color: var(--white);
+  margin-bottom: 14px; line-height: 1.1;
+}
+.section-sub { font-size: 0.97rem; color: var(--muted2); max-width: 540px; margin-bottom: 44px; }
+
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.fb {
+  padding: 7px 18px; border: 1px solid var(--border2); border-radius: 999px;
+  font-family: var(--sans); font-size: 0.8rem; font-weight: 500;
+  color: var(--muted2); background: transparent; cursor: pointer; transition: all 0.18s;
+}
+.fb:hover, .fb.on { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+.courses-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+
+.cc {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;
+  transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+}
+.cc:hover { border-color: rgba(0,200,150,0.35); transform: translateY(-4px); box-shadow: 0 24px 56px rgba(0,0,0,0.4); }
+.cc.new { border-color: rgba(0,200,150,0.3); grid-column: 1/-1; }
+.cc.new:hover { border-color: var(--teal); box-shadow: 0 24px 60px rgba(0,200,150,0.12); }
+
+.cc-top { padding: 26px 26px 0; }
+.ctag {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px;
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+}
+.t-ops  { background: rgba(34,197,94,0.12);  color: #4ade80; }
+.t-fin  { background: rgba(245,158,11,0.12); color: var(--amber); }
+.t-ai   { background: rgba(0,200,150,0.12);  color: var(--teal); }
+.t-new  { background: rgba(0,200,150,0.15);  color: var(--teal); border: 1px solid rgba(0,200,150,0.35); }
+.t-new::before { content:''; display:inline-block; width:5px; height:5px; background:var(--teal); border-radius:50%; animation:blink 2s infinite; }
+
+.cc h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 9px; line-height: 1.3; }
+.cc .cdesc { font-size: 0.855rem; color: var(--muted2); line-height: 1.7; margin-bottom: 16px; }
+.c-outcome {
+  background: rgba(0,200,150,0.06); border: 1px solid rgba(0,200,150,0.15);
+  border-radius: 8px; padding: 11px 14px; margin-bottom: 16px;
+  font-size: 0.79rem; color: var(--muted2); display: flex; gap: 9px;
+}
+.c-outcome .cok { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+.c-outcome strong { color: var(--text); }
+.c-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+.cm { font-size: 0.76rem; color: var(--muted); }
+.cc-foot {
+  padding: 18px 26px 26px; margin-top: auto;
+  border-top: 1px solid var(--border); display: flex;
+  align-items: center; justify-content: space-between; gap: 12px;
+}
+.cprice { font-size: 1.35rem; font-weight: 700; color: var(--white); }
+.cprice .orig { font-size: 0.82rem; color: var(--muted); text-decoration: line-through; margin-left: 5px; font-weight: 400; }
+.btn-cc {
+  padding: 9px 20px; background: var(--teal); border: none; border-radius: 8px;
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
+  color: var(--bg); cursor: pointer; transition: all 0.18s; white-space: nowrap;
+}
+.btn-cc:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-cc-ol {
+  padding: 9px 20px; border: 1px solid var(--border2); border-radius: 8px;
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+  color: var(--muted2); background: transparent; cursor: pointer; transition: all 0.18s; white-space: nowrap;
+}
+.btn-cc-ol:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ── New full-width course card ── */
+.new-cc-inner {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 32px; padding: 26px 26px 0; align-items: start;
+}
+.new-price-box {
+  background: var(--bg); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 24px; min-width: 230px;
+}
+.npb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); margin-bottom: 9px; }
+.npb-price { font-size: 2.8rem; font-weight: 700; color: var(--white); line-height: 1; }
+.npb-was { font-size: 0.82rem; color: var(--muted); text-decoration: line-through; margin: 3px 0 16px; }
+.btn-npb-primary {
+  display: block; width: 100%; padding: 13px; background: var(--teal); border: none;
+  border-radius: 9px; font-family: var(--sans); font-size: 0.9rem; font-weight: 700;
+  color: var(--bg); cursor: pointer; transition: all 0.18s; margin-bottom: 9px; text-align: center;
+}
+.btn-npb-primary:hover { opacity: 0.88; }
+.btn-npb-ghost {
+  display: block; width: 100%; padding: 10px; background: transparent;
+  border: 1px solid var(--border2); border-radius: 9px;
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+  color: var(--muted2); cursor: pointer; transition: all 0.18s; text-align: center;
+}
+.btn-npb-ghost:hover { border-color: var(--teal); color: var(--teal); }
+.npb-secure { text-align: center; margin-top: 11px; font-size: 0.71rem; color: var(--muted); }
+.stripe-pill { background: #635bff; color: white; padding: 1px 7px; border-radius: 3px; font-size: 0.66rem; font-weight: 700; }
+.new-cc-strip {
+  padding: 16px 26px 24px; border-top: 1px solid var(--border);
+  display: flex; gap: 24px; flex-wrap: wrap; margin-top: 20px;
+}
+.new-cc-strip span { font-size: 0.79rem; color: var(--muted); }
+.new-cc-strip span strong { color: var(--text); }
+
+
+/* ══════════════════════════════════════════
+   TRACKS
+   ══════════════════════════════════════════ */
+.tracks-section { padding: 100px 5%; background: var(--bg); }
+.tracks-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 44px; }
+.tc {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 18px; padding: 30px; transition: all 0.22s;
+}
+.tc:hover { border-color: rgba(0,200,150,0.3); transform: translateY(-3px); }
+.tc-icon { font-size: 2rem; margin-bottom: 18px; }
+.tc h3 { font-size: 1.02rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.tc .tdesc { font-size: 0.855rem; color: var(--muted2); margin-bottom: 20px; line-height: 1.7; }
+.tlbl { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.tlist { list-style: none; margin-bottom: 18px; }
+.tlist li { font-size: 0.82rem; color: var(--text); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 9px; }
+.tlist li:last-child { border-bottom: none; }
+.tlist li::before { content: '›'; color: var(--teal); flex-shrink: 0; }
+.tfoot { display: flex; gap: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.tfoot span { font-size: 0.76rem; color: var(--muted); }
+
+
+/* ══════════════════════════════════════════
+   PRICING
+   ══════════════════════════════════════════ */
+.pricing-section { padding: 100px 5%; background: var(--bg2); }
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 44px; }
+.pc {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 18px; overflow: hidden; transition: all 0.22s;
+}
+.pc:hover { border-color: rgba(0,200,150,0.3); transform: translateY(-3px); }
+.pc.hl { border-color: rgba(0,200,150,0.4); }
+.pc-head { padding: 30px 28px 24px; border-bottom: 1px solid var(--border); }
+.pc-tier { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.pc-range { font-size: 1.8rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.pc-tag { font-size: 0.84rem; color: var(--muted2); }
+.pc-body { padding: 24px 28px 30px; }
+.pfl { list-style: none; margin-bottom: 26px; }
+.pfl li { display: flex; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.875rem; color: var(--text); }
+.pfl li:last-child { border-bottom: none; }
+.pck { color: var(--teal); flex-shrink: 0; font-weight: 700; }
+.btn-pc-ol { width:100%; padding:13px; background:transparent; border:1px solid var(--border2); border-radius:8px; font-family:var(--sans); font-size:0.9rem; font-weight:600; color:var(--text); cursor:pointer; transition:all .2s; }
+.btn-pc-ol:hover { border-color:var(--teal); color:var(--teal); }
+.btn-pc-fl { width:100%; padding:13px; background:var(--teal); border:none; border-radius:8px; font-family:var(--sans); font-size:0.9rem; font-weight:600; color:var(--bg); cursor:pointer; transition:all .2s; }
+.btn-pc-fl:hover { opacity:.88; }
+.pricing-note { text-align:center; margin-top:24px; font-size:0.83rem; color:var(--muted); line-height:1.75; }
+.pricing-note strong { color:var(--text); }
+
+
+/* ══════════════════════════════════════════
+   TESTIMONIALS
+   ══════════════════════════════════════════ */
+.testi-section { padding: 100px 5%; background: var(--bg); }
+.testi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 44px; }
+.tcard {
+  background: var(--card); border: 1px solid var(--border2);
+  border-radius: 18px; padding: 28px;
+}
+.tcard-stars { color: var(--amber); letter-spacing: 2px; margin-bottom: 14px; font-size: 0.88rem; }
+.tcard-q { font-size: 0.93rem; color: var(--text); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+.tcard-auth { display: flex; align-items: center; gap: 12px; }
+.tcard-av {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(0,200,150,0.5), rgba(34,197,94,0.3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700; color: white;
+}
+.tcard-name { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+.tcard-role { font-size: 0.77rem; color: var(--muted); }
+
+
+/* ══════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════ */
+.about-section { padding: 100px 5%; background: var(--bg2); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 44px; }
+.at h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 9px; }
+.at p { font-size: 0.875rem; color: var(--muted2); line-height: 1.8; margin-bottom: 22px; }
+.at ul { list-style: none; }
+.at ul li { display: flex; gap: 11px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.855rem; color: var(--muted2); }
+.at ul li:last-child { border-bottom: none; }
+.at ul li::before { content: '→'; color: var(--teal); flex-shrink: 0; font-weight: 700; }
+.as-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.asc { background: var(--card); border: 1px solid var(--border2); border-radius: 12px; padding: 22px; text-align: center; }
+.asc-n { font-size: 2rem; font-weight: 700; color: var(--white); display: block; margin-bottom: 4px; }
+.asc-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+
+/* ══════════════════════════════════════════
+   CONTACT
+   ══════════════════════════════════════════ */
+.contact-section { padding: 100px 5%; background: var(--bg); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 44px; }
+.ci h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.ci p { font-size: 0.875rem; color: var(--muted2); line-height: 1.75; margin-bottom: 22px; }
+.ci a { color: var(--teal); }
+.cf { background: var(--card); border: 1px solid var(--border2); border-radius: 18px; padding: 32px; }
+.fg { margin-bottom: 16px; }
+.fg label { display: block; font-size: 0.76rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 7px; }
+.fg input, .fg select, .fg textarea {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border2);
+  border-radius: 8px; color: var(--text); font-family: var(--sans); font-size: 0.9rem;
+  outline: none; transition: border-color 0.18s;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--teal); }
+.fg input::placeholder, .fg textarea::placeholder { color: rgba(100,116,139,0.5); }
+.fg textarea { min-height: 100px; resize: vertical; }
+.btn-send { width: 100%; padding: 14px; background: var(--teal); border: none; border-radius: 8px; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; color: var(--bg); cursor: pointer; transition: all 0.2s; }
+.btn-send:hover { opacity: 0.88; }
+
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+footer { background: var(--card); border-top: 1px solid var(--border); padding: 56px 5% 30px; }
+.fg-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 44px; }
+.fb-name { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.fb-name span { color: var(--teal); }
+.fb-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; max-width: 240px; }
+.fc h4 { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.fc a { display: block; font-size: 0.83rem; color: var(--muted); margin-bottom: 9px; transition: color 0.18s; }
+.fc a:hover { color: var(--text); }
+.fbot { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; gap: 10px; }
+.fbot a { color: var(--muted); transition: color 0.18s; }
+.fbot a:hover { color: var(--text); }
+
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: 60px; }
+  .hero-right { display: none; }
+  .why-section { grid-template-columns: 1fr; gap: 48px; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .fg-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .courses-grid { grid-template-columns: 1fr; }
+  .tracks-grid, .pricing-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .stats-strip { flex-direction: column; gap: 28px; }
+  .stat-block { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 24px; width: 100%; }
+  .stat-block:last-child { border-bottom: none; padding-bottom: 0; }
+  .logos-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .fg-grid { grid-template-columns: 1fr; }
+  .new-cc-inner { grid-template-columns: 1fr; }
+  .new-price-box { min-width: auto; }
+}
+
+</style>
 </head>
 <body>
 
-<!-- ============================================================
-     NAVIGATION
-     ============================================================ -->
-<nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Blended<span>Skill</span></a>
-
-    <ul class="nav-links" role="list">
-      <li><a href="#courses">Courses</a></li>
-      <li><a href="#tracks">Tracks</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#why-us">Why Us</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-
-    <div class="nav-cta">
-      <a href="#contact" class="btn-nav btn-nav-ghost">Sign In</a>
-      <a href="#courses" class="btn-nav btn-nav-primary">Enrol Free →</a>
-    </div>
-
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <div class="nav-logo">Blended<span>Skill</span></div>
+  <div class="nav-links">
+    <a href="#courses">Courses</a>
+    <a href="#tracks">Tracks</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#why-us">Why Us</a>
+    <a href="#about">About</a>
+  </div>
+  <div class="nav-right">
+    <button class="btn-signin">Sign In</button>
+    <button class="btn-enrol" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Enrol Free →</button>
   </div>
 </nav>
 
-<!-- Mobile Menu -->
-<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-  <a href="#courses">Courses</a>
-  <a href="#tracks">Learning Tracks</a>
-  <a href="#pricing">Pricing</a>
-  <a href="#why-us">Why BlendedSkill</a>
-  <a href="about.html">About</a>
-  <a href="#contact">Contact</a>
-  <a href="#courses" class="btn btn-primary" style="margin-top:16px">Start Learning →</a>
-</nav>
 
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-grid" aria-hidden="true"></div>
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-pill">Now enrolling — 2026 cohort open</div>
+    <h1>
+      <span class="line-normal">Your</span>
+      <span class="line-normal">Project</span>
+      <span class="line-teal">Is Your</span>
+      <span class="line-teal">Resume.</span>
+    </h1>
+    <p class="hero-sub">Earn credentials employers can verify — built around real deliverables, reviewed by industry practitioners. No subscriptions. No fluff. Just proof of what you can do.</p>
+    <div class="hero-btns">
+      <button class="btn-hero-primary" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse 2026 Courses →</button>
+      <button class="btn-hero-ghost" onclick="document.getElementById('why-us').scrollIntoView({behavior:'smooth'})">See How It Works</button>
+    </div>
+  </div>
 
-  <div class="hero-content">
-    <!-- Left -->
+  <div class="hero-right">
+    <!-- verified badge -->
+    <div class="float-verified" style="position:relative;left:0;bottom:0;display:inline-flex;margin-bottom:16px;width:fit-content;">
+      <div class="fv-icon">🏆</div>
+      <div class="fv-text">
+        <h4>Project Verified</h4>
+        <p>Employer-confirmed</p>
+      </div>
+    </div>
+
+    <!-- dashboard card -->
+    <div class="float-card" style="position:relative;">
+      <div class="fc-header">
+        <div class="fc-icon">📊</div>
+        <div>
+          <h3>Your Learning Dashboard</h3>
+          <p>3 courses in progress</p>
+        </div>
+      </div>
+      <div class="fc-body">
+        <div class="progress-row">
+          <div class="pr-top">
+            <span class="pr-name">AI Workflow Automation</span>
+            <span class="pr-pct mid">72%</span>
+          </div>
+          <div class="pr-bar"><div class="pr-fill amber" style="width:72%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="pr-top">
+            <span class="pr-name">Process Improvement Essentials</span>
+            <span class="pr-pct done">100%</span>
+          </div>
+          <div class="pr-bar"><div class="pr-fill teal" style="width:100%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="pr-top">
+            <span class="pr-name">SQL for Business Analysts</span>
+            <span class="pr-pct low">38%</span>
+          </div>
+          <div class="pr-bar"><div class="pr-fill dim" style="width:38%"></div></div>
+        </div>
+      </div>
+      <!-- AI badge floating on card -->
+      <div style="position:absolute;bottom:-18px;right:20px;background:var(--card2);border:1px solid var(--border2);border-radius:12px;padding:11px 15px;display:flex;align-items:center;gap:10px;box-shadow:0 12px 32px rgba(0,0,0,0.5);">
+        <span style="font-size:1.2rem;">🤖</span>
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:var(--white);">AI-Ready Curriculum</div>
+          <div style="font-size:0.7rem;color:var(--muted2);">Updated for 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ STATS BAR ══════════ -->
+<div class="stats-strip">
+  <div class="stat-block">
+    <div class="stat-num">18,000+</div>
+    <div class="stat-lbl">Active Learners</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">94%</div>
+    <div class="stat-lbl">Employer Recognition Rate</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">4.9/5</div>
+    <div class="stat-lbl">Average Rating</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">100%</div>
+    <div class="stat-lbl">Project-Based</div>
+  </div>
+</div>
+
+<!-- ══════════ LOGOS ══════════ -->
+<div class="logos-strip">
+  <div class="logos-label">Graduates work at</div>
+  <div class="logos-row">
+    <span class="logo-name">Deloitte</span>
+    <span class="logo-name">KPMG</span>
+    <span class="logo-name">Stripe</span>
+    <span class="logo-name">JPMorgan</span>
+    <span class="logo-name">Amazon</span>
+    <span class="logo-name">Shopify</span>
+    <span class="logo-name">Accenture</span>
+  </div>
+</div>
+
+
+<!-- ══════════ WHY BLENDEDSKILL ══════════ -->
+<section class="why-section" id="why-us">
+  <div class="why-left">
+    <div class="why-eyebrow">Why BlendedSkill</div>
+    <h2>Built for the gap<br>between <em>learning</em><br>and hiring.</h2>
+    <p>Traditional certificates confirm attendance. BlendedSkill credentials confirm capability. Here's what makes the difference.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="wc-num">01</div><h3>You Graduate with Proof, Not Just a PDF</h3><p>Your certificate names the specific project you completed. Employers can verify it instantly through a unique public link.</p></div>
+    <div class="why-card"><div class="wc-num">02</div><h3>Every Course Ends with a Real Deliverable</h3><p>Process maps. Automation workflows. Financial models. You build it from scratch, using tools employers expect. You own the output.</p></div>
+    <div class="why-card"><div class="wc-num">03</div><h3>Expert Review — Not Automated Grading</h3><p>Your capstone is assessed by an experienced practitioner. You receive specific, personalised feedback — not a numeric score from an algorithm.</p></div>
+    <div class="why-card"><div class="wc-num">04</div><h3>One-Time Payment, Lifetime Access</h3><p>No subscriptions. No recurring fees. Pay once and own the course permanently. Return months later at no extra cost.</p></div>
+    <div class="why-card"><div class="wc-num">05</div><h3>Transparent Global Pricing</h3><p>We display estimated prices in your local currency before checkout. No surprises. No hidden fees. What you see is what you pay.</p></div>
+    <div class="why-card"><div class="wc-num">06</div><h3>Career-Aligned Curriculum</h3><p>We research active job postings before designing any course. Every module maps to skills that appear consistently in employer hiring criteria.</p></div>
+    <div class="why-card"><div class="wc-num">07</div><h3>Publicly Verifiable Credentials</h3><p>Every BlendedSkill certificate includes a unique verification URL. Employers and hiring managers can confirm your credential in moments.</p></div>
+    <div class="why-card" style="background:rgba(0,200,150,0.04);"><div class="wc-num" style="color:var(--teal)">08</div><h3>Practitioner-Taught, Not Theory-Led</h3><p>Every instructor is an active professional still doing the work — not an academic whose last relevant role was years ago.</p></div>
+  </div>
+</section>
+
+
+<!-- ══════════ COURSES ══════════ -->
+<section class="courses-section" id="courses">
+  <div class="section-eyebrow">Featured Courses</div>
+  <h2 class="section-h2">Every course structured around<br>a professional outcome</h2>
+  <p class="section-sub">A real, reviewable project you complete, present, and keep. Every course includes a free preview — no account required.</p>
+  <div class="filter-row">
+    <button class="fb on">All Courses</button>
+    <button class="fb">Operations</button>
+    <button class="fb">Finance</button>
+    <button class="fb">AI &amp; Automation</button>
+    <button class="fb">Beginner</button>
+    <button class="fb">Intermediate</button>
+  </div>
+  <div class="courses-grid">
+
+    <!-- Course 1 -->
+    <div class="cc">
+      <div class="cc-top">
+        <span class="ctag t-ops">📊 Operations</span>
+        <h3>Process Improvement Essentials</h3>
+        <p class="cdesc">Learn to map, analyse, and improve business processes using industry-standard methods. Skills that translate directly to analyst and operations roles.</p>
+        <div class="c-outcome"><span class="cok">✓</span><span><strong>Your deliverable:</strong> A professional process map and improvement proposal — ready for interviews.</span></div>
+        <div class="c-meta"><span class="cm">⏱ 40 hours</span><span class="cm">·</span><span class="cm">📶 Beginner–Intermediate</span><span class="cm">·</span><span class="cm">🏆 Verified cert</span></div>
+      </div>
+      <div class="cc-foot"><div class="cprice">$500</div><button class="btn-cc-ol" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Preview Free →</button></div>
+    </div>
+
+    <!-- Course 2 -->
+    <div class="cc">
+      <div class="cc-top">
+        <span class="ctag t-ops">⚙️ Automation</span>
+        <h3>Operations Automation Fundamentals</h3>
+        <p class="cdesc">Build practical automation skills using modern no-code and low-code tools. Identify opportunities, calculate ROI, and deliver working solutions.</p>
+        <div class="c-outcome"><span class="cok">✓</span><span><strong>Your deliverable:</strong> An automation backlog and ROI model — a real asset for any operations role.</span></div>
+        <div class="c-meta"><span class="cm">⏱ 35 hours</span><span class="cm">·</span><span class="cm">📶 Intermediate</span><span class="cm">·</span><span class="cm">🏆 Verified cert</span></div>
+      </div>
+      <div class="cc-foot"><div class="cprice">$600</div><button class="btn-cc-ol" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Preview Free →</button></div>
+    </div>
+
+    <!-- Course 3 -->
+    <div class="cc">
+      <div class="cc-top">
+        <span class="ctag t-fin">💰 Finance</span>
+        <h3>Payments &amp; Financial Operations</h3>
+        <p class="cdesc">Master money movement frameworks, payment system architecture, and financial controls. Built for professionals targeting fintech and financial operations roles.</p>
+        <div class="c-outcome"><span class="cok">✓</span><span><strong>Your deliverable:</strong> Money movement diagrams and a control analysis — cited in every performance review.</span></div>
+        <div class="c-meta"><span class="cm">⏱ 30 hours</span><span class="cm">·</span><span class="cm">📶 Intermediate</span><span class="cm">·</span><span class="cm">🏆 Verified cert</span></div>
+      </div>
+      <div class="cc-foot"><div class="cprice">$550</div><button class="btn-cc-ol" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Preview Free →</button></div>
+    </div>
+
+    <!-- ★ NEW FULL-WIDTH: Agentic AI Workflows -->
+    <div class="cc new">
+      <div class="new-cc-inner">
+        <div>
+          <div style="display:flex;gap:9px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+            <span class="ctag t-new" style="margin-bottom:0;">✦ New Course</span>
+            <span class="ctag t-ai" style="margin-bottom:0;">🤖 AI &amp; Automation</span>
+            <span style="background:rgba(34,197,94,0.12);color:#4ade80;padding:3px 11px;border-radius:999px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;">35 Hours · 12 Projects</span>
+          </div>
+          <h3 style="font-size:1.5rem;margin-bottom:11px;">Agentic AI Workflows<br>with Make &amp; n8n</h3>
+          <p class="cdesc" style="max-width:580px;">The complete hands-on programme for building, deploying, and charging for AI-powered automation systems. No coding required. Taught by an active practitioner who builds these systems for real clients. Every project is deployable from day one.</p>
+          <div class="c-outcome" style="max-width:540px;">
+            <span class="cok">✓</span>
+            <span><strong>Your deliverable:</strong> 12 real, portfolio-ready AI workflow projects — AI agents, RAG systems, multi-agent pipelines, and your own capstone system ready to present to clients or employers.</span>
+          </div>
+          <div class="c-meta">
+            <span class="cm">⏱ 35 hours</span><span class="cm">·</span>
+            <span class="cm">📦 9 modules</span><span class="cm">·</span>
+            <span class="cm">🛠 Make.com + n8n</span><span class="cm">·</span>
+            <span class="cm">📶 Beginner-friendly</span><span class="cm">·</span>
+            <span class="cm">🏆 Verified cert</span>
+          </div>
+        </div>
+        <div class="new-price-box">
+          <div class="npb-label">⚡ Launch Price</div>
+          <div class="npb-price">$197</div>
+          <div class="npb-was">was $497</div>
+          <a href="agentflow-academy.html" style="display:block;"><button class="btn-npb-primary">View Full Course →</button></a>
+          <a href="agentflow-portal.html" style="display:block;"><button class="btn-npb-ghost">Preview First Lesson</button></a>
+          <div class="npb-secure">🔒 Secure · <span class="stripe-pill">stripe</span> · 30-day guarantee</div>
+        </div>
+      </div>
+      <div class="new-cc-strip">
+        <span>🤖 <strong>AI Agents</strong></span>
+        <span>⚙️ <strong>Make.com</strong></span>
+        <span>🔧 <strong>n8n self-hosted</strong></span>
+        <span>📚 <strong>RAG &amp; Vector Stores</strong></span>
+        <span>🎯 <strong>Multi-Agent Systems</strong></span>
+        <span>💼 <strong>Client Delivery</strong></span>
+        <span>🚀 <strong>Production Deploy</strong></span>
+      </div>
+    </div>
+
+  </div>
+  <p style="text-align:center;margin-top:12px;font-size:0.83rem;color:var(--muted);">Every course includes a free preview of the first lesson. No account required.</p>
+</section>
+
+
+<!-- ══════════ TRACKS ══════════ -->
+<section class="tracks-section" id="tracks">
+  <div class="section-eyebrow">Learning Tracks</div>
+  <h2 class="section-h2">Curated sequences that build a<br>complete, employer-ready portfolio</h2>
+  <p class="section-sub">Each track is a structured path from foundational knowledge to a portfolio that covers the full scope of your target role.</p>
+  <div class="tracks-grid">
+    <div class="tc">
+      <div class="tc-icon">📊</div>
+      <h3>Operations Analyst Track</h3>
+      <p class="tdesc">Designed for professionals targeting roles in process improvement, operations management, and business analysis.</p>
+      <div class="tlbl">Courses in this track</div>
+      <ul class="tlist"><li>Process Improvement Essentials</li><li>Data Analysis for Operations</li><li>Operations Automation Fundamentals</li></ul>
+      <div class="tlbl">Portfolio output</div>
+      <ul class="tlist" style="margin-bottom:18px;"><li>Professional process map</li><li>Data analysis report</li><li>Automation workflow</li></ul>
+      <div class="tfoot"><span>⏱️ 3–4 months</span><span>🎯 10–12 hrs/week</span></div>
+    </div>
+    <div class="tc">
+      <div class="tc-icon">💰</div>
+      <h3>Financial Operations Specialist Track</h3>
+      <p class="tdesc">Designed for professionals targeting roles in payments, financial controls, and fintech operations.</p>
+      <div class="tlbl">Courses in this track</div>
+      <ul class="tlist"><li>Payments &amp; Financial Operations</li><li>Risk &amp; Controls Fundamentals</li><li>Financial Data Modeling</li></ul>
+      <div class="tlbl">Portfolio output</div>
+      <ul class="tlist" style="margin-bottom:18px;"><li>Money movement flow diagrams</li><li>Control matrix</li><li>Financial model</li></ul>
+      <div class="tfoot"><span>⏱️ 3–4 months</span><span>🎯 Financial Ops Roles</span></div>
+    </div>
+    <div class="tc" style="border-color:rgba(0,200,150,0.25);">
+      <div class="tc-icon">🤖</div>
+      <h3>AI Workflow Automation Track</h3>
+      <p class="tdesc">Designed for professionals building practical, deployable skills in no-code automation and AI-assisted business tools.</p>
+      <div class="tlbl">Courses in this track</div>
+      <ul class="tlist"><li>Automation Fundamentals</li><li>AI Tools for Business</li><li>Agentic AI Workflows with Make / n8n ✦</li></ul>
+      <div class="tlbl">Portfolio output</div>
+      <ul class="tlist" style="margin-bottom:18px;"><li>Automated workflows</li><li>AI integration documentation</li><li>Process efficiency analysis</li></ul>
+      <div class="tfoot"><span>⏱️ 3–4 months</span><span>🎯 Automation Roles</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ PRICING ══════════ -->
+<section class="pricing-section" id="pricing">
+  <div class="section-eyebrow">Plans &amp; Pricing</div>
+  <h2 class="section-h2">Simple, one-time pricing.<br>No subscriptions, ever.</h2>
+  <p class="section-sub">No renewal fees. No hidden costs. Pay once and own the course permanently.</p>
+  <div class="pricing-grid">
+    <div class="pc">
+      <div class="pc-head"><div class="pc-tier">Foundation</div><div class="pc-range">$50 – $200</div><p class="pc-tag">Tool-specific workshops and single-skill modules</p></div>
+      <div class="pc-body">
+        <ul class="pfl"><li><span class="pck">✓</span>Single skill focus</li><li><span class="pck">✓</span>Tool-specific training</li><li><span class="pck">✓</span>Downloadable templates</li><li><span class="pck">✓</span>Lifetime access</li></ul>
+        <button class="btn-pc-ol" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+      </div>
+    </div>
+    <div class="pc hl">
+      <div class="pc-head" style="background:rgba(0,200,150,0.04);"><div class="pc-tier" style="color:var(--teal)">Professional</div><div class="pc-range">$500 – $1,000</div><p class="pc-tag">Comprehensive career tracks with expert review</p></div>
+      <div class="pc-body">
+        <ul class="pfl"><li><span class="pck">✓</span>Full career tracks</li><li><span class="pck">✓</span>Process Improvement</li><li><span class="pck">✓</span>Operations Automation</li><li><span class="pck">✓</span>Capstone project review</li><li><span class="pck">✓</span>Verified certificate</li><li><span class="pck">✓</span>Public verification URL</li></ul>
+        <button class="btn-pc-fl" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Enrol Now</button>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pc-head"><div class="pc-tier">Advanced</div><div class="pc-range">$1,500 – $2,000</div><p class="pc-tag">Multi-project certifications in specialised domains</p></div>
+      <div class="pc-body">
+        <ul class="pfl"><li><span class="pck">✓</span>Multi-project certification</li><li><span class="pck">✓</span>Specialised domains</li><li><span class="pck">✓</span>1-on-1 mentor sessions</li><li><span class="pck">✓</span>Priority support</li></ul>
+        <button class="btn-pc-ol" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+  <p class="pricing-note">All courses include: <strong>Full video curriculum · Downloadable resources · Module quizzes · Expert-reviewed capstone · Lifetime access</strong><br><strong>Refund Policy:</strong> Full refund within 7 days if no capstone submitted.</p>
+</section>
+
+
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section class="testi-section" id="testimonials">
+  <div class="section-eyebrow">Success Stories</div>
+  <h2 class="section-h2">Our graduates faced a real challenge —<br>proving their skills to employers</h2>
+  <div class="testi-grid">
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"I had a decade of operational experience but struggled to break into analyst roles. The Process Improvement Essentials course gave me something concrete to present: a real process map and improvement proposal. I brought it to my interview. They hired me on the spot."</p><div class="tcard-auth"><div class="tcard-av">SK</div><div><div class="tcard-name">Sarah K.</div><div class="tcard-role">Process Improvement Analyst, Former Retail Operations Manager</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"My manager knew I was interested in automation but needed evidence I could deliver results. I completed the Operations Automation Fundamentals course, built a functioning workflow for our team, and presented the ROI model. I was promoted within two months."</p><div class="tcard-auth"><div class="tcard-av">MT</div><div><div class="tcard-name">Michael T.</div><div class="tcard-role">Automation Specialist, Former Operations Coordinator</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"The Payments &amp; Financial Operations course gave me frameworks I use every day. But the real outcome was the capstone — I mapped our payment flows and identified a control gap my team had missed. That project has been referenced in every performance review since."</p><div class="tcard-auth"><div class="tcard-av">PR</div><div><div class="tcard-name">Priya R.</div><div class="tcard-role">Financial Operations Analyst, Former Finance Associate</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"Switching industries at 35 felt daunting. BlendedSkill gave me structure and a portfolio piece to show. Employers don't just want to hear that you know something — they want to see evidence. Once I showed my project, the conversation shifted entirely."</p><div class="tcard-auth"><div class="tcard-av">DL</div><div><div class="tcard-name">David L.</div><div class="tcard-role">FinTech Operations Analyst, Career changer at 35</div></div></div></div>
+  </div>
+</section>
+
+
+<!-- ══════════ ABOUT ══════════ -->
+<section class="about-section" id="about">
+  <div class="section-eyebrow">About BlendedSkill</div>
+  <h2 class="section-h2">Credentials should prove what you can do,<br>not simply confirm what you watched</h2>
+  <div class="about-grid">
+    <div class="at">
+      <h3>Our Mission</h3>
+      <p>To close the gap between online education and real-world hiring by producing learning experiences that generate tangible, verifiable proof of skill — credentials that hold up in interviews, on portfolios, and under employer scrutiny.</p>
+      <h3>The Problem We Set Out to Solve</h3>
+      <p>Talented career switchers were failing interviews — not for lack of ability, but for lack of evidence. Experienced analysts were overlooked for promotions because their expertise existed only in their heads, not in any verifiable form. Traditional certificates confirmed attendance, not competence.</p>
+      <h3>A Different Approach</h3>
+      <p>We launched with a single student and a single course: how to create professional process maps. Instead of a final exam, that student built a real improvement proposal for an actual business process. They presented it in an interview. They got the job. That result confirmed everything.</p>
+      <h3>Who We Serve</h3>
+      <ul><li>Career switchers transitioning into high-demand professional roles</li><li>Established professionals seeking formal credentials for promotion or lateral moves</li><li>Global learners who need flexible, outcome-focused education that fits around full-time work</li></ul>
+    </div>
     <div>
-      <div class="hero-eyebrow">
-        <span class="dot" aria-hidden="true"></span>
-        Now enrolling — 2026 cohort open
+      <div class="as-grid">
+        <div class="asc"><span class="asc-n">18K+</span><span class="asc-l">Active Learners</span></div>
+        <div class="asc"><span class="asc-n">94%</span><span class="asc-l">Employer Recognition</span></div>
+        <div class="asc"><span class="asc-n">4.9/5</span><span class="asc-l">Average Rating</span></div>
+        <div class="asc"><span class="asc-n">4+</span><span class="asc-l">Live Courses</span></div>
       </div>
-
-      <h1 class="display-xl hero-title" id="hero-heading">
-        Your Project
-        <em>Is Your Resume.</em>
-      </h1>
-
-      <p class="hero-subtitle">
-        Earn credentials employers can verify — built around real deliverables, reviewed by industry practitioners.
-        No subscriptions. No fluff. Just proof of what you can do.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#courses" class="btn btn-primary btn-lg">
-          Browse 2026 Courses <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#why-us" class="btn btn-secondary btn-lg">See How It Works</a>
-      </div>
-
-      <div class="hero-stats" role="list" aria-label="Platform statistics">
-        <div role="listitem">
-          <div class="hero-stat-value" data-counter="18000" data-suffix="+">0</div>
-          <div class="hero-stat-label">Active Learners</div>
-        </div>
-        <div role="listitem">
-          <div class="hero-stat-value" data-counter="94" data-suffix="%">0</div>
-          <div class="hero-stat-label">Employer Recognition Rate</div>
-        </div>
-        <div role="listitem">
-          <div class="hero-stat-value" data-counter="4.9" data-suffix="/5">0</div>
-          <div class="hero-stat-label">Average Rating</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right panel -->
-    <div class="hero-visual" aria-hidden="true">
-      <div class="hero-badge hero-badge-1">
-        <span class="badge-icon">🏆</span>
-        <div>
-          <div class="badge-label">Project Verified</div>
-          <div class="badge-sub">Employer-confirmed</div>
-        </div>
-      </div>
-
-      <div class="hero-card-main">
-        <div class="hero-card-header">
-          <div class="hero-card-icon">📊</div>
-          <div>
-            <div class="hero-card-title">Your Learning Dashboard</div>
-            <div class="hero-card-sub">3 courses in progress</div>
-          </div>
-        </div>
-        <div class="course-progress-list">
-          <div class="progress-item">
-            <div class="progress-item-header">
-              <span class="progress-item-name">AI Workflow Automation</span>
-              <span class="progress-item-pct">72%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="72%"></div></div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-item-header">
-              <span class="progress-item-name">Process Improvement Essentials</span>
-              <span class="progress-item-pct">100%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="100%"></div></div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-item-header">
-              <span class="progress-item-name">SQL for Business Analysts</span>
-              <span class="progress-item-pct">38%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" data-width="38%"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-badge hero-badge-2">
-        <span class="badge-icon">🤖</span>
-        <div>
-          <div class="badge-label">AI-Ready Curriculum</div>
-          <div class="badge-sub">Updated for 2026</div>
-        </div>
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:24px;margin-top:14px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Our Commitment</div>
+        <p style="font-size:0.875rem;line-height:1.8;color:var(--muted2);">Focused curricula. Transparent pricing. Rigorous standards. No subscriptions. No filler content. Just clear, structured paths to job-ready skills — with proof that employers respect.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     TRUST BAR
-     ============================================================ -->
-<div class="trust-bar" aria-label="Trusted by professionals from leading companies">
-  <div class="trust-bar-inner">
-    <span class="trust-label">Graduates work at</span>
-    <div class="trust-logos" role="list">
-      <span class="trust-logo" role="listitem">Deloitte</span>
-      <span class="trust-logo" role="listitem">KPMG</span>
-      <span class="trust-logo" role="listitem">Stripe</span>
-      <span class="trust-logo" role="listitem">JPMorgan</span>
-      <span class="trust-logo" role="listitem">Amazon</span>
-      <span class="trust-logo" role="listitem">Shopify</span>
-      <span class="trust-logo" role="listitem">Accenture</span>
-    </div>
-  </div>
-</div>
 
-<!-- ============================================================
-     WHY BLENDEDSKILL
-     ============================================================ -->
-<section class="section" id="why-us" aria-labelledby="why-heading">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">Why BlendedSkill</div>
-      <h2 class="display-lg" id="why-heading" style="max-width:640px">
-        Built for the gap between <em style="font-style:italic;color:var(--teal)">learning</em> and hiring.
-      </h2>
-      <p style="color:var(--text-secondary);font-size:1.0625rem;margin-top:20px;max-width:560px;line-height:1.7">
-        Traditional certificates confirm attendance. BlendedSkill credentials confirm capability.
-        Here's what makes the difference.
-      </p>
+<!-- ══════════ CONTACT ══════════ -->
+<section class="contact-section" id="contact">
+  <div class="section-eyebrow">Contact Us</div>
+  <h2 class="section-h2">Questions about enrolment, grading,<br>enterprise licensing, or support</h2>
+  <div class="contact-grid">
+    <div class="ci">
+      <h3>General Inquiries</h3>
+      <p>Email: <a href="mailto:blendedskill@gmail.com">blendedskill@gmail.com</a><br>Response time: Within 24 hours on business days (Monday – Friday)<br>Office hours: 9:00 AM – 6:00 PM Eastern Time</p>
+      <h3>Enterprise Inquiries</h3>
+      <p>Looking to upskill your team? Include "Enterprise" in your subject line and describe your team size and goals. We will respond with a tailored solution including custom cohorts, volume pricing, and dedicated support.</p>
+      <h3>Technical Support</h3>
+      <p>Experiencing issues with video playback, account access, or enrolment? Email us with a brief description and screenshot. We aim to resolve issues within one business day.</p>
     </div>
-
-    <div class="why-grid stagger-children" id="why-us-grid">
-      <div class="why-card" tabindex="0">
-        <div class="why-num" aria-hidden="true">01</div>
-        <h3 class="why-title">You Graduate with Proof, Not Just a PDF</h3>
-        <p class="why-desc">Your certificate names the specific project you completed. Employers verify it instantly through a unique public URL — not a participation ribbon, a credential with substance.</p>
-        <div class="vs-callout" aria-label="Advantage over competitors">vs. Coursera — no public project verification</div>
-      </div>
-      <div class="why-card" tabindex="0">
-        <div class="why-num" aria-hidden="true">02</div>
-        <h3 class="why-title">Every Course Ends with a Real Deliverable</h3>
-        <p class="why-desc">Process maps. Automation workflows. Financial models. You build it from scratch with the tools employers expect — then own the output and show it in interviews.</p>
-        <div class="vs-callout" aria-label="Advantage over competitors">vs. Udemy — no capstone review, no deliverable</div>
-      </div>
-      <div class="why-card" tabindex="0">
-        <div class="why-num" aria-hidden="true">03</div>
-        <h3 class="why-title">Expert Review — Not Automated Grading</h3>
-        <p class="why-desc">Your capstone project is assessed by an experienced practitioner in the relevant field. You receive specific, personalised feedback — not a numeric score from an algorithm.</p>
-        <div class="vs-callout" aria-label="Advantage over competitors">vs. Pluralsight — auto-graded only</div>
-      </div>
-      <div class="why-card" tabindex="0">
-        <div class="why-num" aria-hidden="true">04</div>
-        <h3 class="why-title">One-Time Payment, Lifetime Access</h3>
-        <p class="why-desc">No subscriptions. No recurring fees. Pay once and own the course permanently. Return months later to refresh your knowledge at no additional cost.</p>
-        <div class="vs-callout" aria-label="Advantage over competitors">vs. Pluralsight $299+/yr subscription</div>
-      </div>
-      <div class="why-card" tabindex="0">
-        <div class="why-num" aria-hidden="true">05</div>
-        <h3 class="why-title">AI-Powered Learning Path Personalisation</h3>
-        <p class="why-desc">Our 2026 platform analyses your background, target role, and pace — then suggests the optimal course sequence to reach your goal fastest.</p>
-        <div class="vs-callout" aria-label="New for 2026">New for 2026 ✦</div>
-      </div>
-      <div class="why-card" tabindex="0">
-        <div class="why-num" aria-hidden="true">06</div>
-        <h3 class="why-title">Career-Aligned, Job-Posting-Researched Curriculum</h3>
-        <p class="why-desc">We analyse thousands of active job postings before designing any course. Every module maps to skills that appear consistently in hiring criteria for the target role.</p>
-        <div class="vs-callout" aria-label="Advantage over competitors">vs. generic "trending" courses elsewhere</div>
-      </div>
+    <div class="cf">
+      <div class="fg"><label>Name</label><input type="text" placeholder="Your full name"></div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+      <div class="fg"><label>Subject</label><select><option>General Inquiry</option><option>Enterprise Licensing</option><option>Technical Support</option><option>Careers</option><option>Press &amp; Media</option></select></div>
+      <div class="fg"><label>Message</label><textarea placeholder="How can we help you?"></textarea></div>
+      <button class="btn-send" onclick="this.textContent='Message Sent ✓';this.style.background='#22c55e';">Send Message</button>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     COURSES
-     ============================================================ -->
-<section class="section" id="courses" aria-labelledby="courses-heading" style="background:var(--bg-secondary);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="container">
-    <div class="courses-header fade-up">
-      <div>
-        <div class="section-label">Course Catalog</div>
-        <h2 class="display-lg" id="courses-heading">
-          Skills that <span class="gradient-text">employers pay for</span> in 2026.
-        </h2>
-        <p style="color:var(--text-secondary);margin-top:12px;font-size:1rem">
-          Every course is structured around a professional outcome — a real, reviewable project.
-        </p>
-      </div>
-      <a href="courses.html" class="btn btn-secondary">View Full Catalog →</a>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="fg-grid">
+    <div>
+      <div class="fb-name">Blended<span>Skill</span></div>
+      <p class="fb-desc">Project-verified credentials for professionals. Credentials that hold up in interviews, on portfolios, and under employer scrutiny.</p>
     </div>
-
-    <!-- Category Tabs -->
-    <div class="course-tabs" role="tablist" aria-label="Filter courses by category">
-      <button class="course-tab active" data-category="all" role="tab" aria-selected="true">All Courses</button>
-      <button class="course-tab" data-category="ai" role="tab" aria-selected="false">AI & Automation</button>
-      <button class="course-tab" data-category="operations" role="tab" aria-selected="false">Operations</button>
-      <button class="course-tab" data-category="finance" role="tab" aria-selected="false">Finance & FinTech</button>
-      <button class="course-tab" data-category="data" role="tab" aria-selected="false">Data & Analytics</button>
-      <button class="course-tab" data-category="cloud" role="tab" aria-selected="false">Cloud & Tech</button>
+    <div class="fc">
+      <h4>Learn</h4>
+      <a href="#courses">View Courses</a>
+      <a href="#tracks">Learning Tracks</a>
+      <a href="#pricing">Plans &amp; Pricing</a>
+      <a href="#why-us">Why BlendedSkill</a>
     </div>
-
-    <!-- Course Grid -->
-    <div class="course-grid stagger-children" id="course-grid">
-
-      <!-- AI & Automation -->
-      <article class="course-card" data-category="ai" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-teal">AI & Automation <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">🤖</span>
-          <h3 class="course-card-title">AI Prompt Engineering & LLM Operations</h3>
-          <p class="course-card-desc">Master prompt design, chain-of-thought reasoning, RAG pipelines, and deploying LLM workflows in production. Build a full prompt library as your capstone.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item" aria-label="Duration">⏱ 30 hrs</span>
-            <span class="course-meta-item" aria-label="Level">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$650</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="ai" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-purple">Agentic AI <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">⚡</span>
-          <h3 class="course-card-title">Agentic AI Workflows with Make & n8n</h3>
-          <p class="course-card-desc">Design and deploy autonomous AI agents using no-code platforms. Automate multi-step business processes end-to-end. Capstone: a live, production-ready workflow.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 35 hrs</span>
-            <span class="course-meta-item">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$700</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="operations" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-teal">Operations</div>
-          <span class="course-card-icon" aria-hidden="true">📊</span>
-          <h3 class="course-card-title">Process Improvement Essentials</h3>
-          <p class="course-card-desc">Lean, Six Sigma, and BPMN fundamentals applied to real business scenarios. Build a full process map and improvement proposal as your verified capstone.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 40 hrs</span>
-            <span class="course-meta-item">📈 Beginner–Inter.</span>
-          </div>
-          <div>
-            <span class="course-price">$500</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="operations" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-amber">Automation</div>
-          <span class="course-card-icon" aria-hidden="true">🔄</span>
-          <h3 class="course-card-title">Operations Automation Fundamentals</h3>
-          <p class="course-card-desc">Build and document an automation backlog, calculate ROI, and deploy workflows. Capstone: a working automation with a full ROI model employers can review.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 35 hrs</span>
-            <span class="course-meta-item">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$600</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="finance" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-amber">Finance & FinTech</div>
-          <span class="course-card-icon" aria-hidden="true">💳</span>
-          <h3 class="course-card-title">Payments & Financial Operations</h3>
-          <p class="course-card-desc">Map global payment flows, understand regulatory controls, and analyse money movement risk. Capstone: payment flow diagrams and a controls analysis document.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 30 hrs</span>
-            <span class="course-meta-item">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$550</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="data" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-teal">Data & Analytics <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">🗃️</span>
-          <h3 class="course-card-title">SQL for Business Analysts</h3>
-          <p class="course-card-desc">From SELECT to window functions and CTEs — write production-grade queries that answer real business questions. Capstone: a full analytical SQL report on a live dataset.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 28 hrs</span>
-            <span class="course-meta-item">📈 Beginner–Inter.</span>
-          </div>
-          <div>
-            <span class="course-price">$480</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="data" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-purple">Data Analytics <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">🐍</span>
-          <h3 class="course-card-title">Data Analytics with Python & Pandas</h3>
-          <p class="course-card-desc">Analyse real datasets using Python, Pandas, and Matplotlib. Build an end-to-end analytics project covering ingestion, cleaning, analysis, and storytelling with data.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 40 hrs</span>
-            <span class="course-meta-item">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$620</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="cloud" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-rose">Cloud & Tech <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">☁️</span>
-          <h3 class="course-card-title">Cloud Operations for Non-Engineers</h3>
-          <p class="course-card-desc">Understand AWS and Azure from an operations perspective — cost management, service reliability, incident response. No coding required. Capstone: a cloud ops runbook.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 32 hrs</span>
-            <span class="course-meta-item">📈 Beginner</span>
-          </div>
-          <div>
-            <span class="course-price">$520</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="ai" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-teal">AI for Business <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">🧠</span>
-          <h3 class="course-card-title">Generative AI for Business Leaders</h3>
-          <p class="course-card-desc">Evaluate, deploy, and govern GenAI tools across your organisation. Covers AI policy, ROI frameworks, vendor evaluation, and risk. Capstone: an AI adoption strategy document.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 24 hrs</span>
-            <span class="course-meta-item">📈 All Levels</span>
-          </div>
-          <div>
-            <span class="course-price">$450</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="finance" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-amber">Risk & Controls</div>
-          <span class="course-card-icon" aria-hidden="true">🛡️</span>
-          <h3 class="course-card-title">Risk & Controls Fundamentals</h3>
-          <p class="course-card-desc">Build a control matrix, conduct a risk assessment, and document findings to professional audit standards. Trusted by finance operations and compliance professionals globally.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 30 hrs</span>
-            <span class="course-meta-item">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$580</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="cloud" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-rose">Cybersecurity <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">🔐</span>
-          <h3 class="course-card-title">Cybersecurity Foundations for Operations</h3>
-          <p class="course-card-desc">Understand threats, security frameworks (NIST, ISO 27001), and incident response procedures. Designed for non-technical operations and compliance professionals.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 28 hrs</span>
-            <span class="course-meta-item">📈 Beginner</span>
-          </div>
-          <div>
-            <span class="course-price">$490</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="course-card" data-category="operations" tabindex="0">
-        <div class="course-card-top">
-          <div class="course-card-badge badge-teal">Product Ops <span class="new-badge">NEW 2026</span></div>
-          <span class="course-card-icon" aria-hidden="true">📦</span>
-          <h3 class="course-card-title">Product Operations Management</h3>
-          <p class="course-card-desc">Learn how top tech companies run product operations — roadmap management, launch readiness, metrics, and feedback loops. Build a full product ops framework as your capstone.</p>
-        </div>
-        <div class="course-card-bottom">
-          <div class="course-meta">
-            <span class="course-meta-item">⏱ 36 hrs</span>
-            <span class="course-meta-item">📈 Intermediate</span>
-          </div>
-          <div>
-            <span class="course-price">$630</span>
-            <a href="#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol</a>
-          </div>
-        </div>
-      </article>
-    </div><!-- /course-grid -->
-  </div>
-</section>
-
-<!-- ============================================================
-     COMPETITOR COMPARISON TABLE
-     ============================================================ -->
-<section class="section comparison-section" id="comparison" aria-labelledby="comparison-heading">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">Platform Comparison</div>
-      <h2 class="display-lg" id="comparison-heading">
-        How we compare to Coursera, Udemy &amp; Pluralsight
-      </h2>
+    <div class="fc">
+      <h4>Company</h4>
+      <a href="#about">About Us</a>
+      <a href="#about">Our Story</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Careers</a>
+      <a href="#contact">Press &amp; Media</a>
     </div>
-    <div class="comparison-table-wrap fade-up">
-      <table class="comparison-table" role="table" aria-label="Feature comparison between BlendedSkill and competitors">
-        <thead>
-          <tr>
-            <th scope="col">Feature</th>
-            <th scope="col" class="us-col">BlendedSkill ✦</th>
-            <th scope="col">Coursera</th>
-            <th scope="col">Udemy</th>
-            <th scope="col">Pluralsight</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Real capstone project (reviewed by a practitioner)</td>
-            <td class="us-col"><span class="check" aria-label="Yes">✓</span> Every course</td>
-            <td><span class="partial" aria-label="Partial">◎</span> Some programs</td>
-            <td><span class="cross" aria-label="No">✕</span></td>
-            <td><span class="cross" aria-label="No">✕</span></td>
-          </tr>
-          <tr>
-            <td>Publicly verifiable credential URL</td>
-            <td class="us-col"><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✕</span></td>
-            <td><span class="partial">◎</span></td>
-          </tr>
-          <tr>
-            <td>One-time payment (no subscription)</td>
-            <td class="us-col"><span class="check">✓</span> Always</td>
-            <td><span class="partial">◎</span> Some</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✕</span> $299+/yr</td>
-          </tr>
-          <tr>
-            <td>AI-powered learning path personalisation</td>
-            <td class="us-col"><span class="check">✓</span> 2026</td>
-            <td><span class="partial">◎</span> Limited</td>
-            <td><span class="cross">✕</span></td>
-            <td><span class="partial">◎</span></td>
-          </tr>
-          <tr>
-            <td>Expert human capstone review &amp; feedback</td>
-            <td class="us-col"><span class="check">✓</span></td>
-            <td><span class="partial">◎</span> Paid plans</td>
-            <td><span class="cross">✕</span></td>
-            <td><span class="cross">✕</span></td>
-          </tr>
-          <tr>
-            <td>Job-posting-researched curriculum design</td>
-            <td class="us-col"><span class="check">✓</span></td>
-            <td><span class="partial">◎</span></td>
-            <td><span class="cross">✕</span></td>
-            <td><span class="partial">◎</span></td>
-          </tr>
-          <tr>
-            <td>Transparent local currency pricing</td>
-            <td class="us-col"><span class="check">✓</span></td>
-            <td><span class="partial">◎</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✕</span></td>
-          </tr>
-          <tr>
-            <td>Agentic AI &amp; LLM courses (2026)</td>
-            <td class="us-col"><span class="check">✓</span> 4 courses</td>
-            <td><span class="partial">◎</span> Rolling</td>
-            <td><span class="partial">◎</span> Limited</td>
-            <td><span class="partial">◎</span></td>
-          </tr>
-          <tr>
-            <td>Full refund guarantee (7 days)</td>
-            <td class="us-col"><span class="check">✓</span></td>
-            <td><span class="partial">◎</span></td>
-            <td><span class="check">✓</span> 30 days</td>
-            <td><span class="partial">◎</span></td>
-          </tr>
-          <tr>
-            <td>Enterprise cohort &amp; volume pricing</td>
-            <td class="us-col"><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✕</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="fc">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="accessibility.html">Accessibility</a>
+      <a href="sitemap.html">Sitemap</a>
     </div>
   </div>
-</section>
-
-<!-- ============================================================
-     LEARNING TRACKS
-     ============================================================ -->
-<section class="section" id="tracks" aria-labelledby="tracks-heading">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">Learning Tracks</div>
-      <h2 class="display-lg" id="tracks-heading" style="max-width:600px">
-        Curated paths from <em style="font-style:italic;color:var(--teal)">beginner</em> to portfolio-ready.
-      </h2>
-      <p style="color:var(--text-secondary);font-size:1.0625rem;margin-top:20px;max-width:540px;line-height:1.7">
-        Tracks are sequenced course bundles that build progressively on each other — saving 15–20% vs. individual purchase.
-      </p>
-    </div>
-
-    <div class="tracks-grid stagger-children">
-
-      <article class="track-card track-teal" tabindex="0">
-        <div class="track-icon track-icon-teal" aria-hidden="true">📊</div>
-        <div class="track-title">Operations Analyst Track</div>
-        <p class="track-desc">For professionals targeting roles in process improvement, operations management, and business analysis. Build a complete, employer-ready portfolio in 3–4 months.</p>
-        <div class="track-courses" aria-label="Courses included">
-          <div class="track-course-item">Process Improvement Essentials</div>
-          <div class="track-course-item">SQL for Business Analysts</div>
-          <div class="track-course-item">Operations Automation Fundamentals</div>
-          <div class="track-course-item">Data Analytics with Python</div>
-        </div>
-        <div class="track-meta">
-          <div class="track-meta-item"><div class="track-meta-value">3–4 months</div>Timeline</div>
-          <div class="track-meta-item"><div class="track-meta-value">$1,680</div>Track price</div>
-          <div class="track-meta-item"><div class="track-meta-value">Save $520</div>vs. individual</div>
-        </div>
-        <a href="#contact" class="btn btn-primary" style="margin-top:28px;display:inline-flex">Start Track →</a>
-      </article>
-
-      <article class="track-card track-amber" tabindex="0">
-        <div class="track-icon track-icon-amber" aria-hidden="true">💰</div>
-        <div class="track-title">Financial Operations Specialist Track</div>
-        <p class="track-desc">For professionals targeting roles in payments, financial controls, treasury operations, and FinTech. Build a portfolio that speaks to CFOs and compliance directors.</p>
-        <div class="track-courses">
-          <div class="track-course-item">Payments & Financial Operations</div>
-          <div class="track-course-item">Risk & Controls Fundamentals</div>
-          <div class="track-course-item">Financial Data Modeling</div>
-          <div class="track-course-item">Cybersecurity for Finance Ops</div>
-        </div>
-        <div class="track-meta">
-          <div class="track-meta-item"><div class="track-meta-value">3–4 months</div>Timeline</div>
-          <div class="track-meta-item"><div class="track-meta-value">$1,780</div>Track price</div>
-          <div class="track-meta-item"><div class="track-meta-value">Save $400</div>vs. individual</div>
-        </div>
-        <a href="#contact" class="btn btn-amber" style="margin-top:28px;display:inline-flex">Start Track →</a>
-      </article>
-
-      <article class="track-card track-purple" tabindex="0">
-        <div class="track-icon track-icon-purple" aria-hidden="true">🤖</div>
-        <div class="track-title">AI Automation Engineer Track</div>
-        <p class="track-desc">The most in-demand new track for 2026. Go from AI basics to deploying production-grade agentic workflows with LLMs, Make, n8n, and Python — without a CS degree.</p>
-        <div class="track-courses">
-          <div class="track-course-item">Generative AI for Business Leaders</div>
-          <div class="track-course-item">AI Prompt Engineering & LLM Ops</div>
-          <div class="track-course-item">Agentic AI Workflows with Make & n8n</div>
-          <div class="track-course-item">Data Analytics with Python</div>
-        </div>
-        <div class="track-meta">
-          <div class="track-meta-item"><div class="track-meta-value">4 months</div>Timeline</div>
-          <div class="track-meta-item"><div class="track-meta-value">$1,950</div>Track price</div>
-          <div class="track-meta-item"><div class="track-meta-value">Save $470</div>vs. individual</div>
-        </div>
-        <a href="#contact" class="btn btn-secondary" style="margin-top:28px;display:inline-flex;border-color:var(--purple);color:var(--purple)">Start Track →</a>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     STATS BAR
-     ============================================================ -->
-<div class="container">
-  <div class="stats-bar fade-up" role="list" aria-label="BlendedSkill platform statistics">
-    <div role="listitem">
-      <div class="stat-value" data-counter="18000" data-suffix="+">0</div>
-      <div class="stat-label">Active Learners Globally</div>
-    </div>
-    <div role="listitem">
-      <div class="stat-value" data-counter="94" data-suffix="%">0</div>
-      <div class="stat-label">Employer Recognition Rate</div>
-    </div>
-    <div role="listitem">
-      <div class="stat-value" data-counter="40" data-suffix="+">0</div>
-      <div class="stat-label">Countries Represented</div>
-    </div>
-    <div role="listitem">
-      <div class="stat-value" data-counter="4.9" data-suffix="/5">0</div>
-      <div class="stat-label">Average Course Rating</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     PRICING
-     ============================================================ -->
-<section class="section" id="pricing" aria-labelledby="pricing-heading" style="margin-top:60px">
-  <div class="container">
-    <div class="fade-up" style="text-align:center;max-width:600px;margin:0 auto 64px">
-      <div class="section-label">Pricing</div>
-      <h2 class="display-lg" id="pricing-heading">
-        Transparent. One-time. <span class="gradient-text">Yours forever.</span>
-      </h2>
-      <p style="color:var(--text-secondary);margin-top:16px;font-size:1rem;line-height:1.7">
-        No subscriptions. No renewal fees. No hidden charges. Pay once — revisit any time.
-      </p>
-    </div>
-
-    <div class="pricing-grid stagger-children">
-
-      <div class="pricing-card">
-        <div class="pricing-tier">Foundation</div>
-        <div class="pricing-title">Short Courses</div>
-        <div class="pricing-price">$50 <span>– $250</span></div>
-        <div class="pricing-sub">Per course · One-time · Lifetime access</div>
-        <ul class="pricing-features" role="list">
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Single-skill focused modules</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Tool-specific training (Excel, Make, SQL)</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Downloadable templates & resources</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Lifetime access</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Certificate of completion</li>
-        </ul>
-        <a href="#courses" class="btn btn-secondary" style="width:100%;justify-content:center">Browse Short Courses</a>
-      </div>
-
-      <div class="pricing-card featured" aria-label="Most popular plan">
-        <div class="featured-label" aria-hidden="true">Most Popular</div>
-        <div class="pricing-tier">Professional</div>
-        <div class="pricing-title">Full Career Courses</div>
-        <div class="pricing-price">$450 <span>– $700</span></div>
-        <div class="pricing-sub">Per course · One-time · Lifetime access</div>
-        <ul class="pricing-features" role="list">
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Full career-track curriculum (30–45 hrs)</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Job-posting-researched modules</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Real capstone project deliverable</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Expert practitioner review & feedback</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Publicly verifiable certificate</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> AI learning path recommendations</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Lifetime access + future updates</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">Enrol Now →</a>
-      </div>
-
-      <div class="pricing-card">
-        <div class="pricing-tier">Advanced</div>
-        <div class="pricing-title">Learning Tracks</div>
-        <div class="pricing-price">$1,680 <span>– $1,950</span></div>
-        <div class="pricing-sub">Full track · Save up to $520 · Lifetime access</div>
-        <ul class="pricing-features" role="list">
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> 4-course curated sequence</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Multi-project portfolio outcome</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> 1-on-1 mentor session (1 hr)</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Priority expert review (48-hr turnaround)</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Track-level verified certificate</li>
-          <li class="pricing-feature"><span class="check" aria-hidden="true">✓</span> Career coaching session</li>
-        </ul>
-        <a href="#contact" class="btn btn-secondary" style="width:100%;justify-content:center">View Tracks</a>
-      </div>
-
-    </div>
-
-    <p style="text-align:center;color:var(--text-secondary);font-size:0.875rem;margin-top:28px">
-      ✓ 7-day full refund if no capstone submitted &nbsp;·&nbsp; ✓ Prices shown before checkout in your local currency &nbsp;·&nbsp; ✓ Enterprise volume pricing available
-    </p>
-  </div>
-</section>
-
-<!-- ============================================================
-     TESTIMONIALS
-     ============================================================ -->
-<section class="section" id="testimonials" style="background:var(--bg-secondary);border-top:1px solid var(--border)" aria-labelledby="testimonials-heading">
-  <div class="container">
-    <div class="fade-up" style="text-align:center;max-width:500px;margin:0 auto 16px">
-      <div class="section-label">Student Success</div>
-      <h2 class="display-lg" id="testimonials-heading">What graduates say.</h2>
-    </div>
-
-    <div class="testimonials-grid stagger-children">
-
-      <blockquote class="testimonial-card">
-        <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="testimonial-quote">"I had a decade of experience but struggled to break into analyst roles. The process map and improvement proposal I built became the centrepiece of my interview. I was hired on the spot."</p>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">SK</div>
-          <div>
-            <cite class="testimonial-name">Sarah K.</cite>
-            <div class="testimonial-role">Process Improvement Analyst · Former Retail Manager</div>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial-card">
-        <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="testimonial-quote">"My manager needed evidence I could deliver automation results. I built a functioning workflow, presented the ROI model, and was promoted within two months. The BlendedSkill credential sealed it."</p>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">MT</div>
-          <div>
-            <cite class="testimonial-name">Michael T.</cite>
-            <div class="testimonial-role">Automation Specialist · Former Ops Coordinator</div>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial-card">
-        <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="testimonial-quote">"The AI Prompt Engineering course was exactly what I needed for 2026. I deployed my first LLM workflow in week three. The capstone project is now live at my company and referenced in every review."</p>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">JL</div>
-          <div>
-            <cite class="testimonial-name">Jordan L.</cite>
-            <div class="testimonial-role">AI Operations Lead · Tech Start-up</div>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial-card">
-        <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="testimonial-quote">"Switching industries at 35 felt impossible without a portfolio. Once I showed my project to interviewers, the entire conversation changed. BlendedSkill gave me something concrete, not just a certificate number."</p>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">DL</div>
-          <div>
-            <cite class="testimonial-name">David L.</cite>
-            <div class="testimonial-role">FinTech Operations Analyst · Career Changer</div>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial-card">
-        <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="testimonial-quote">"I completed the Financial Operations track while working full-time across three time zones. The one-time payment model meant no anxiety about losing access. The mentor session was worth the price of the track alone."</p>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">PR</div>
-          <div>
-            <cite class="testimonial-name">Priya R.</cite>
-            <div class="testimonial-role">Financial Operations Analyst · JPMorgan</div>
-          </div>
-        </footer>
-      </blockquote>
-
-      <blockquote class="testimonial-card">
-        <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="testimonial-quote">"The SQL for Business Analysts course is genuinely practical — every query I learned I used at work within two weeks. The capstone analysis report went straight into my performance review as evidence of impact."</p>
-        <footer class="testimonial-author">
-          <div class="testimonial-avatar" aria-hidden="true">AK</div>
-          <div>
-            <cite class="testimonial-name">Amir K.</cite>
-            <div class="testimonial-role">Business Intelligence Analyst · Deloitte</div>
-          </div>
-        </footer>
-      </blockquote>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CONTACT / CTA
-     ============================================================ -->
-<section class="section" id="contact" aria-labelledby="contact-heading">
-  <div class="cta-section">
-    <div class="fade-up">
-      <div class="section-label" style="justify-content:center">Get Started</div>
-      <h2 class="cta-title" id="contact-heading">
-        Ready to earn credentials<br>that <span class="gradient-text">actually hold up?</span>
-      </h2>
-      <p class="cta-sub">
-        Browse 2026 courses, start your first free preview lesson today — no account required.
-        Or reach out with any questions.
-      </p>
-      <div class="cta-actions">
-        <a href="#courses" class="btn btn-primary btn-lg">Browse Courses <span class="arrow">→</span></a>
-        <a href="mailto:blendedskill@gmail.com" class="btn btn-secondary btn-lg">Email Us</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Contact Form -->
-  <div class="container" style="margin-top:80px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start" class="contact-layout">
-      <div class="fade-up">
-        <div class="section-label">Direct Contact</div>
-        <h3 class="display-md" style="margin-bottom:24px">We respond within<br>24 hours.</h3>
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <div>
-            <div style="font-weight:600;margin-bottom:4px">General Inquiries</div>
-            <a href="mailto:blendedskill@gmail.com" style="color:var(--teal);font-size:0.9375rem">blendedskill@gmail.com</a>
-          </div>
-          <div>
-            <div style="font-weight:600;margin-bottom:4px">Enterprise &amp; Team Licensing</div>
-            <div style="color:var(--text-secondary);font-size:0.9rem">Include "Enterprise" in your subject line with team size &amp; goals for a tailored proposal.</div>
-          </div>
-          <div>
-            <div style="font-weight:600;margin-bottom:4px">Office Hours</div>
-            <div style="color:var(--text-secondary);font-size:0.9rem">Monday – Friday, 9:00 AM – 6:00 PM ET</div>
-          </div>
-        </div>
-      </div>
-
-      <form id="contact-form" class="fade-up" novalidate aria-label="Contact form">
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <div>
-            <label for="cf-name" style="display:block;font-size:0.875rem;font-weight:500;margin-bottom:8px">Full Name</label>
-            <input id="cf-name" name="name" type="text" required
-              style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 18px;color:var(--text-primary);font-family:var(--font-body);font-size:0.9375rem;outline:none;transition:var(--transition)"
-              onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"
-              placeholder="Your name" />
-          </div>
-          <div>
-            <label for="cf-email" style="display:block;font-size:0.875rem;font-weight:500;margin-bottom:8px">Email Address</label>
-            <input id="cf-email" name="email" type="email" required
-              style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 18px;color:var(--text-primary);font-family:var(--font-body);font-size:0.9375rem;outline:none;transition:var(--transition)"
-              onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"
-              placeholder="you@email.com" />
-          </div>
-          <div>
-            <label for="cf-subject" style="display:block;font-size:0.875rem;font-weight:500;margin-bottom:8px">Subject</label>
-            <select id="cf-subject" name="subject"
-              style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 18px;color:var(--text-primary);font-family:var(--font-body);font-size:0.9375rem;outline:none;appearance:none;cursor:pointer">
-              <option value="">Select a topic</option>
-              <option>Course Enrolment</option>
-              <option>Learning Track Inquiry</option>
-              <option>Enterprise Licensing</option>
-              <option>Technical Support</option>
-              <option>Press &amp; Media</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="cf-message" style="display:block;font-size:0.875rem;font-weight:500;margin-bottom:8px">Message</label>
-            <textarea id="cf-message" name="message" rows="5" required
-              style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 18px;color:var(--text-primary);font-family:var(--font-body);font-size:0.9375rem;outline:none;resize:vertical;transition:var(--transition)"
-              onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"
-              placeholder="Tell us how we can help…"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:16px">
-            Send Message →
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <style>
-    @media (max-width: 768px) {
-      .contact-layout { grid-template-columns: 1fr !important; gap: 48px !important; }
-    }
-  </style>
-</section>
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo">Blended<span>Skill</span></div>
-        <p class="footer-tagline">Project-verified professional credentials for the 2026 job market. Earn proof of what you can do — not just what you watched.</p>
-        <div class="footer-social" aria-label="Social media links">
-          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
-          <a href="#" class="social-link" aria-label="Twitter / X">𝕏</a>
-          <a href="#" class="social-link" aria-label="YouTube">▶</a>
-        </div>
-      </div>
-
-      <nav aria-label="Learn navigation">
-        <div class="footer-col-title">Learn</div>
-        <ul class="footer-links" role="list">
-          <li><a href="#courses">All Courses</a></li>
-          <li><a href="#tracks">Learning Tracks</a></li>
-          <li><a href="#pricing">Plans &amp; Pricing</a></li>
-          <li><a href="#why-us">Why BlendedSkill</a></li>
-          <li><a href="#comparison">vs. Competitors</a></li>
-        </ul>
-      </nav>
-
-      <nav aria-label="Company navigation">
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-links" role="list">
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="#testimonials">Success Stories</a></li>
-          <li><a href="#contact">Careers</a></li>
-          <li><a href="#contact">Press &amp; Media</a></li>
-          <li><a href="#contact">Enterprise</a></li>
-        </ul>
-      </nav>
-
-      <nav aria-label="Legal navigation">
-        <div class="footer-col-title">Legal</div>
-        <ul class="footer-links" role="list">
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms of Use</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
-          <li><a href="sitemap.html">Sitemap</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="footer-bottom">
-      <span class="footer-copyright">© 2026 BlendedSkill. All rights reserved.</span>
-      <nav class="footer-legal" aria-label="Legal links">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="accessibility.html">Accessibility</a>
-      </nav>
-    </div>
+  <div class="fbot">
+    <span>© 2026 BlendedSkill. All rights reserved. Project-verified credentials for professionals.</span>
+    <span style="display:flex;gap:16px;">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:blendedskill@gmail.com">blendedskill@gmail.com</a>
+    </span>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<script>
+  // Filter buttons
+  document.querySelectorAll('.fb').forEach(b => {
+    b.addEventListener('click', function() {
+      document.querySelectorAll('.fb').forEach(x => x.classList.remove('on'));
+      this.classList.add('on');
+    });
+  });
+
+  // Subtle entrance animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('.cc, .why-card, .tc, .tcard, .pc, .asc').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+    obs.observe(el);
+  });
+
+  // Animate progress bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.pr-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = w; }, 100);
+      });
+    }, 400);
+  });
+</script>
 </body>
 </html>
