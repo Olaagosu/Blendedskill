@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Workflows with Make & n8n — BlendedSkill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0d1117;
+  --bg2:      #111820;
+  --card:     #161e2a;
+  --card2:    #1a2332;
+  --border:   #1e2d3d;
+  --border2:  #253447;
+  --teal:     #00c896;
+  --teal-dim: rgba(0,200,150,0.1);
+  --teal-glow:rgba(0,200,150,0.22);
+  --amber:    #f59e0b;
+  --red:      #ef4444;
+  --green:    #22c55e;
+  --text:     #e2e8f0;
+  --muted:    #64748b;
+  --muted2:   #94a3b8;
+  --white:    #ffffff;
+  --serif:    'Playfair Display', Georgia, serif;
+  --sans:     'Inter', -apple-system, sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.65;}
+a{text-decoration:none;color:inherit;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:66px;
+  background:rgba(13,17,23,0.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-size:1.15rem;font-weight:700;color:var(--white);}
+.nav-logo span{color:var(--teal);}
+.nav-back{
+  display:flex;align-items:center;gap:8px;
+  color:var(--muted2);font-size:0.85rem;font-weight:500;
+  padding:8px 16px;border:1px solid var(--border2);border-radius:8px;
+  transition:all 0.18s;
+}
+.nav-back:hover{color:var(--teal);border-color:var(--teal);}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.btn-enrol-nav{
+  padding:9px 20px;background:var(--teal);border:none;border-radius:8px;
+  font-family:var(--sans);font-size:0.875rem;font-weight:600;
+  color:var(--bg);cursor:pointer;transition:all 0.18s;
+}
+.btn-enrol-nav:hover{opacity:0.88;transform:translateY(-1px);}
+
+/* ── HERO ── */
+.hero{
+  padding:100px 5% 0;
+  display:grid;grid-template-columns:1fr 380px;
+  gap:48px;align-items:start;
+  min-height:calc(100vh - 66px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-80px;right:0;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(0,200,150,0.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px;
+}
+.etag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 13px;border-radius:999px;
+  font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+}
+.etag-new{background:rgba(0,200,150,0.15);border:1px solid rgba(0,200,150,0.35);color:var(--teal);}
+.etag-new::before{content:'';display:inline-block;width:5px;height:5px;background:var(--teal);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
+.etag-cat{background:rgba(0,200,150,0.1);color:var(--teal);}
+.etag-stat{background:rgba(34,197,94,0.1);color:#4ade80;}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(2.6rem,5vw,4rem);
+  font-weight:900;letter-spacing:-2px;line-height:1.05;
+  color:var(--white);margin-bottom:20px;
+}
+.hero-desc{font-size:1rem;color:var(--muted2);line-height:1.8;max-width:520px;margin-bottom:24px;}
+.hero-outcome{
+  background:rgba(0,200,150,0.06);border:1px solid rgba(0,200,150,0.18);
+  border-radius:12px;padding:16px 20px;margin-bottom:24px;max-width:540px;
+  display:flex;gap:12px;
+}
+.ho-ck{color:var(--teal);font-weight:700;flex-shrink:0;font-size:1rem;}
+.ho-text{font-size:0.88rem;color:var(--muted2);line-height:1.7;}
+.ho-text strong{color:var(--text);}
+.hero-meta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:32px;}
+.hm{font-size:0.78rem;color:var(--muted);}
+
+/* ── ENROL CARD ── */
+.enrol-card{
+  position:sticky;top:82px;
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:20px;padding:30px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.6);
+}
+.ec-badge{
+  font-size:0.7rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:14px;
+  display:flex;align-items:center;gap:6px;
+}
+.ec-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;}
+.ec-price{font-family:var(--serif);font-size:3.5rem;font-weight:900;color:var(--white);line-height:1;}
+.ec-was{font-size:0.9rem;color:var(--muted);text-decoration:line-through;}
+.ec-save{font-size:0.8rem;color:var(--green);margin-bottom:20px;}
+.ec-features{list-style:none;margin-bottom:22px;}
+.ec-features li{
+  display:flex;gap:10px;padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:0.855rem;color:var(--muted2);
+}
+.ec-features li:last-child{border-bottom:none;}
+.ec-features li .ck{color:var(--teal);flex-shrink:0;font-weight:700;}
+.ec-features li strong{color:var(--text);}
+.btn-enrol-main{
+  width:100%;padding:16px;background:var(--teal);border:none;border-radius:10px;
+  font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--bg);
+  cursor:pointer;transition:all 0.2s;margin-bottom:11px;
+}
+.btn-enrol-main:hover{opacity:0.9;box-shadow:0 10px 32px var(--teal-glow);}
+.btn-preview{
+  width:100%;padding:12px;background:transparent;
+  border:1px solid var(--border2);border-radius:10px;
+  font-family:var(--sans);font-size:0.875rem;font-weight:500;
+  color:var(--muted2);cursor:pointer;transition:all 0.18s;margin-bottom:16px;
+}
+.btn-preview:hover{border-color:var(--teal);color:var(--teal);}
+.ec-secure{text-align:center;font-size:0.74rem;color:var(--muted);}
+.stripe-pill{background:#635bff;color:white;padding:1px 7px;border-radius:3px;font-size:0.66rem;font-weight:700;}
+.ec-guarantee{text-align:center;margin-top:12px;font-size:0.76rem;color:var(--muted);}
+.ec-guarantee span{color:var(--green);}
+
+/* ── TOOLS STRIP ── */
+.tools-strip{
+  padding:20px 5%;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  display:flex;gap:28px;flex-wrap:wrap;background:var(--bg2);
+}
+.ts{font-size:0.82rem;color:var(--muted);}
+.ts strong{color:var(--text);}
+
+/* ── SECTIONS ── */
+section{padding:80px 5%;}
+.s-label{
+  font-size:0.7rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.s-label::before{content:'';width:24px;height:2px;background:var(--teal);}
+.s-title{
+  font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:900;letter-spacing:-1px;color:var(--white);
+  margin-bottom:14px;line-height:1.1;
+}
+.s-sub{font-size:0.97rem;color:var(--muted2);max-width:540px;}
+
+/* ── WHAT YOU BUILD ── */
+.build-section{background:var(--bg2);}
+.build-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+.build-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:14px;padding:24px;transition:all 0.22s;
+}
+.build-card:hover{border-color:rgba(0,200,150,0.3);transform:translateY(-3px);}
+.bc-num{font-family:var(--mono);font-size:0.7rem;color:var(--teal);margin-bottom:12px;opacity:0.7;}
+.build-card h3{font-size:0.95rem;font-weight:600;color:var(--white);margin-bottom:8px;}
+.build-card p{font-size:0.845rem;color:var(--muted);line-height:1.7;}
+
+/* ── CURRICULUM ── */
+.curr-section{background:var(--bg);}
+.curr-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+.curr-totals{display:flex;gap:24px;}
+.ct{text-align:right;}
+.ct-n{font-family:var(--serif);font-size:1.6rem;font-weight:900;color:var(--white);}
+.ct-l{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.module{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color 0.2s;
+}
+.module:hover{border-color:rgba(0,200,150,0.2);}
+.mod-hdr{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 24px;cursor:pointer;user-select:none;
+}
+.mod-num{
+  font-family:var(--mono);font-size:0.7rem;color:var(--teal);
+  background:rgba(0,200,150,0.1);border:1px solid rgba(0,200,150,0.2);
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.mod-info{flex:1;}
+.mod-info h3{font-size:0.95rem;color:var(--white);font-weight:600;margin-bottom:2px;}
+.mod-info .mod-meta{font-size:0.76rem;color:var(--muted);}
+.mod-info .mod-meta span{color:var(--teal);}
+.mod-arrow{color:var(--muted);transition:transform 0.22s;}
+.module.open .mod-arrow{transform:rotate(180deg);}
+.mod-body{display:none;padding:0 24px 24px;}
+.module.open .mod-body{display:block;}
+.lesson-row{
+  display:flex;align-items:flex-start;gap:13px;
+  padding:11px 0;border-top:1px solid rgba(255,255,255,0.04);
+}
+.lr-icon{
+  width:28px;height:28px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;flex-shrink:0;margin-top:2px;
+}
+.li-vid{background:rgba(0,200,150,0.12);color:var(--teal);}
+.li-lab{background:rgba(34,197,94,0.1);color:#4ade80;}
+.li-proj{background:rgba(245,158,11,0.1);color:var(--amber);}
+.li-quiz{background:rgba(239,68,68,0.1);color:#f87171;}
+.lr-info{flex:1;}
+.lr-info h4{font-size:0.855rem;color:var(--text);font-weight:500;margin-bottom:2px;}
+.lr-info p{font-size:0.78rem;color:var(--muted);}
+.lr-dur{font-family:var(--mono);font-size:0.7rem;color:var(--muted);white-space:nowrap;padding-top:3px;}
+.mod-project{
+  background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);
+  border-radius:10px;padding:16px;margin-top:14px;
+  display:flex;gap:13px;
+}
+.mp-icon{font-size:1.3rem;flex-shrink:0;}
+.mp-body h4{color:var(--amber);font-size:0.855rem;font-weight:700;margin-bottom:3px;}
+.mp-body p{font-size:0.82rem;color:var(--muted);line-height:1.5;}
+
+/* ── PROJECTS ── */
+.projects-section{background:var(--bg2);}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+.proj-card{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:14px;padding:22px;position:relative;overflow:hidden;
+  transition:all 0.22s;
+}
+.proj-card:hover{border-color:rgba(0,200,150,0.3);transform:translateY(-3px);}
+.proj-bg-num{
+  font-family:var(--serif);font-size:5rem;font-weight:900;
+  color:rgba(255,255,255,0.02);position:absolute;top:4px;right:12px;line-height:1;
+}
+.pdiff{
+  display:inline-block;padding:3px 11px;border-radius:999px;
+  font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;
+}
+.d-beg{background:rgba(34,197,94,0.1);color:#4ade80;}
+.d-int{background:rgba(0,200,150,0.1);color:var(--teal);}
+.d-adv{background:rgba(245,158,11,0.1);color:var(--amber);}
+.proj-card h3{font-size:0.95rem;color:var(--white);font-weight:700;margin-bottom:7px;}
+.proj-card p{font-size:0.835rem;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.proj-tools{display:flex;flex-wrap:wrap;gap:5px;}
+.proj-tools span{
+  background:rgba(255,255,255,0.05);border:1px solid var(--border2);
+  color:var(--muted);padding:2px 8px;border-radius:5px;
+  font-size:0.7rem;font-family:var(--mono);
+}
+
+/* ── INSTRUCTOR ── */
+.inst-section{background:var(--bg);}
+.inst-grid{display:grid;grid-template-columns:300px 1fr;gap:72px;align-items:start;margin-top:44px;}
+.inst-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;overflow:hidden;}
+.inst-avatar{
+  width:100%;aspect-ratio:1/1;
+  background:linear-gradient(135deg,rgba(0,200,150,0.25),rgba(34,197,94,0.1));
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;border-bottom:1px solid var(--border);
+}
+.inst-info{padding:22px;}
+.inst-name{font-family:var(--serif);font-size:1.25rem;font-weight:900;color:var(--white);margin-bottom:3px;}
+.inst-role{font-size:0.83rem;color:var(--teal);margin-bottom:14px;}
+.inst-stats-row{display:flex;gap:0;border:1px solid var(--border2);border-radius:10px;overflow:hidden;}
+.is{flex:1;text-align:center;padding:11px 8px;border-right:1px solid var(--border);}
+.is:last-child{border-right:none;}
+.is strong{display:block;font-size:1.05rem;color:var(--white);font-weight:700;}
+.is span{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.inst-creds{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.icred{
+  background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.18);
+  color:rgba(0,200,150,0.8);padding:3px 11px;border-radius:999px;
+  font-size:0.72rem;font-weight:600;
+}
+.inst-quote{
+  font-family:var(--serif);font-size:1.3rem;line-height:1.6;
+  color:var(--white);font-style:italic;
+  border-left:3px solid var(--teal);padding-left:22px;margin-bottom:24px;
+}
+.inst-bio{color:var(--muted2);line-height:1.8;font-size:0.9rem;margin-bottom:14px;}
+
+/* ── TESTIMONIALS ── */
+.testi-section{background:var(--bg2);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+.tcard{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:24px;}
+.tcard-stars{color:var(--amber);letter-spacing:2px;margin-bottom:12px;font-size:0.85rem;}
+.tcard-q{font-size:0.9rem;color:var(--text);line-height:1.72;margin-bottom:16px;font-style:italic;}
+.tcard-auth{display:flex;align-items:center;gap:11px;}
+.tcard-av{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,rgba(0,200,150,0.5),rgba(34,197,94,0.3));display:flex;align-items:center;justify-content:center;font-size:0.74rem;font-weight:700;color:white;}
+.tcard-name{font-size:0.87rem;font-weight:600;color:var(--white);}
+.tcard-role{font-size:0.75rem;color:var(--muted);}
+
+/* ── FAQ ── */
+.faq-section{background:var(--bg);}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:44px;}
+.faq-item{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:12px;padding:20px;cursor:pointer;transition:border-color 0.18s;
+}
+.faq-item:hover{border-color:rgba(0,200,150,0.25);}
+.faq-item.open{border-color:rgba(0,200,150,0.3);}
+.faq-q{font-size:0.9rem;font-weight:600;color:var(--white);display:flex;justify-content:space-between;gap:14px;}
+.faq-arrow{color:var(--teal);flex-shrink:0;transition:transform 0.2s;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{display:none;font-size:0.845rem;color:var(--muted2);line-height:1.75;margin-top:12px;}
+.faq-item.open .faq-a{display:block;}
+
+/* ── BOTTOM CTA ── */
+.cta-section{
+  padding:80px 5%;background:var(--bg2);text-align:center;
+}
+.cta-section h2{
+  font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;letter-spacing:-1.5px;color:var(--white);margin-bottom:14px;
+}
+.cta-section h2 em{font-style:italic;color:var(--teal);}
+.cta-section p{font-size:1rem;color:var(--muted2);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+.btn-cta-primary{
+  padding:16px 36px;background:var(--teal);border:none;border-radius:50px;
+  font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--bg);
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-cta-primary:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 12px 32px var(--teal-glow);}
+.btn-cta-ghost{
+  padding:16px 32px;border:1px solid var(--border2);border-radius:50px;
+  background:transparent;font-family:var(--sans);font-size:1rem;font-weight:500;
+  color:var(--text);cursor:pointer;transition:all 0.2s;
+}
+.btn-cta-ghost:hover{border-color:var(--teal);color:var(--teal);}
+.cta-guarantee{font-size:0.82rem;color:var(--muted);}
+.cta-guarantee span{color:var(--green);}
+
+/* ── FOOTER ── */
+footer{background:var(--card);border-top:1px solid var(--border);padding:40px 5% 24px;}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:20px;}
+.foot-logo{font-size:1.1rem;font-weight:700;color:var(--white);}
+.foot-logo span{color:var(--teal);}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap;}
+.foot-links a{font-size:0.83rem;color:var(--muted);transition:color 0.18s;}
+.foot-links a:hover{color:var(--text);}
+.foot-bottom{font-size:0.78rem;color:var(--muted);border-top:1px solid var(--border);padding-top:18px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;}
+  .enrol-card{position:static;margin-top:32px;}
+  .build-grid{grid-template-columns:repeat(2,1fr);}
+  .inst-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .build-grid,.projects-grid,.testi-grid,.faq-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:2.4rem;}
+  .curr-header{flex-direction:column;align-items:flex-start;}
+  .curr-totals{gap:16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Blended<span>Skill</span></div>
+  <a href="index.html" class="nav-back">← Back to All Courses</a>
+  <div class="nav-right">
+    <button class="btn-enrol-nav" onclick="document.getElementById('enrol').scrollIntoView({behavior:'smooth'})">Enrol Now — $197</button>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div>
+    <div class="hero-eyebrow">
+      <span class="etag etag-new">✦ New Course</span>
+      <span class="etag etag-cat">🤖 AI &amp; Automation</span>
+      <span class="etag etag-stat">35 Hours · 12 Projects</span>
+    </div>
+    <h1>Agentic AI Workflows<br>with Make &amp; n8n</h1>
+    <p class="hero-desc">The complete hands-on programme for building, deploying, and charging for AI-powered automation systems. No coding required. Taught by an active practitioner who builds these systems for real clients. Every project is deployable from day one.</p>
+    <div class="hero-outcome">
+      <span class="ho-ck">✓</span>
+      <div class="ho-text"><strong>Your deliverable:</strong> 12 real, portfolio-ready AI workflow projects — AI agents, RAG systems, multi-agent pipelines, and your own capstone system ready to present to clients or employers.</div>
+    </div>
+    <div class="hero-meta">
+      <span class="hm">⏱ 35 hours</span>
+      <span class="hm">·</span>
+      <span class="hm">📦 9 modules</span>
+      <span class="hm">·</span>
+      <span class="hm">🛠 Make.com + n8n</span>
+      <span class="hm">·</span>
+      <span class="hm">📶 Beginner-friendly</span>
+      <span class="hm">·</span>
+      <span class="hm">🏆 Verified certificate</span>
+    </div>
+  </div>
+
+  <!-- ENROL CARD -->
+  <div class="enrol-card" id="enrol">
+    <div class="ec-badge">⚡ Launch Price</div>
+    <div class="ec-price-row">
+      <div class="ec-price">$197</div>
+      <div class="ec-was">was $497</div>
+    </div>
+    <div class="ec-save">You save $300 — launch pricing ends soon</div>
+    <ul class="ec-features">
+      <li><span class="ck">✓</span><span><strong>35 hours</strong> of video lessons</span></li>
+      <li><span class="ck">✓</span><span><strong>12 deployable</strong> projects</span></li>
+      <li><span class="ck">✓</span><span><strong>9 modules</strong> + labs &amp; quizzes</span></li>
+      <li><span class="ck">✓</span><span>All Make.com &amp; n8n templates</span></li>
+      <li><span class="ck">✓</span><span>Expert-reviewed capstone</span></li>
+      <li><span class="ck">✓</span><span>Publicly <strong>verifiable certificate</strong></span></li>
+      <li><span class="ck">✓</span><span>Lifetime access, no subscriptions</span></li>
+    </ul>
+    <button class="btn-enrol-main">Enrol Now — $197</button>
+    <a href="agentflow-portal.html"><button class="btn-preview">Preview First Lesson Free</button></a>
+    <div class="ec-secure">🔒 Secure checkout · <span class="stripe-pill">stripe</span></div>
+    <div class="ec-guarantee"><span>30-day money-back guarantee</span> — no questions asked</div>
+  </div>
+</section>
+
+<!-- TOOLS STRIP -->
+<div class="tools-strip">
+  <span class="ts">🤖 <strong>AI Agents</strong></span>
+  <span class="ts">⚙️ <strong>Make.com</strong></span>
+  <span class="ts">🔧 <strong>n8n self-hosted</strong></span>
+  <span class="ts">📚 <strong>RAG &amp; Vector Stores</strong></span>
+  <span class="ts">🎯 <strong>Multi-Agent Systems</strong></span>
+  <span class="ts">💼 <strong>Client Delivery</strong></span>
+  <span class="ts">🚀 <strong>Production Deploy</strong></span>
+  <span class="ts">📜 <strong>Verified Certificate</strong></span>
+</div>
+
+
+<!-- WHAT YOU'LL BUILD -->
+<section class="build-section">
+  <div class="s-label">What You'll Be Able to Do</div>
+  <h2 class="s-title">Six things you can do the<br>day you finish</h2>
+  <p class="s-sub">Every skill maps directly to what clients and employers are paying for right now.</p>
+  <div class="build-grid">
+    <div class="build-card"><div class="bc-num">01</div><h3>Design Multi-Agent Systems</h3><p>Architect agent networks where specialised AI components hand work off to each other — the approach used in real enterprise automation projects.</p></div>
+    <div class="build-card"><div class="bc-num">02</div><h3>Build Production Automations in Make.com</h3><p>Go beyond basic scenarios. Handle errors, manage memory, process bulk data, and connect any API to any AI model inside Make.com.</p></div>
+    <div class="build-card"><div class="bc-num">03</div><h3>Self-Host AI Workflows with n8n</h3><p>Deploy your own n8n instance, connect it to any LLM, and run unlimited AI workflows at near-zero cost — a major freelance advantage.</p></div>
+    <div class="build-card"><div class="bc-num">04</div><h3>Connect Any API to Any AI Model</h3><p>Perplexity for research, Claude for reasoning, GPT-4o for extraction. You'll build routing logic that chooses the right model for each task.</p></div>
+    <div class="build-card"><div class="bc-num">05</div><h3>Deliver &amp; Charge for Client Work</h3><p>Price your services, scope projects confidently, run discovery calls, and hand over documented, supported automation systems to real clients.</p></div>
+    <div class="build-card"><div class="bc-num">06</div><h3>Deploy, Monitor &amp; Scale</h3><p>Ship production-grade systems with proper logging, error handling, cost controls, and horizontal scaling — not just prototypes that break in the real world.</p></div>
+  </div>
+</section>
+
+
+<!-- CURRICULUM -->
+<section class="curr-section">
+  <div class="curr-header">
+    <div>
+      <div class="s-label">Full Curriculum</div>
+      <h2 class="s-title" style="margin-bottom:0">9 modules. 35 hours.<br>Everything you need.</h2>
+    </div>
+    <div class="curr-totals">
+      <div class="ct"><div class="ct-n">35h</div><div class="ct-l">Video content</div></div>
+      <div class="ct"><div class="ct-n">12</div><div class="ct-l">Projects</div></div>
+      <div class="ct"><div class="ct-n">9</div><div class="ct-l">Modules</div></div>
+    </div>
+  </div>
+
+  <!-- M01 -->
+  <div class="module open" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·01</div>
+      <div class="mod-info"><h3>Foundations of Agentic AI</h3><div class="mod-meta">3 hours · 8 lessons · 2 labs · <span>Project 1</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The Shift from Automation to Agency</h4><p>Why LLMs change the game — and where traditional automation ends</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>How AI Agents Perceive, Reason &amp; Act</h4><p>The agent cognitive loop — perceive, plan, act, observe, repeat</p></div><div class="lr-dur">35m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The 2025 Tool Landscape</h4><p>Make.com, n8n, OpenAI, Claude, Perplexity — how they fit together</p></div><div class="lr-dur">22m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Set Up Your Full Agent Stack</h4><p>Make.com account, n8n install, API keys configured and tested end-to-end</p></div><div class="lr-dur">45m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>ReAct, Chain-of-Thought &amp; Tool Use Patterns</h4><p>The three prompting architectures every agent builder needs to know</p></div><div class="lr-dur">32m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Tokens, Context Windows &amp; Memory Limits</h4><p>Why your agent forgets — and how to design around it</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Your First Thinking Workflow</h4><p>Webhook → LLM reasoning → structured output. Your first complete agent loop</p></div><div class="lr-dur">50m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-quiz">✓</div><div class="lr-info"><h4>Module 1 Assessment</h4><p>8 questions — retake as many times as you need</p></div><div class="lr-dur">20m</div></div>
+      <div class="mod-project"><div class="mp-icon">🏗️</div><div class="mp-body"><h4>Project 1 — The Thinking Logger</h4><p>Webhook → GPT-4 chain-of-thought → structured Airtable log. Beginner · Make.com + OpenAI + Airtable</p></div></div>
+    </div>
+  </div>
+
+  <!-- M02 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·02</div>
+      <div class="mod-info"><h3>Make.com Mastery</h3><div class="mod-meta">4 hours · 10 lessons · 3 labs · <span>Project 2</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Scenario Architecture &amp; Data Flow</h4><p>How Make.com really works — modules, routers, bundles, and data mapping</p></div><div class="lr-dur">25m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The OpenAI Module — Every Parameter</h4><p>Temperature, system prompts, function calling, JSON mode — all covered</p></div><div class="lr-dur">38m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — AI Email Classifier &amp; Router</h4><p>Build a system that reads, classifies, and routes emails automatically</p></div><div class="lr-dur">55m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Array Aggregators, Iterators &amp; Batch Processing</h4><p>Process hundreds of records in a single scenario run</p></div><div class="lr-dur">30m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Error Handling, Retry Logic &amp; Incomplete Executions</h4><p>Build scenarios that survive API failures, timeouts, and bad data</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — AI-Powered CRM Enrichment</h4><p>HubSpot + Perplexity: auto-enrich leads with company data and AI scoring</p></div><div class="lr-dur">60m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Data Stores as Agent Memory</h4><p>Use Make.com data stores to give your agents persistent, queryable memory</p></div><div class="lr-dur">22m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Persistent AI Chat Assistant</h4><p>WhatsApp or Slack bot with full conversation history across sessions</p></div><div class="lr-dur">50m</div></div>
+      <div class="mod-project"><div class="mp-icon">🤖</div><div class="mp-body"><h4>Project 2 — AI Sales Assistant</h4><p>Lead form → qualification → personalised outreach → CRM logging. Beginner · Make.com + GPT-4 + HubSpot + Gmail</p></div></div>
+    </div>
+  </div>
+
+  <!-- M03 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·03</div>
+      <div class="mod-info"><h3>n8n Deep Dive</h3><div class="mod-meta">4 hours · 10 lessons · 3 labs · <span>Project 3</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Why Self-Hosting Changes Everything</h4><p>Cost, privacy, unlimited executions — why n8n is the freelancer's secret weapon</p></div><div class="lr-dur">20m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Install n8n (Cloud, Railway, or Self-Hosted)</h4><p>Three deployment options covered step by step with SSL and domain setup</p></div><div class="lr-dur">55m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>n8n Workflow Structure &amp; Execution Modes</h4><p>Nodes, connections, error branches, and trigger types explained clearly</p></div><div class="lr-dur">30m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The AI Agent Node — Full Configuration</h4><p>OpenAI, Claude, and Ollama (local models) all connected and tested</p></div><div class="lr-dur">40m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Customer Support Agent with Knowledge Base</h4><p>Build an agent that answers questions from a real document collection</p></div><div class="lr-dur">65m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Code Nodes &amp; Expressions</h4><p>JavaScript inside n8n — data transforms, API calls, custom logic</p></div><div class="lr-dur">32m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — AI Research Pipeline</h4><p>Perplexity search → Claude synthesis → Notion report. Fully automated.</p></div><div class="lr-dur">55m</div></div>
+      <div class="mod-project"><div class="mp-icon">🔍</div><div class="mp-body"><h4>Project 3 — Self-Hosted Research Engine</h4><p>Keyword → deep research → structured report → delivery. Beginner · n8n + Perplexity + Claude + Notion</p></div></div>
+    </div>
+  </div>
+
+  <!-- M04 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·04</div>
+      <div class="mod-info"><h3>Prompt Engineering for Builders</h3><div class="mod-meta">3.5 hours · 9 lessons · 2 labs</div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The Five-Layer Prompt Framework</h4><p>Role, context, rules, output format, edge cases — the structure that works every time</p></div><div class="lr-dur">32m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>JSON Output Modes &amp; Function Calling</h4><p>Get structured data out of any LLM, reliably, every run</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Prompt Testing Framework</h4><p>5 prompt variants × 20 inputs. Build a reusable prompt eval system</p></div><div class="lr-dur">50m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Multi-Model Routing for Cost Optimisation</h4><p>Route simple tasks to cheap models, complex tasks to powerful ones — automatically</p></div><div class="lr-dur">26m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Intelligent Document Processor</h4><p>Upload any document, extract structured data, route by content type</p></div><div class="lr-dur">55m</div></div>
+    </div>
+  </div>
+
+  <!-- M05 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·05</div>
+      <div class="mod-info"><h3>Memory, Vector Stores &amp; RAG</h3><div class="mod-meta">4 hours · 9 lessons · 3 labs · <span>Project 4</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The Memory Problem in Stateless Agents</h4><p>Why agents forget — and the four memory architectures that fix it</p></div><div class="lr-dur">25m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Vector Embeddings Explained Simply</h4><p>How semantic search works — without the maths degree</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Pinecone + Make.com Knowledge Base</h4><p>Upload docs, create embeddings, query semantically — all inside Make.com</p></div><div class="lr-dur">60m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — RAG Agent in n8n with Supabase</h4><p>Company knowledge base with hybrid search and source attribution</p></div><div class="lr-dur">70m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Full Memory Stack for Customer Service</h4><p>Buffer memory + vector store + Redis session = an agent that actually remembers</p></div><div class="lr-dur">65m</div></div>
+      <div class="mod-project"><div class="mp-icon">🧠</div><div class="mp-body"><h4>Project 4 — Business Knowledge Agent</h4><p>50+ page documentation → semantic search → Slack Q&amp;A bot. Intermediate · n8n + Pinecone + OpenAI + Slack</p></div></div>
+    </div>
+  </div>
+
+  <!-- M06 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·06</div>
+      <div class="mod-info"><h3>Multi-Agent Systems</h3><div class="mod-meta">4.5 hours · 10 lessons · 3 labs · <span>Project 5</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The Case for Agent Specialisation</h4><p>Why one agent doing everything fails — and how to split the work intelligently</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Orchestrator Patterns: Sequential, Parallel &amp; Conditional</h4><p>The three ways to wire agents together — with real workflow examples</p></div><div class="lr-dur">35m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Parallel Research &amp; Synthesis System</h4><p>3 specialist agents run simultaneously, results merged by orchestrator</p></div><div class="lr-dur">65m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The Critic Pattern — Self-Evaluation Loops</h4><p>Build agents that review and improve their own outputs iteratively</p></div><div class="lr-dur">30m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — AI Content Production with Critic Loop</h4><p>Writer agent + editor agent + approval gate = publication-ready content</p></div><div class="lr-dur">60m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — 5-Agent Lead Processing System</h4><p>Enrichment → scoring → objection handling → outreach → CRM update</p></div><div class="lr-dur">75m</div></div>
+      <div class="mod-project"><div class="mp-icon">🏭</div><div class="mp-body"><h4>Project 5 — AI Content Factory</h4><p>Brief → research → draft → edit → publish. Fully autonomous. Intermediate · Make.com + Claude + WordPress</p></div></div>
+    </div>
+  </div>
+
+  <!-- M07 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·07</div>
+      <div class="mod-info"><h3>Industry Use Cases</h3><div class="mod-meta">5 hours · 10 lessons · 4 labs · <span>Projects 6–9</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — E-Commerce Description Engine</h4><p>1,000 Shopify products → AI descriptions → bulk publish. All automated.</p></div><div class="lr-dur">65m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — AI Recruitment Pipeline</h4><p>CV upload → AI scoring → interview scheduling → Notion dashboard</p></div><div class="lr-dur">70m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Social Media Intelligence Agent</h4><p>Monitor Twitter/Reddit → summarise → alert on key signals via Slack</p></div><div class="lr-dur">60m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Client Onboarding Automator</h4><p>Signed contract → workspace setup → welcome email sequence → task list</p></div><div class="lr-dur">55m</div></div>
+    </div>
+  </div>
+
+  <!-- M08 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·08</div>
+      <div class="mod-info"><h3>Production Deployment</h3><div class="mod-meta">4 hours · 9 lessons · 2 labs · <span>Project 11</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>The 22-Point Pre-Deploy Checklist</h4><p>Every check I run before handing a workflow to a client — now yours</p></div><div class="lr-dur">30m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>API Security — Credentials, Webhooks &amp; Least Privilege</h4><p>How to lock down your workflows so clients and auditors are satisfied</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Cost Management — Token Budgeting &amp; Spend Caps</h4><p>Real numbers: how much each workflow type costs and how to control it</p></div><div class="lr-dur">25m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — Workflow Monitoring Dashboard</h4><p>Make.com + n8n APIs → execution stats → Slack alerts → live dashboard</p></div><div class="lr-dur">65m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-lab">🧪</div><div class="lr-info"><h4>LAB — High-Volume n8n on Railway</h4><p>PostgreSQL + Redis + worker queues + SSL. Production n8n in 90 minutes.</p></div><div class="lr-dur">80m</div></div>
+      <div class="mod-project"><div class="mp-icon">🚀</div><div class="mp-body"><h4>Project 11 — Production n8n Deployment</h4><p>Full cloud n8n with database, queuing, SSL, and monitoring. Advanced · n8n + Railway + Redis + PostgreSQL</p></div></div>
+    </div>
+  </div>
+
+  <!-- M09 -->
+  <div class="module" onclick="toggleMod(this)">
+    <div class="mod-hdr">
+      <div class="mod-num">M·09</div>
+      <div class="mod-info"><h3>Building Your AI Business</h3><div class="mod-meta">3 hours · 8 lessons · <span>Capstone Project</span></div></div>
+      <div class="mod-arrow">⌄</div>
+    </div>
+    <div class="mod-body">
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Productising Your Skills</h4><p>The shift from freelancer to business — packaging what you now know into offers</p></div><div class="lr-dur">28m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Value-Based Pricing ($3K–$15K Projects)</h4><p>How to price by outcome, not hours — with real project pricing examples</p></div><div class="lr-dur">30m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Finding &amp; Qualifying Clients</h4><p>LinkedIn outbound, content, warm referrals — what actually works in 2025</p></div><div class="lr-dur">26m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Discovery Calls &amp; Scoping</h4><p>The 5-question framework that lets you scope any automation project accurately</p></div><div class="lr-dur">24m</div></div>
+      <div class="lesson-row"><div class="lr-icon li-vid">▶</div><div class="lr-info"><h4>Client Handover, Documentation &amp; Retainers</h4><p>How to deliver, train, and keep clients on a monthly retainer</p></div><div class="lr-dur">22m</div></div>
+      <div class="mod-project"><div class="mp-icon">🏆</div><div class="mp-body"><h4>Capstone — Your Signature AI Workflow System</h4><p>Design, build, document, and present your own complete agentic system. This is your BlendedSkill portfolio centrepiece. Advanced · Your choice of tools</p></div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PROJECTS -->
+<section class="projects-section">
+  <div class="s-label">12 Deployable Projects</div>
+  <h2 class="s-title">Not exercises. Real systems<br>you can use or sell.</h2>
+  <p class="s-sub">Every project produces something a client would actually pay for.</p>
+  <div class="projects-grid">
+    <div class="proj-card"><div class="proj-bg-num">1</div><span class="pdiff d-beg">Beginner</span><h3>The Thinking Logger</h3><p>Webhook → chain-of-thought reasoning → structured Airtable log</p><div class="proj-tools"><span>Make.com</span><span>OpenAI</span><span>Airtable</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">2</div><span class="pdiff d-beg">Beginner</span><h3>AI Sales Assistant</h3><p>Lead form → AI qualification → personalised outreach → CRM entry</p><div class="proj-tools"><span>Make.com</span><span>GPT-4</span><span>HubSpot</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">3</div><span class="pdiff d-beg">Beginner</span><h3>Self-Hosted Research Engine</h3><p>Keyword → Perplexity research → Claude synthesis → Notion report</p><div class="proj-tools"><span>n8n</span><span>Perplexity</span><span>Claude</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">4</div><span class="pdiff d-int">Intermediate</span><h3>Business Knowledge Agent</h3><p>50+ page docs → semantic search → Slack Q&amp;A bot</p><div class="proj-tools"><span>n8n</span><span>Pinecone</span><span>Slack</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">5</div><span class="pdiff d-int">Intermediate</span><h3>AI Content Factory</h3><p>Brief → research → draft → edit → publish. Fully autonomous.</p><div class="proj-tools"><span>Make.com</span><span>Claude</span><span>WordPress</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">6</div><span class="pdiff d-int">Intermediate</span><h3>E-Commerce Description Engine</h3><p>1,000 Shopify products → AI descriptions → bulk published</p><div class="proj-tools"><span>Make.com</span><span>Shopify</span><span>GPT-4o</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">7</div><span class="pdiff d-int">Intermediate</span><h3>AI Recruitment Pipeline</h3><p>CV → AI scoring → calendar scheduling → Notion tracker</p><div class="proj-tools"><span>n8n</span><span>Claude</span><span>Calendly</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">8</div><span class="pdiff d-int">Intermediate</span><h3>Client Onboarding Automator</h3><p>Signed contract → workspace → welcome emails → task list</p><div class="proj-tools"><span>Make.com</span><span>Notion</span><span>OpenAI</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">9</div><span class="pdiff d-int">Intermediate</span><h3>Social Media Intelligence Agent</h3><p>Monitor Twitter/Reddit → summarise → Slack alerts on key signals</p><div class="proj-tools"><span>n8n</span><span>Perplexity</span><span>Slack</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">10</div><span class="pdiff d-adv">Advanced</span><h3>Multi-Agent Lead Processor</h3><p>5 agents: enrich → score → handle objections → outreach → CRM</p><div class="proj-tools"><span>Make.com</span><span>n8n</span><span>Claude</span></div></div>
+    <div class="proj-card"><div class="proj-bg-num">11</div><span class="pdiff d-adv">Advanced</span><h3>Production n8n Deployment</h3><p>Cloud n8n with PostgreSQL, Redis queues, SSL, and monitoring</p><div class="proj-tools"><span>n8n</span><span>Railway</span><span>Redis</span></div></div>
+    <div class="proj-card" style="border-color:rgba(0,200,150,0.25);"><div class="proj-bg-num">12</div><span class="pdiff d-adv">Advanced</span><h3>Capstone — Your Signature System</h3><p>Your own complete agentic system. Designed, built, and documented by you.</p><div class="proj-tools"><span>Your choice</span></div></div>
+  </div>
+</section>
+
+
+<!-- INSTRUCTOR -->
+<section class="inst-section">
+  <div class="s-label">Your Instructor</div>
+  <h2 class="s-title">Taught by someone still<br>doing the work</h2>
+  <div class="inst-grid">
+    <div class="inst-card">
+      <div class="inst-avatar">👨‍💻</div>
+      <div class="inst-info">
+        <div class="inst-name">BlendedSkill Instructor</div>
+        <div class="inst-role">Agentic AI &amp; Automation Specialist</div>
+        <div class="inst-stats-row">
+          <div class="is"><strong>8+</strong><span>Years</span></div>
+          <div class="is"><strong>300+</strong><span>Projects</span></div>
+          <div class="is"><strong>$2M+</strong><span>Client Value</span></div>
+        </div>
+        <div class="inst-creds">
+          <span class="icred">Make.com Expert</span>
+          <span class="icred">n8n Certified</span>
+          <span class="icred">OpenAI Partner</span>
+          <span class="icred">Active Practitioner</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="inst-quote">"I built my first agentic workflow in Make.com on a Monday and had a client paying for it by Friday. Everything in this course is field-tested — not theory."</div>
+      <p class="inst-bio">I've spent the last eight years building automation systems for businesses across e-commerce, financial services, recruitment, and operations. I'm not an academic — every technique in this course came from a real client project, and some of them came from expensive mistakes I made so you don't have to.</p>
+      <p class="inst-bio">My approach: show you the full system first, then break it down piece by piece, then watch you build it yourself. No hand-waving. No "just trust me." You'll understand exactly why every decision gets made.</p>
+      <p class="inst-bio">When you're stuck, I'm in the community. I've answered questions at 11pm the night before a student's client demo — because that's the kind of course this is.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="s-label">What Students Say</div>
+  <h2 class="s-title">Real results from<br>real students</h2>
+  <div class="testi-grid">
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"Landed my first client two weeks after completing Module 4. I'm charging £4,500 per project. The Make.com labs are worth the course price on their own."</p><div class="tcard-auth"><div class="tcard-av">SL</div><div><div class="tcard-name">Sarah L.</div><div class="tcard-role">AI Automation Freelancer, United Kingdom</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"The 5-agent content pipeline I built in Module 6 eliminated 40 hours of work per month for my agency. It paid for itself in the first week."</p><div class="tcard-auth"><div class="tcard-av">MK</div><div><div class="tcard-name">Marcus K.</div><div class="tcard-role">Agency Owner, Berlin</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><p class="tcard-q">"I'm not a developer. I was terrified of the technical parts. Six weeks later I have three paying clients and I'm earning $8,000 a month. This course is different."</p><div class="tcard-auth"><div class="tcard-av">AP</div><div><div class="tcard-name">Aisha P.</div><div class="tcard-role">No-Code AI Specialist, Canada</div></div></div></div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="s-label">FAQ</div>
+  <h2 class="s-title">Common questions</h2>
+  <div class="faq-grid">
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Do I need coding experience?<span class="faq-arrow">⌄</span></div><p class="faq-a">No. This course is built for people without a coding background. Make.com and n8n are visual tools — you build by connecting blocks, not writing code. The few Code Node lessons in n8n are optional and fully explained line by line.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What does the software cost?<span class="faq-arrow">⌄</span></div><p class="faq-a">Make.com has a free plan that covers the first three modules. n8n is free to self-host (around $5–10/month on Railway). LLM API credits for the labs cost roughly $10–20 total. No expensive subscriptions required.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">How long will it take to complete?<span class="faq-arrow">⌄</span></div><p class="faq-a">Most students complete the course in 6–8 weeks at 5–10 hours per week. All content is available immediately — you can go faster or slower. Lifetime access means there's no pressure.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Will the content stay up to date?<span class="faq-arrow">⌄</span></div><p class="faq-a">Yes. When Make.com or n8n release significant updates, lessons are updated or new ones are added. All updates are free for life for enrolled students.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What is the refund policy?<span class="faq-arrow">⌄</span></div><p class="faq-a">Full refund within 30 days, no questions asked. If it's not right for you, email blendedskill@gmail.com and you'll be refunded immediately.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Can I use this for client work?<span class="faq-arrow">⌄</span></div><p class="faq-a">Absolutely — that's what Module 9 is specifically about. You'll learn how to package your skills, price projects, run discovery calls, and deliver documented systems to paying clients.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Is there a certificate?<span class="faq-arrow">⌄</span></div><p class="faq-a">Yes. Your BlendedSkill certificate names the specific capstone project you built, includes a unique public verification URL, and can be added to LinkedIn. Employers can verify it instantly.</p></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What if I get stuck?<span class="faq-arrow">⌄</span></div><p class="faq-a">Every module has a troubleshooting guide covering the 10 most common issues. There's also a student community and the instructor checks in regularly — including the night before your client demo if needed.</p></div>
+  </div>
+</section>
+
+
+<!-- BOTTOM CTA -->
+<section class="cta-section">
+  <h2>Ready to build AI systems<br>that <em>actually ship?</em></h2>
+  <p>Join the programme and have your first deployable agent running within 48 hours of starting.</p>
+  <div class="cta-btns">
+    <button class="btn-cta-primary" onclick="document.getElementById('enrol').scrollIntoView({behavior:'smooth'})">Enrol Now — $197</button>
+    <a href="agentflow-portal.html"><button class="btn-cta-ghost">Preview First Lesson Free</button></a>
+  </div>
+  <div class="cta-guarantee">🔒 Secure checkout · <span class="stripe-pill" style="background:#635bff;color:white;padding:1px 7px;border-radius:3px;font-size:0.7rem;font-weight:700;">stripe</span> · <span>30-day money-back guarantee</span></div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">Blended<span>Skill</span></div>
+    <div class="foot-links">
+      <a href="index.html">← All Courses</a>
+      <a href="index.html#why-us">Why BlendedSkill</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="foot-bottom">© 2026 BlendedSkill. All rights reserved. Agentic AI Workflows with Make &amp; n8n is a BlendedSkill course.</div>
+</footer>
+
+<script>
+  function toggleMod(el) { el.classList.toggle('open'); }
+  function toggleFaq(el) { el.classList.toggle('open'); }
+
+  // Entrance animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    });
+  }, {threshold: 0.06});
+  document.querySelectorAll('.build-card,.proj-card,.tcard,.faq-item,.module').forEach(el => {
+    el.style.opacity='0'; el.style.transform='translateY(14px)';
+    el.style.transition='opacity 0.42s ease, transform 0.42s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
