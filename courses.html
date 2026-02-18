@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Courses 2026 — BlendedSkill</title>
+  <meta name="description" content="Browse the full 2026 BlendedSkill course catalog — AI, Operations, Finance, Data Analytics, Cloud, and Cybersecurity. All project-verified." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .search-bar {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 12px 20px;
+      max-width: 480px;
+    }
+    .search-bar input {
+      background: none; border: none; outline: none;
+      color: var(--text-primary); font-family: var(--font-body);
+      font-size: 0.9375rem; flex: 1;
+    }
+    .search-bar input::placeholder { color: var(--text-muted); }
+    .level-badge {
+      font-size: 0.75rem; font-weight: 600; padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .level-beginner { background: rgba(16,185,129,0.12); color: #10B981; border: 1px solid rgba(16,185,129,0.2); }
+    .level-intermediate { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,166,35,0.2); }
+    .level-advanced { background: var(--rose-dim, rgba(244,63,94,0.12)); color: var(--rose); border: 1px solid rgba(244,63,94,0.2); }
+    .course-full-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+    .course-outcomes { display: flex; flex-direction: column; gap: 6px; }
+    .course-outcome { display: flex; align-items: flex-start; gap: 8px; font-size: 0.8125rem; color: var(--text-secondary); }
+    .course-outcome::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  </style>
+</head>
+<body>
+
+<nav class="nav scrolled" id="main-nav" role="navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Blended<span>Skill</span></a>
+    <ul class="nav-links">
+      <li><a href="courses.html" style="color:var(--teal)">Courses</a></li>
+      <li><a href="index.html#tracks">Tracks</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="index.html#why-us">Why Us</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="index.html#contact" class="btn-nav btn-nav-ghost">Sign In</a>
+      <a href="index.html#courses" class="btn-nav btn-nav-primary">Enrol Free →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="mobile-menu" id="mobile-menu">
+  <a href="index.html#courses">Courses</a>
+  <a href="index.html#tracks">Learning Tracks</a>
+  <a href="index.html#pricing">Pricing</a>
+  <a href="about.html">About</a>
+</nav>
+
+<!-- Hero -->
+<section style="padding:140px 0 72px;background:var(--bg-secondary);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Full Catalog — 2026</div>
+      <h1 class="display-xl" style="margin-bottom:20px">All Courses.</h1>
+      <p style="color:var(--text-secondary);font-size:1.0625rem;max-width:520px;line-height:1.7">
+        12 project-verified courses across AI, Operations, Finance, Data, Cloud, and Cybersecurity.
+        Every course ends with a real deliverable. Every credential is publicly verifiable.
+      </p>
+    </div>
+
+    <div style="display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;align-items:center">
+      <div class="search-bar" role="search">
+        <span aria-hidden="true">🔍</span>
+        <input type="search" id="course-search" placeholder="Search courses…" aria-label="Search all courses" />
+      </div>
+      <div style="font-size:0.875rem;color:var(--text-muted)">12 courses available</div>
+    </div>
+  </div>
+</section>
+
+<!-- Catalog -->
+<section class="section">
+  <div class="container">
+    <!-- Tabs -->
+    <div class="course-tabs" id="catalog-tabs" role="tablist">
+      <button class="course-tab active" data-category="all" role="tab" aria-selected="true">All (12)</button>
+      <button class="course-tab" data-category="ai" role="tab">AI & Automation (4)</button>
+      <button class="course-tab" data-category="operations" role="tab">Operations (3)</button>
+      <button class="course-tab" data-category="finance" role="tab">Finance & FinTech (2)</button>
+      <button class="course-tab" data-category="data" role="tab">Data & Analytics (2)</button>
+      <button class="course-tab" data-category="cloud" role="tab">Cloud & Tech (2)</button>
+    </div>
+
+    <div class="course-grid stagger-children" id="full-catalog">
+
+      <!-- 1 -->
+      <article class="course-card" data-category="ai">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-teal">AI & Automation</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-intermediate">Intermediate</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🤖</span>
+          <h2 class="course-card-title">AI Prompt Engineering & LLM Operations</h2>
+          <p class="course-full-desc">Master advanced prompt design, chain-of-thought reasoning, RAG pipelines, and production LLM deployment. Learn to evaluate model outputs and build repeatable prompt libraries used in professional AI workflows.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Design and document a professional prompt library</div>
+            <div class="course-outcome">Build a RAG pipeline with a real knowledge base</div>
+            <div class="course-outcome">Deploy and monitor an LLM application end-to-end</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 30 hrs</span><span class="course-meta-item">📋 8 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$650</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="course-card" data-category="ai">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-purple">Agentic AI</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-intermediate">Intermediate</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">⚡</span>
+          <h2 class="course-card-title">Agentic AI Workflows with Make & n8n</h2>
+          <p class="course-full-desc">Design, build, and deploy autonomous multi-step AI agents using no-code automation platforms. Connect LLMs to real business tools including CRMs, email, spreadsheets, and databases without writing code.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Deploy a live, production-ready AI workflow</div>
+            <div class="course-outcome">Connect AI agents to 5+ business tools</div>
+            <div class="course-outcome">Document agentic workflows to professional standards</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 35 hrs</span><span class="course-meta-item">📋 10 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$700</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="course-card" data-category="ai">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-teal">AI for Business</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-beginner">All Levels</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🧠</span>
+          <h2 class="course-card-title">Generative AI for Business Leaders</h2>
+          <p class="course-full-desc">Evaluate, implement, and govern GenAI tools across your organisation. Master AI ROI frameworks, vendor selection, policy design, and risk management. Designed for non-technical business professionals.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build a full AI adoption strategy document</div>
+            <div class="course-outcome">Conduct AI vendor evaluation using a structured framework</div>
+            <div class="course-outcome">Design an AI governance and risk register</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 24 hrs</span><span class="course-meta-item">📋 6 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$450</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="course-card" data-category="operations">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-amber">Automation</div>
+            <span class="level-badge level-intermediate">Intermediate</span>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🔄</span>
+          <h2 class="course-card-title">Operations Automation Fundamentals</h2>
+          <p class="course-full-desc">Identify automation opportunities, build an ROI-ranked backlog, and deploy your first workflow using modern no-code tools. Learn to present automation proposals to leadership in language they understand.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build a working automation with a full ROI model</div>
+            <div class="course-outcome">Create a prioritised automation backlog</div>
+            <div class="course-outcome">Present findings to a practitioner reviewer</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 35 hrs</span><span class="course-meta-item">📋 9 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$600</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="course-card" data-category="operations">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-teal">Operations</div>
+            <span class="level-badge level-beginner">Beginner – Inter.</span>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">📊</span>
+          <h2 class="course-card-title">Process Improvement Essentials</h2>
+          <p class="course-full-desc">Apply Lean, Six Sigma, and BPMN process mapping techniques to real business scenarios. Learn to identify waste, model improved states, and build business cases for change that get approved.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Create a professional AS-IS and TO-BE process map</div>
+            <div class="course-outcome">Write an improvement proposal with measurable targets</div>
+            <div class="course-outcome">Deliver a Lean waste analysis across a business function</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 40 hrs</span><span class="course-meta-item">📋 10 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$500</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="course-card" data-category="operations">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-teal">Product Ops</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-intermediate">Intermediate</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">📦</span>
+          <h2 class="course-card-title">Product Operations Management</h2>
+          <p class="course-full-desc">Learn how leading tech companies structure product operations — from roadmap management and OKRs to launch readiness reviews and customer feedback loops. Based on frameworks from Google, Stripe, and Shopify.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build a complete Product Ops framework document</div>
+            <div class="course-outcome">Design a launch readiness checklist and metrics dashboard</div>
+            <div class="course-outcome">Map a feedback loop from customer to roadmap</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 36 hrs</span><span class="course-meta-item">📋 9 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$630</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="course-card" data-category="finance">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-amber">Finance & FinTech</div>
+            <span class="level-badge level-intermediate">Intermediate</span>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">💳</span>
+          <h2 class="course-card-title">Payments & Financial Operations</h2>
+          <p class="course-full-desc">Map global payment flows end-to-end, understand regulatory frameworks (PCI-DSS, PSD2, ISO 20022), and analyse the controls that protect money movement. Essential for FinTech and bank operations roles.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build end-to-end payment flow diagrams</div>
+            <div class="course-outcome">Complete a controls gap analysis for a payment process</div>
+            <div class="course-outcome">Document a regulatory compliance checklist</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 30 hrs</span><span class="course-meta-item">📋 8 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$550</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="course-card" data-category="finance">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-amber">Risk & Controls</div>
+            <span class="level-badge level-intermediate">Intermediate</span>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🛡️</span>
+          <h2 class="course-card-title">Risk & Controls Fundamentals</h2>
+          <p class="course-full-desc">Build professional-grade control matrices, conduct end-to-end risk assessments, and document findings to Big Four audit standards. Used by finance operations, internal audit, and compliance teams globally.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build a control matrix for a business process</div>
+            <div class="course-outcome">Conduct and document a risk assessment</div>
+            <div class="course-outcome">Write audit-ready control testing procedures</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 30 hrs</span><span class="course-meta-item">📋 8 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$580</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="course-card" data-category="data">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-teal">Data & Analytics</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-beginner">Beginner – Inter.</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🗃️</span>
+          <h2 class="course-card-title">SQL for Business Analysts</h2>
+          <p class="course-full-desc">From basic SELECT to advanced window functions, CTEs, and optimised query design. Write production-grade SQL that answers real business questions using industry-standard datasets.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Write a full analytical SQL report on a live dataset</div>
+            <div class="course-outcome">Use window functions and CTEs in production queries</div>
+            <div class="course-outcome">Design a self-serve analytics query library</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 28 hrs</span><span class="course-meta-item">📋 7 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$480</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="course-card" data-category="data">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-purple">Data Analytics</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-intermediate">Intermediate</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🐍</span>
+          <h2 class="course-card-title">Data Analytics with Python & Pandas</h2>
+          <p class="course-full-desc">Analyse real-world datasets using Python, Pandas, NumPy, and Matplotlib. Cover the full analytics pipeline: data ingestion, cleaning, exploratory analysis, statistical insight, and visual storytelling.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build an end-to-end analytics project with a real dataset</div>
+            <div class="course-outcome">Create a visual data narrative using Matplotlib/Seaborn</div>
+            <div class="course-outcome">Write a professional analytics findings report</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 40 hrs</span><span class="course-meta-item">📋 10 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$620</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="course-card" data-category="cloud">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-rose">Cloud & Tech</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-beginner">Beginner</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">☁️</span>
+          <h2 class="course-card-title">Cloud Operations for Non-Engineers</h2>
+          <p class="course-full-desc">Master AWS and Azure from an operations and business perspective — cost management, SLA monitoring, incident response, and vendor management. No prior coding experience required.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Build a cloud operations runbook from scratch</div>
+            <div class="course-outcome">Design a cost monitoring and optimisation framework</div>
+            <div class="course-outcome">Write an incident response playbook for cloud outages</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 32 hrs</span><span class="course-meta-item">📋 8 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$520</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="course-card" data-category="cloud">
+        <div class="course-card-top">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+            <div class="course-card-badge badge-rose">Cybersecurity</div>
+            <div style="display:flex;gap:8px"><span class="new-badge">NEW 2026</span><span class="level-badge level-beginner">Beginner</span></div>
+          </div>
+          <span class="course-card-icon" aria-hidden="true">🔐</span>
+          <h2 class="course-card-title">Cybersecurity Foundations for Operations</h2>
+          <p class="course-full-desc">Understand the threat landscape, security frameworks (NIST CSF, ISO 27001), and incident response procedures. Designed for non-technical operations and compliance professionals who need security fluency.</p>
+          <div class="course-outcomes">
+            <div class="course-outcome">Complete a NIST CSF-aligned security assessment</div>
+            <div class="course-outcome">Write an incident response procedure document</div>
+            <div class="course-outcome">Map security controls to compliance requirements</div>
+          </div>
+        </div>
+        <div class="course-card-bottom">
+          <div class="course-meta"><span class="course-meta-item">⏱ 28 hrs</span><span class="course-meta-item">📋 7 modules</span><span class="course-meta-item">🏆 Verified cert.</span></div>
+          <div style="text-align:right">
+            <div class="course-price">$490</div>
+            <a href="index.html#contact" class="btn btn-primary btn-sm" style="margin-top:8px;display:inline-block">Enrol Now</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="cta-section">
+    <div class="fade-up">
+      <h2 class="cta-title">Not sure which course to start with?</h2>
+      <p class="cta-sub">Browse our Learning Tracks — curated 4-course sequences that build progressively and save up to $520.</p>
+      <div class="cta-actions">
+        <a href="index.html#tracks" class="btn btn-primary btn-lg">View Learning Tracks →</a>
+        <a href="index.html#contact" class="btn btn-secondary btn-lg">Ask Us Anything</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <a href="index.html" class="footer-logo">Blended<span>Skill</span></a>
+      <span style="font-size:0.875rem;color:var(--text-muted)">© 2026 BlendedSkill. All rights reserved.</span>
+      <nav style="display:flex;gap:24px">
+        <a href="privacy.html" style="font-size:0.875rem;color:var(--text-muted)">Privacy</a>
+        <a href="terms.html" style="font-size:0.875rem;color:var(--text-muted)">Terms</a>
+        <a href="accessibility.html" style="font-size:0.875rem;color:var(--text-muted)">Accessibility</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Live search filter for course catalog
+  const searchInput = document.getElementById('course-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      document.querySelectorAll('#full-catalog .course-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.opacity = text.includes(query) ? '1' : '0.15';
+        card.style.transform = text.includes(query) ? 'scale(1)' : 'scale(0.97)';
+        card.style.transition = 'opacity 0.25s, transform 0.25s';
+        card.style.pointerEvents = text.includes(query) ? 'auto' : 'none';
+      });
+    });
+  }
+</script>
+</body>
+</html>
