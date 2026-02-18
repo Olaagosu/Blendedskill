@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Workflows with Make & n8n — Student Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --card2: #1c1c28;
+    --border: #2a2a38;
+    --accent: #00e5a0;
+    --accent2: #6c63ff;
+    --amber: #f5a623;
+    --text: #e8e8f0;
+    --muted: #8888aa;
+    --white: #ffffff;
+    --stripe: #635bff;
+    --sidebar-w: 340px;
+    --topbar-h: 64px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--ink); color: var(--text); overflow-x: hidden; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: var(--topbar-h);
+    background: var(--card); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 24px; gap: 20px;
+  }
+  .topbar-back {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 0.88rem; text-decoration: none;
+    padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .topbar-back:hover { color: var(--text); border-color: var(--text); }
+  .topbar-title {
+    flex: 1; font-size: 0.9rem; font-weight: 600; color: var(--white);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .topbar-title span { color: var(--muted); font-weight: 400; margin-left: 8px; font-size: 0.82rem; }
+  .topbar-progress {
+    display: flex; align-items: center; gap: 12px; white-space: nowrap;
+  }
+  .tp-bar-wrap {
+    width: 140px; height: 6px;
+    background: rgba(255,255,255,0.1); border-radius: 3px;
+  }
+  .tp-bar { height: 6px; border-radius: 3px; background: var(--accent); width: 54%; }
+  .tp-pct { font-size: 0.82rem; color: var(--accent); font-weight: 700; }
+  .topbar-user {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.88rem; color: var(--muted);
+    padding-left: 16px; border-left: 1px solid var(--border);
+  }
+  .user-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700; color: var(--ink); flex-shrink: 0;
+  }
+
+  /* ── LAYOUT ── */
+  .app-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    margin-top: var(--topbar-h);
+    min-height: calc(100vh - var(--topbar-h));
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0;
+    width: var(--sidebar-w);
+    height: calc(100vh - var(--topbar-h));
+    overflow-y: auto;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .sidebar-tabs {
+    display: flex; background: var(--card);
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .stab {
+    flex: 1; padding: 14px 10px; text-align: center;
+    font-size: 0.8rem; font-weight: 600; color: var(--muted);
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .stab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .sidebar-content { display: none; flex-direction: column; height: 100%; }
+  .sidebar-content.active { display: flex; }
+
+  /* Curriculum Sidebar */
+  .curr-sidebar { padding-bottom: 24px; }
+  .curr-sidebar-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .curr-sidebar-header h3 { font-size: 0.85rem; color: var(--white); font-weight: 700; margin-bottom: 6px; }
+  .curr-sidebar-header p { font-size: 0.78rem; color: var(--muted); }
+  .sidebar-prog-row {
+    display: flex; align-items: center; gap: 10px; margin-top: 10px;
+  }
+  .sidebar-prog-bar {
+    flex: 1; height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px;
+  }
+  .sidebar-prog-fill { height: 5px; border-radius: 3px; background: var(--accent); width: 54%; }
+  .sidebar-prog-pct { font-size: 0.78rem; color: var(--accent); font-weight: 700; }
+
+  .curr-module-group { }
+  .curr-module-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; cursor: pointer; user-select: none;
+    background: var(--card); border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .curr-module-header:hover { background: rgba(255,255,255,0.03); }
+  .cmh-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--accent); background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.2); border-radius: 6px;
+    padding: 3px 7px; flex-shrink: 0;
+  }
+  .cmh-title { flex: 1; font-size: 0.82rem; font-weight: 600; color: var(--text); }
+  .cmh-arrow { font-size: 0.9rem; color: var(--muted); transition: transform 0.2s; }
+  .curr-module-group.open .cmh-arrow { transform: rotate(180deg); }
+  .curr-module-lessons { display: none; }
+  .curr-module-group.open .curr-module-lessons { display: block; }
+  .curr-lesson {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 20px 11px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    cursor: pointer; transition: background 0.2s;
+    text-decoration: none;
+  }
+  .curr-lesson:hover { background: rgba(255,255,255,0.03); }
+  .curr-lesson.active { background: rgba(0,229,160,0.07); border-left: 2px solid var(--accent); }
+  .cl-icon {
+    width: 26px; height: 26px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; flex-shrink: 0;
+  }
+  .cl-icon.video { background: rgba(108,99,255,0.2); color: #a09bff; }
+  .cl-icon.lab { background: rgba(0,229,160,0.1); color: var(--accent); }
+  .cl-icon.project { background: rgba(245,166,35,0.1); color: var(--amber); }
+  .cl-icon.quiz { background: rgba(255,100,100,0.1); color: #ff8080; }
+  .cl-icon.done { background: rgba(0,229,160,0.2); color: var(--accent); }
+  .cl-info { flex: 1; min-width: 0; }
+  .cl-info h4 { font-size: 0.8rem; color: var(--text); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cl-info p { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .cl-dur { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+
+  /* Dashboard Sidebar */
+  .dash-sidebar-content { padding: 20px; flex: 1; overflow-y: auto; }
+  .ds-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; margin-bottom: 14px;
+  }
+  .ds-card-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
+  .ds-card-val { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--white); }
+  .ds-card-sub { font-size: 0.78rem; color: var(--accent); margin-top: 4px; }
+  .streak-row { display: flex; gap: 4px; margin-top: 12px; }
+  .streak-day {
+    flex: 1; height: 28px; border-radius: 4px;
+    background: rgba(0,229,160,0.15); border: 1px solid rgba(0,229,160,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.62rem; color: var(--accent); font-weight: 700;
+  }
+  .streak-day.done { background: var(--accent); color: var(--ink); }
+  .streak-day.today { border-color: var(--accent); }
+  .badges-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .badge-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px; text-align: center;
+    transition: all 0.2s;
+  }
+  .badge-item.earned { border-color: rgba(0,229,160,0.3); background: rgba(0,229,160,0.05); }
+  .badge-item.locked { opacity: 0.4; }
+  .badge-icon { font-size: 1.5rem; margin-bottom: 4px; }
+  .badge-name { font-size: 0.7rem; color: var(--muted); }
+  .badge-item.earned .badge-name { color: var(--accent); }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    margin-left: var(--sidebar-w);
+    min-height: calc(100vh - var(--topbar-h));
+    display: flex; flex-direction: column;
+  }
+
+  /* VIDEO PLAYER */
+  .video-section {
+    background: #000;
+    position: relative;
+  }
+  .video-player {
+    width: 100%; aspect-ratio: 16/9; max-height: 62vh;
+    background: linear-gradient(135deg, #0d0d1a, #1a1a2e);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .video-player::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(108,99,255,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 70%, rgba(0,229,160,0.08) 0%, transparent 60%);
+  }
+  .play-btn {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.8rem; position: relative; z-index: 1;
+    transition: all 0.3s;
+  }
+  .play-btn:hover {
+    background: rgba(0,229,160,0.2); border-color: var(--accent);
+    transform: scale(1.08);
+  }
+  .video-overlay-info {
+    position: absolute; bottom: 24px; left: 28px; right: 28px;
+    z-index: 2; display: flex; align-items: flex-end; justify-content: space-between;
+  }
+  .vol-label {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px;
+    color: rgba(255,255,255,0.5); margin-bottom: 6px;
+  }
+  .vol-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); }
+  .vid-meta { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+  .video-controls {
+    background: var(--card); padding: 16px 24px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .vc-progress-wrap {
+    flex: 1; height: 4px; background: rgba(255,255,255,0.1);
+    border-radius: 2px; cursor: pointer; position: relative;
+  }
+  .vc-progress { height: 4px; background: var(--accent); border-radius: 2px; width: 38%; }
+  .vc-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); position: absolute;
+    top: -4px; left: 38%; transform: translateX(-50%);
+  }
+  .vc-time { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+  .vc-btn {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 1rem; padding: 6px; border-radius: 6px; transition: all 0.2s;
+  }
+  .vc-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+  .vc-speed {
+    background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+    color: var(--text); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem; padding: 5px 10px; border-radius: 6px;
+    cursor: pointer;
+  }
+  .vc-next {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2);
+    color: var(--accent); padding: 8px 16px; border-radius: 8px;
+    font-size: 0.82rem; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .vc-next:hover { background: rgba(0,229,160,0.2); }
+
+  /* LESSON CONTENT */
+  .lesson-body {
+    padding: 36px 48px;
+    display: grid; grid-template-columns: 1fr 300px; gap: 40px;
+    align-items: start;
+  }
+  .lesson-main {}
+  .lesson-breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; color: var(--muted); margin-bottom: 16px;
+  }
+  .lesson-breadcrumb span { color: var(--accent); }
+  .lesson-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900; color: var(--white);
+    line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px;
+  }
+  .lesson-tags { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .lesson-tag {
+    padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .tag-module { background: rgba(108,99,255,0.15); color: #a09bff; }
+  .tag-video { background: rgba(108,99,255,0.1); color: #a09bff; }
+  .tag-lab { background: rgba(0,229,160,0.1); color: var(--accent); }
+  .tag-duration { background: rgba(255,255,255,0.05); color: var(--muted); }
+
+  .lesson-description {
+    font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 32px;
+  }
+  .lesson-description p { margin-bottom: 16px; }
+  .lesson-description strong { color: var(--text); }
+
+  .lesson-objectives {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; margin-bottom: 28px;
+  }
+  .lo-header {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--accent); margin-bottom: 16px; font-weight: 700;
+  }
+  .lo-list { list-style: none; }
+  .lo-list li {
+    display: flex; gap: 12px; padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.9rem; color: var(--text);
+  }
+  .lo-list li:last-child { border-bottom: none; }
+  .lo-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
+
+  .lesson-resources {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; margin-bottom: 28px;
+  }
+  .lr-header {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--muted); margin-bottom: 16px; font-weight: 700;
+  }
+  .resource-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .resource-item:last-child { border-bottom: none; }
+  .resource-item:hover .ri-name { color: var(--accent); }
+  .ri-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .ri-icon.template { background: rgba(0,229,160,0.1); }
+  .ri-icon.doc { background: rgba(108,99,255,0.1); }
+  .ri-icon.video { background: rgba(245,166,35,0.1); }
+  .ri-name { font-size: 0.88rem; color: var(--text); flex: 1; }
+  .ri-dl { font-size: 0.75rem; color: var(--muted); }
+
+  .lesson-nav {
+    display: flex; gap: 12px; margin-top: 24px;
+  }
+  .ln-btn {
+    flex: 1; padding: 16px 20px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    transition: all 0.2s; text-align: left;
+  }
+  .ln-btn:hover { border-color: rgba(0,229,160,0.3); }
+  .ln-btn .ln-dir { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .ln-btn .ln-title { font-weight: 600; }
+  .ln-btn.primary {
+    background: rgba(0,229,160,0.08); border-color: rgba(0,229,160,0.2);
+    text-align: right;
+  }
+  .ln-btn.primary .ln-dir { color: var(--accent); }
+  .ln-btn.primary .ln-title { color: var(--accent); }
+
+  /* LESSON ASIDE */
+  .lesson-aside {}
+  .aside-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px; margin-bottom: 16px;
+  }
+  .aside-title {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--muted); margin-bottom: 16px; font-weight: 700;
+  }
+  .complete-btn {
+    width: 100%; padding: 14px;
+    background: var(--accent); color: var(--ink);
+    border: none; border-radius: 10px;
+    font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.25s;
+    margin-bottom: 10px;
+  }
+  .complete-btn:hover { box-shadow: 0 6px 20px rgba(0,229,160,0.3); }
+  .complete-btn.done {
+    background: rgba(0,229,160,0.15); color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.3);
+  }
+  .module-progress-mini { margin-top: 16px; }
+  .mpm-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem; color: var(--muted); margin-bottom: 8px;
+  }
+  .mpm-bar-wrap { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-bottom: 4px; }
+  .mpm-bar { height: 6px; border-radius: 3px; background: var(--accent); }
+
+  .note-area {
+    width: 100%; min-height: 100px; padding: 12px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; resize: vertical; outline: none;
+    transition: border-color 0.2s;
+  }
+  .note-area:focus { border-color: var(--accent); }
+  .save-note-btn {
+    margin-top: 10px; width: 100%; padding: 10px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    color: var(--muted); border-radius: 8px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; transition: all 0.2s;
+  }
+  .save-note-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .upcoming-lessons { }
+  .up-lesson {
+    display: flex; gap: 10px; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .up-lesson:last-child { border-bottom: none; }
+  .up-lesson:hover .up-title { color: var(--accent); }
+  .up-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; flex-shrink: 0;
+  }
+  .up-title { font-size: 0.82rem; color: var(--text); flex: 1; }
+  .up-dur { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+
+  /* PROJECT VIEW */
+  .project-banner {
+    background: linear-gradient(135deg, rgba(245,166,35,0.12), rgba(108,99,255,0.08));
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 28px;
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .pb-icon { font-size: 2.5rem; flex-shrink: 0; }
+  .pb-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--amber); font-weight: 700; margin-bottom: 6px; }
+  .pb-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--white); margin-bottom: 8px; }
+  .pb-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+  .submit-project {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px; margin-top: 28px;
+  }
+  .sp-title { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+  .sp-input {
+    width: 100%; padding: 14px;
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none; margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .sp-input:focus { border-color: var(--accent); }
+  .sp-upload {
+    border: 2px dashed var(--border); border-radius: 10px; padding: 32px;
+    text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 14px;
+  }
+  .sp-upload:hover { border-color: var(--accent); background: rgba(0,229,160,0.03); }
+  .sp-upload p { color: var(--muted); font-size: 0.88rem; margin-top: 8px; }
+  .sp-submit {
+    width: 100%; padding: 14px; background: var(--amber); color: var(--ink);
+    border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.25s;
+  }
+  .sp-submit:hover { box-shadow: 0 6px 20px rgba(245,166,35,0.3); }
+
+  /* QUIZ VIEW */
+  .quiz-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px; margin-bottom: 16px;
+  }
+  .quiz-q { font-size: 1rem; color: var(--white); font-weight: 600; margin-bottom: 20px; line-height: 1.5; }
+  .quiz-q-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-opt {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 10px;
+    cursor: pointer; transition: all 0.2s; font-size: 0.9rem; color: var(--text);
+  }
+  .quiz-opt:hover { border-color: var(--accent2); background: rgba(108,99,255,0.05); }
+  .quiz-opt.selected { border-color: var(--accent); background: rgba(0,229,160,0.08); color: var(--white); }
+  .quiz-opt.correct { border-color: var(--accent); background: rgba(0,229,160,0.12); }
+  .quiz-opt.wrong { border-color: #ff6666; background: rgba(255,100,100,0.08); color: #ff9999; }
+  .opt-letter {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: 0.8rem; font-weight: 700;
+    flex-shrink: 0; color: var(--muted);
+  }
+  .quiz-opt.selected .opt-letter { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+
+  /* TABS for lesson views */
+  .content-area { flex: 1; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* Notification toast */
+  .toast {
+    position: fixed; bottom: 28px; right: 28px; z-index: 500;
+    background: var(--card); border: 1px solid var(--accent);
+    border-radius: 12px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 320px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-icon { font-size: 1.2rem; }
+  .toast-text { font-size: 0.88rem; color: var(--text); }
+  .toast-text strong { color: var(--accent); display: block; }
+
+  @media (max-width: 1100px) {
+    .lesson-body { grid-template-columns: 1fr; padding: 24px; }
+    .lesson-aside { display: none; }
+  }
+  @media (max-width: 800px) {
+    :root { --sidebar-w: 0px; }
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ TOP BAR ══════════ -->
+<div class="topbar">
+  <a href="index.html" class="topbar-back">← Back to Course Page</a>
+  <div class="topbar-title">
+    Agentic AI Workflows with Make & n8n
+    <span>· Module 1 — Foundations of Agentic AI</span>
+  </div>
+  <div class="topbar-progress">
+    <div class="tp-bar-wrap"><div class="tp-bar"></div></div>
+    <div class="tp-pct">54% complete</div>
+  </div>
+  <div class="topbar-user">
+    <span>Alex J.</span>
+    <div class="user-avatar">AJ</div>
+  </div>
+</div>
+
+<!-- ══════════ APP LAYOUT ══════════ -->
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-tabs">
+      <div class="stab active" onclick="switchSidebarTab('curriculum',this)">Curriculum</div>
+      <div class="stab" onclick="switchSidebarTab('dashboard',this)">Dashboard</div>
+      <div class="stab" onclick="switchSidebarTab('projects',this)">Projects</div>
+    </div>
+
+    <!-- CURRICULUM TAB -->
+    <div class="sidebar-content curr-sidebar active" id="sidebar-curriculum">
+      <div class="curr-sidebar-header">
+        <h3>Agentic AI Workflows with Make & n8n</h3>
+        <p>9 modules · 35 hours · 12 projects</p>
+        <div class="sidebar-prog-row">
+          <div class="sidebar-prog-bar"><div class="sidebar-prog-fill"></div></div>
+          <div class="sidebar-prog-pct">54%</div>
+        </div>
+      </div>
+
+      <!-- M01 -->
+      <div class="curr-module-group open">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·01</span>
+          <span class="cmh-title">Foundations of Agentic AI</span>
+          <span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M01-L01','The Shift from Automation to Agency','28 min','M·01 — Foundations')">
+            <div class="cl-icon done">✓</div>
+            <div class="cl-info"><h4>The Shift from Automation to Agency</h4><p>Lecture</p></div>
+            <div class="cl-dur">28m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M01-L02','How AI Agents Perceive, Reason & Act','35 min','M·01 — Foundations')">
+            <div class="cl-icon done">✓</div>
+            <div class="cl-info"><h4>How AI Agents Perceive, Reason & Act</h4><p>Lecture</p></div>
+            <div class="cl-dur">35m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M01-L03','The Landscape: Tools, Models & Orchestrators','22 min','M·01 — Foundations')">
+            <div class="cl-icon done">✓</div>
+            <div class="cl-info"><h4>The Landscape: Tools & Orchestrators</h4><p>Lecture</p></div>
+            <div class="cl-dur">22m</div>
+          </div>
+          <div class="curr-lesson active" onclick="loadLesson('lab','M01-L04','LAB — Set Up Your Agent Stack','45 min','M·01 — Foundations')">
+            <div class="cl-icon lab">🧪</div>
+            <div class="cl-info"><h4>LAB — Set Up Your Agent Stack</h4><p>Hands-on lab</p></div>
+            <div class="cl-dur">45m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M01-L05','ReAct, CoT & Tool Use Patterns','32 min','M·01 — Foundations')">
+            <div class="cl-icon video">▶</div>
+            <div class="cl-info"><h4>ReAct, CoT & Tool Use Patterns</h4><p>Lecture</p></div>
+            <div class="cl-dur">32m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M01-L06','Tokens, Context Windows & Memory','28 min','M·01 — Foundations')">
+            <div class="cl-icon video">▶</div>
+            <div class="cl-info"><h4>Tokens, Context Windows & Memory</h4><p>Lecture</p></div>
+            <div class="cl-dur">28m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('lab','M01-L07','LAB — Your First Thinking Workflow','50 min','M·01 — Foundations')">
+            <div class="cl-icon lab">🧪</div>
+            <div class="cl-info"><h4>LAB — Your First Thinking Workflow</h4><p>Hands-on lab</p></div>
+            <div class="cl-dur">50m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('quiz','M01-Q1','Module 1 Assessment','20 min','M·01 — Foundations')">
+            <div class="cl-icon quiz">✓</div>
+            <div class="cl-info"><h4>Module 1 Assessment</h4><p>Quiz</p></div>
+            <div class="cl-dur">20m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('project','P1','Project 1 — The Thinking Logger','self-paced','M·01 — Foundations')">
+            <div class="cl-icon project">🏗️</div>
+            <div class="cl-info"><h4>Project 1 — The Thinking Logger</h4><p>Build & submit</p></div>
+            <div class="cl-dur">project</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M02 -->
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·02</span>
+          <span class="cmh-title">Make.com Mastery</span>
+          <span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M02-L01','Make.com Architecture Deep Dive','25 min','M·02 — Make.com')">
+            <div class="cl-icon done">✓</div>
+            <div class="cl-info"><h4>Make.com Architecture Deep Dive</h4></div><div class="cl-dur">25m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M02-L02','The OpenAI Module — Every Setting','38 min','M·02 — Make.com')">
+            <div class="cl-icon done">✓</div>
+            <div class="cl-info"><h4>The OpenAI Module — Every Setting</h4></div><div class="cl-dur">38m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('lab','M02-L03','LAB — AI Email Classifier & Router','55 min','M·02 — Make.com')">
+            <div class="cl-icon done">✓</div>
+            <div class="cl-info"><h4>LAB — AI Email Classifier & Router</h4></div><div class="cl-dur">55m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M02-L04','Array Aggregators & Batch Processing','30 min','M·02 — Make.com')">
+            <div class="cl-icon video">▶</div>
+            <div class="cl-info"><h4>Array Aggregators & Batch Processing</h4></div><div class="cl-dur">30m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('project','P2','Project 2 — AI Sales Assistant','self-paced','M·02 — Make.com')">
+            <div class="cl-icon project">🤖</div>
+            <div class="cl-info"><h4>Project 2 — AI Sales Assistant</h4></div><div class="cl-dur">project</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M03 -->
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·03</span><span class="cmh-title">n8n Deep Dive</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M03-L01','Why n8n? The Self-Hosting Advantage','20 min','M·03 — n8n')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>Why n8n? The Self-Hosting Advantage</h4></div><div class="cl-dur">20m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('lab','M03-L02','LAB — Install & Configure n8n','55 min','M·03 — n8n')">
+            <div class="cl-icon lab">🧪</div><div class="cl-info"><h4>LAB — Install & Configure n8n</h4></div><div class="cl-dur">55m</div>
+          </div>
+          <div class="curr-lesson" onclick="loadLesson('video','M03-L03','The AI Agent Node Deep Dive','40 min','M·03 — n8n')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>The AI Agent Node Deep Dive</h4></div><div class="cl-dur">40m</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- M04-M09 collapsed -->
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·04</span><span class="cmh-title">Prompt Engineering for Builders</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M04-L01','System Prompts That Actually Work','32 min','M·04 — Prompts')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>System Prompts That Actually Work</h4></div><div class="cl-dur">32m</div>
+          </div>
+        </div>
+      </div>
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·05</span><span class="cmh-title">Memory, Vector Stores & RAG</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M05-L01','The Memory Problem','25 min','M·05 — Memory')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>The Memory Problem</h4></div><div class="cl-dur">25m</div>
+          </div>
+        </div>
+      </div>
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·06</span><span class="cmh-title">Multi-Agent Systems</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M06-L01','Why Multiple Agents?','28 min','M·06 — Multi-Agent')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>Why Multiple Agents?</h4></div><div class="cl-dur">28m</div>
+          </div>
+        </div>
+      </div>
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·07</span><span class="cmh-title">Industry Use Cases</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M07-L01','AI for E-Commerce','35 min','M·07 — Industry')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>AI for E-Commerce</h4></div><div class="cl-dur">35m</div>
+          </div>
+        </div>
+      </div>
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·08</span><span class="cmh-title">Production Deployment</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M08-L01','From Prototype to Production','30 min','M·08 — Production')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>From Prototype to Production</h4></div><div class="cl-dur">30m</div>
+          </div>
+        </div>
+      </div>
+      <div class="curr-module-group">
+        <div class="curr-module-header" onclick="toggleSideModule(this.parentElement)">
+          <span class="cmh-num">M·09</span><span class="cmh-title">Building Your AI Business</span><span class="cmh-arrow">⌄</span>
+        </div>
+        <div class="curr-module-lessons">
+          <div class="curr-lesson" onclick="loadLesson('video','M09-L01','Productising Your Skills','28 min','M·09 — Business')">
+            <div class="cl-icon video">▶</div><div class="cl-info"><h4>Productising Your Skills</h4></div><div class="cl-dur">28m</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD TAB -->
+    <div class="sidebar-content" id="sidebar-dashboard">
+      <div class="dash-sidebar-content">
+        <div class="ds-card">
+          <div class="ds-card-label">Overall Progress</div>
+          <div class="ds-card-val">54%</div>
+          <div class="ds-card-sub">↑ 12% this week · Keep going!</div>
+        </div>
+        <div class="ds-card">
+          <div class="ds-card-label">Learning Streak 🔥</div>
+          <div class="ds-card-val">7 days</div>
+          <div class="streak-row">
+            <div class="streak-day done">M</div>
+            <div class="streak-day done">T</div>
+            <div class="streak-day done">W</div>
+            <div class="streak-day done">T</div>
+            <div class="streak-day done">F</div>
+            <div class="streak-day done">S</div>
+            <div class="streak-day today">S</div>
+          </div>
+        </div>
+        <div class="ds-card">
+          <div class="ds-card-label">Hours Studied</div>
+          <div class="ds-card-val">18.5h</div>
+          <div class="ds-card-sub">of 35h total</div>
+        </div>
+        <div class="ds-card">
+          <div class="ds-card-label">Projects Complete</div>
+          <div class="ds-card-val">5 / 12</div>
+          <div class="ds-card-sub">Next: Knowledge Agent (M·05)</div>
+        </div>
+        <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:16px 0 12px;font-weight:700;">Achievements</div>
+        <div class="badges-grid">
+          <div class="badge-item earned"><div class="badge-icon">🚀</div><div class="badge-name">First Agent</div></div>
+          <div class="badge-item earned"><div class="badge-icon">🔥</div><div class="badge-name">7-Day Streak</div></div>
+          <div class="badge-item earned"><div class="badge-icon">🛠</div><div class="badge-name">Lab Master</div></div>
+          <div class="badge-item earned"><div class="badge-icon">⚡</div><div class="badge-name">Fast Finisher</div></div>
+          <div class="badge-item locked"><div class="badge-icon">🤖</div><div class="badge-name">Multi-Agent</div></div>
+          <div class="badge-item locked"><div class="badge-icon">🏆</div><div class="badge-name">Graduate</div></div>
+          <div class="badge-item locked"><div class="badge-icon">💼</div><div class="badge-name">First Client</div></div>
+          <div class="badge-item locked"><div class="badge-icon">📜</div><div class="badge-name">Certified</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div class="sidebar-content" id="sidebar-projects">
+      <div class="dash-sidebar-content">
+        <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:16px;font-weight:700;">Your Projects</div>
+        <div class="ds-card" style="cursor:pointer" onclick="loadLesson('project','P1','Project 1 — The Thinking Logger','self-paced','M·01')">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.75rem;color:var(--accent);font-weight:700;">P·01</span>
+            <span style="background:rgba(0,229,160,0.15);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:0.7rem;font-weight:700;">SUBMITTED ✓</span>
+          </div>
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">The Thinking Logger</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">Make.com + OpenAI + Airtable</div>
+        </div>
+        <div class="ds-card" style="cursor:pointer" onclick="loadLesson('project','P2','Project 2 — AI Sales Assistant','self-paced','M·02')">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.75rem;color:var(--accent);font-weight:700;">P·02</span>
+            <span style="background:rgba(0,229,160,0.15);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:0.7rem;font-weight:700;">SUBMITTED ✓</span>
+          </div>
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">AI Sales Assistant</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">Make.com + GPT-4 + HubSpot</div>
+        </div>
+        <div class="ds-card" style="cursor:pointer" onclick="loadLesson('project','P3','Project 3 — Research Engine','self-paced','M·03')">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.75rem;color:var(--accent);font-weight:700;">P·03</span>
+            <span style="background:rgba(0,229,160,0.15);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:0.7rem;font-weight:700;">SUBMITTED ✓</span>
+          </div>
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">Self-Hosted Research Engine</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">n8n + Perplexity + Claude</div>
+        </div>
+        <div class="ds-card" style="cursor:pointer" onclick="loadLesson('project','P4','Project 4 — Business Knowledge Agent','self-paced','M·05')">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.75rem;color:var(--accent);font-weight:700;">P·04</span>
+            <span style="background:rgba(245,166,35,0.15);color:var(--amber);padding:2px 10px;border-radius:999px;font-size:0.7rem;font-weight:700;">IN PROGRESS</span>
+          </div>
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">Business Knowledge Agent</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">n8n + Pinecone + Slack</div>
+        </div>
+        <div class="ds-card" style="opacity:0.4">
+          <div style="font-size:0.75rem;color:var(--muted);font-weight:700;margin-bottom:6px;">P·05–12</div>
+          <div style="font-size:0.88rem;color:var(--white);font-weight:600;">8 more projects ahead</div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">Unlocked as you progress</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="main-content">
+    <!-- VIDEO LESSON VIEW -->
+    <div class="view content-area active" id="view-video">
+      <div class="video-section">
+        <div class="video-player">
+          <div class="play-btn" onclick="this.innerHTML='⏸'">▶</div>
+          <div class="video-overlay-info">
+            <div>
+              <div class="vol-label">Now Playing</div>
+              <div class="vol-title" id="video-title">LAB — Set Up Your Agent Stack</div>
+            </div>
+            <div class="vid-meta">45 min · Module 1</div>
+          </div>
+        </div>
+        <div class="video-controls">
+          <button class="vc-btn">⏮</button>
+          <button class="vc-btn">⏸</button>
+          <button class="vc-btn">⏭</button>
+          <div class="vc-time">17:24</div>
+          <div class="vc-progress-wrap">
+            <div class="vc-progress"></div>
+            <div class="vc-dot"></div>
+          </div>
+          <div class="vc-time">45:00</div>
+          <select class="vc-speed"><option>1×</option><option>1.25×</option><option selected>1.5×</option><option>2×</option></select>
+          <button class="vc-btn">⚙</button>
+          <button class="vc-btn">⛶</button>
+          <div class="vc-next" onclick="showToast('✓', 'Lesson complete!', 'Moving to next lesson...')">Next lesson →</div>
+        </div>
+      </div>
+
+      <div class="lesson-body">
+        <div class="lesson-main">
+          <div class="lesson-breadcrumb">
+            <span>M·01 — Foundations of Agentic AI</span> › <span>Lesson 4</span>
+          </div>
+          <h1 class="lesson-title" id="lesson-main-title">LAB — Set Up Your<br>Agent Stack</h1>
+          <div class="lesson-tags">
+            <span class="lesson-tag tag-module">Module 1</span>
+            <span class="lesson-tag tag-lab">🧪 Hands-on Lab</span>
+            <span class="lesson-tag tag-duration">45 minutes</span>
+          </div>
+          <div class="lesson-description">
+            <p>Right — this is where we stop talking and start building. By the end of this lab you will have a <strong>fully working agent development environment</strong> running: a Make.com account, your n8n instance, your LLM API keys wired up, and a test webhook firing successfully. Every tool you'll use for the rest of this course starts here.</p>
+            <p>I'm going to walk you through this live, step by step. Don't skip ahead — each step sets up something the next one depends on. If something doesn't work the way mine does on your screen, there's a troubleshooting guide in the resources below. Honestly though? Half the time when people get stuck it's because of an API key format issue or a region mismatch. We'll cover both.</p>
+            <p>When you finish this lab, your setup will match what I use in every lesson from here on. You won't need to change environments or reconfigure anything. <strong>One stack, used consistently, throughout the entire course.</strong></p>
+          </div>
+
+          <div class="lesson-objectives">
+            <div class="lo-header">By the end of this lab, you will have:</div>
+            <ul class="lo-list">
+              <li>A Make.com account configured with your OpenAI API key and a test connection confirmed</li>
+              <li>An n8n instance running (cloud or self-hosted) with credentials for your first LLM</li>
+              <li>A webhook endpoint tested end-to-end with a real JSON payload flowing through</li>
+              <li>Your first "hello world" AI response returned from an LLM inside a workflow</li>
+              <li>Environment checklist ticked off — you're ready to build everything else on this foundation</li>
+            </ul>
+          </div>
+
+          <div class="lesson-resources">
+            <div class="lr-header">Downloads & Resources</div>
+            <div class="resource-item">
+              <div class="ri-icon template">📋</div>
+              <div class="ri-name">Make.com Scenario Template — Lab Starter</div>
+              <div class="ri-dl">JSON · 4KB</div>
+            </div>
+            <div class="resource-item">
+              <div class="ri-icon template">⚙️</div>
+              <div class="ri-name">n8n Workflow Import — Lab Starter</div>
+              <div class="ri-dl">JSON · 6KB</div>
+            </div>
+            <div class="resource-item">
+              <div class="ri-icon doc">📄</div>
+              <div class="ri-name">Setup Troubleshooting Guide (10 Common Issues)</div>
+              <div class="ri-dl">PDF · 890KB</div>
+            </div>
+            <div class="resource-item">
+              <div class="ri-icon doc">📄</div>
+              <div class="ri-name">API Keys: Where to Find Them (All Platforms)</div>
+              <div class="ri-dl">PDF · 340KB</div>
+            </div>
+            <div class="resource-item">
+              <div class="ri-icon video">🎬</div>
+              <div class="ri-name">Bonus: Self-Hosting n8n on Railway (Extended Guide)</div>
+              <div class="ri-dl">Video · 28min</div>
+            </div>
+          </div>
+
+          <div class="lesson-nav">
+            <button class="ln-btn" onclick="loadLesson('video','M01-L03','The Landscape: Tools & Orchestrators','22 min','M·01')">
+              <div class="ln-dir">← Previous</div>
+              <div class="ln-title">The Landscape: Tools & Orchestrators</div>
+            </button>
+            <button class="ln-btn primary" onclick="loadLesson('video','M01-L05','ReAct, CoT & Tool Use Patterns','32 min','M·01')">
+              <div class="ln-dir">Next →</div>
+              <div class="ln-title">ReAct, CoT & Tool Use Patterns</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="lesson-aside">
+          <div class="aside-card">
+            <div class="aside-title">Mark Complete</div>
+            <button class="complete-btn" id="completeBtn" onclick="markComplete()">Mark as Complete ✓</button>
+            <div class="module-progress-mini">
+              <div class="mpm-row"><span>Module 1 progress</span><span style="color:var(--accent)">4/8 lessons</span></div>
+              <div class="mpm-bar-wrap"><div class="mpm-bar" style="width:50%"></div></div>
+            </div>
+          </div>
+
+          <div class="aside-card">
+            <div class="aside-title">My Notes</div>
+            <textarea class="note-area" placeholder="Take notes on this lesson...&#10;&#10;They save automatically to your dashboard."></textarea>
+            <button class="save-note-btn">Save Note</button>
+          </div>
+
+          <div class="aside-card">
+            <div class="aside-title">Up Next</div>
+            <div class="upcoming-lessons">
+              <div class="up-lesson" onclick="loadLesson('video','M01-L05','ReAct, CoT & Tool Use Patterns','32 min','M·01')">
+                <div class="up-icon" style="background:rgba(108,99,255,0.2);color:#a09bff">▶</div>
+                <div class="up-title">ReAct, CoT & Tool Use Patterns</div>
+                <div class="up-dur">32m</div>
+              </div>
+              <div class="up-lesson" onclick="loadLesson('video','M01-L06','Tokens, Context Windows & Memory','28 min','M·01')">
+                <div class="up-icon" style="background:rgba(108,99,255,0.2);color:#a09bff">▶</div>
+                <div class="up-title">Tokens, Context Windows & Memory</div>
+                <div class="up-dur">28m</div>
+              </div>
+              <div class="up-lesson" onclick="loadLesson('lab','M01-L07','LAB — Your First Thinking Workflow','50 min','M·01')">
+                <div class="up-icon" style="background:rgba(0,229,160,0.1);color:var(--accent)">🧪</div>
+                <div class="up-title">LAB — Your First Thinking Workflow</div>
+                <div class="up-dur">50m</div>
+              </div>
+              <div class="up-lesson" onclick="loadLesson('quiz','M01-Q1','Module 1 Assessment','20 min','M·01')">
+                <div class="up-icon" style="background:rgba(255,100,100,0.1);color:#ff8080">✓</div>
+                <div class="up-title">Module 1 Assessment</div>
+                <div class="up-dur">20m</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT VIEW -->
+    <div class="view content-area" id="view-project">
+      <div style="padding: 40px 48px;">
+        <div class="lesson-breadcrumb"><span>M·01</span> › <span>Project Submission</span></div>
+        <div class="project-banner">
+          <div class="pb-icon">🏗️</div>
+          <div>
+            <div class="pb-label">Project 1 of 12</div>
+            <div class="pb-title" id="project-title">The Thinking Logger</div>
+            <div class="pb-desc" id="project-desc">Build a webhook-triggered agent in Make.com that receives a question, routes it to GPT-4 with chain-of-thought prompting, captures the full reasoning chain, and writes a structured JSON output to an Airtable base. This is your first complete, deployable agent. Every concept from Module 1 comes together here.</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:28px;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">Difficulty</div>
+            <div style="color:var(--accent);font-weight:700;">Beginner</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">Tools Used</div>
+            <div style="color:var(--text);font-weight:600;font-size:0.88rem;">Make.com · OpenAI · Airtable</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;">
+            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">Estimated Time</div>
+            <div style="color:var(--text);font-weight:600;">2–4 hours</div>
+          </div>
+        </div>
+
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:20px;">
+          <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;color:var(--amber);margin-bottom:16px;font-weight:700;">Project Requirements</div>
+          <div style="font-size:0.9rem;color:var(--text);line-height:1.8;">
+            <p style="margin-bottom:12px;">Your workflow must do all of the following:</p>
+            <ul style="padding-left:20px;color:var(--muted);line-height:2;">
+              <li>Accept a webhook POST request with a <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:0.82rem;">{"question": "..."}</code> payload</li>
+              <li>Pass the question to GPT-4 with a system prompt that enforces chain-of-thought reasoning</li>
+              <li>Capture both the reasoning steps AND the final answer as separate fields</li>
+              <li>Write a structured record to Airtable: question, reasoning, answer, timestamp, confidence score</li>
+              <li>Return a 200 response with a JSON summary to the webhook caller</li>
+              <li>Handle errors gracefully — if the LLM fails, log the error and return a 500 with a message</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="submit-project">
+          <div class="sp-title">Submit Your Project</div>
+          <input type="text" class="sp-input" placeholder="Project name (e.g. My Thinking Logger v1)">
+          <input type="text" class="sp-input" placeholder="Public Make.com scenario URL or n8n workflow share link">
+          <div class="sp-upload">
+            <div style="font-size:1.5rem">📎</div>
+            <p>Drag & drop a screenshot or screen recording<br><span style="font-size:0.78rem">or click to browse · MP4, GIF, PNG supported</span></p>
+          </div>
+          <textarea class="sp-input" rows="4" style="resize:vertical" placeholder="Describe what you built, what surprised you, and any challenges you overcame..."></textarea>
+          <button class="sp-submit" onclick="showToast('🎉','Project Submitted!','Your instructor will review it shortly.')">Submit Project for Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ VIEW -->
+    <div class="view content-area" id="view-quiz">
+      <div style="padding: 40px 48px; max-width: 800px;">
+        <div class="lesson-breadcrumb"><span>M·01</span> › <span>Assessment</span></div>
+        <h1 class="lesson-title">Module 1 Assessment</h1>
+        <p style="color:var(--muted);margin-bottom:32px;font-size:0.95rem;">5 questions · 20 minutes · You can retake this as many times as you need. There's no penalty for wrong answers — this is here to reinforce learning, not gatekeep progress.</p>
+
+        <div class="quiz-card">
+          <div class="quiz-q-num">Question 1 of 5</div>
+          <div class="quiz-q">What is the fundamental difference between traditional automation and agentic AI behaviour?</div>
+          <div class="quiz-options">
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">A</span> Agentic AI is faster than traditional automation</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">B</span> Traditional automation requires an internet connection; agentic AI does not</div>
+            <div class="quiz-opt selected correct" onclick="selectOpt(this,'correct')"><span class="opt-letter" style="background:var(--accent);border-color:var(--accent);color:var(--ink)">C</span> Agentic AI can reason about its situation and decide what action to take next, whereas traditional automation follows pre-defined rules</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">D</span> Traditional automation can only run once per day</div>
+          </div>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-q-num">Question 2 of 5</div>
+          <div class="quiz-q">In the ReAct prompting pattern, what does the agent do between each "Action" step?</div>
+          <div class="quiz-options">
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">A</span> Waits for a human to approve the action</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'correct')"><span class="opt-letter">B</span> Produces a "Thought" — written reasoning about what it observed and what to do next</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">C</span> Calls the same tool again with different parameters</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">D</span> Summarises all previous outputs</div>
+          </div>
+        </div>
+
+        <div class="quiz-card">
+          <div class="quiz-q-num">Question 3 of 5</div>
+          <div class="quiz-q">Why does understanding token limits matter when designing agentic workflows?</div>
+          <div class="quiz-options">
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">A</span> It determines the maximum number of API calls per minute</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">B</span> Tokens control the output formatting of the model's response</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'correct')"><span class="opt-letter">C</span> Agents must fit their entire working context — instructions, history, retrieved data — within the model's context window, which is measured in tokens</div>
+            <div class="quiz-opt" onclick="selectOpt(this,'wrong')"><span class="opt-letter">D</span> Tokens are units of billing but have no effect on model behaviour</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:28px;">
+          <button style="flex:1;padding:16px;background:var(--accent);color:var(--ink);border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;font-family:DM Sans,sans-serif;" onclick="showToast('🏆','Assessment Complete!','You scored 3/3 — Module 1 done!')">Submit Answers</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-text"><strong id="toastTitle"></strong><span id="toastMsg"></span></div>
+</div>
+
+<script>
+  function switchSidebarTab(tab, el) {
+    document.querySelectorAll('.sidebar-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
+    document.getElementById('sidebar-' + tab).classList.add('active');
+    el.classList.add('active');
+  }
+
+  function toggleSideModule(el) {
+    el.classList.toggle('open');
+  }
+
+  function loadLesson(type, id, title, duration, module) {
+    // Update active state in sidebar
+    document.querySelectorAll('.curr-lesson').forEach(l => l.classList.remove('active'));
+    // Update top bar
+    document.querySelector('.topbar-title span').textContent = '· ' + module;
+    // Show correct view
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    if (type === 'project') {
+      document.getElementById('view-project').classList.add('active');
+      document.getElementById('project-title').textContent = title;
+    } else if (type === 'quiz') {
+      document.getElementById('view-quiz').classList.add('active');
+    } else {
+      document.getElementById('view-video').classList.add('active');
+      document.getElementById('video-title').textContent = title;
+      document.getElementById('lesson-main-title').textContent = title;
+      if (type === 'lab') {
+        document.getElementById('lesson-main-title').textContent = title;
+      }
+    }
+    showToast('▶', 'Loading: ' + title, duration);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function markComplete() {
+    const btn = document.getElementById('completeBtn');
+    btn.textContent = '✓ Completed';
+    btn.classList.add('done');
+    showToast('🎉', 'Lesson Complete!', 'Great work — move on to the next one.');
+  }
+
+  function selectOpt(el, type) {
+    el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o => {
+      o.classList.remove('selected', 'correct', 'wrong');
+    });
+    el.classList.add('selected');
+    if (type === 'correct') el.classList.add('correct');
+    else el.classList.add('wrong');
+  }
+
+  function showToast(icon, title, msg) {
+    document.getElementById('toastIcon').textContent = icon;
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMsg').textContent = msg ? ' · ' + msg : '';
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>
